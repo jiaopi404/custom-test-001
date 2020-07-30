@@ -1,0 +1,23 @@
+{
+  "get_all_users": [
+    {
+      "id": 1,
+      "name": "jiaopi",
+      "age": 30
+    },
+    {
+      "name": "王璇",
+      "age": "32",
+      "id": 2
+    }
+  ],
+  "users": {
+    "get_all_users": [
+      {
+        "id": 1,
+        "name": "jiaopi",
+        "age": 30
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const a = {
+      foo: 1,
+      bar: 2
+    }
+    const foo = {
+      bar: 1,
+      zoo: {
+        aui: 1,
+        bui: 2
+      }
+    }
+    for (const [key, value] of Object.entries(a)) {
+      console.log(key, value)
+    }
+  </script>
+</body>
+</html>

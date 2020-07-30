@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log('2'.split(','))
+    function beforeCheckUpdate () {
+      return new Promise((resolve, reject) => {
+        ipcRender.send('checkAppUpadte')
+        // on 需要一个 具名 listener
+        ipcRender.on('response-of-check', res => {
+          resolve()
+        })
+      })
+    }
+    // function resOfCheckListener (resolve) {
+    //   resolve()
+    // }
+    beforeCheckUpdate.then(() => {
+      // ipcRender.removeListener('response-of-check')
+    })
+
+    const vue =  {
+      methods: {
+        checkUpdate () {
+          ipcRender.send('checkAppUpdate')
+          ipcRender.on('res-of-check', this.resOfCheckListener)
+        },
+        resOfCheckListener () {
+          // const showUpdate = new ...
+          // 这里的 this 就是 组件的 this
+          // 处理完之后
+          ipcRender.removeListener('res-of-check', this.resOfCheckListener)
+        }
+      }
+    }
+  </script>
+</body>
+</html>

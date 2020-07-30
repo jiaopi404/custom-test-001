@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 获取某一个月的 日期 和 星期
+    function getDateAndDay (monthStr) {
+      const date = new Date(monthStr) // 日期对象
+      let dateMili = +new Date(monthStr) // 日期毫秒数
+      const _oneDayByMili = 1000 * 60 * 60 * 24 // 一天毫秒数
+      const dateAndDayList = [] // 日期 和 星期 的数组
+      while (new Date(dateMili).getMonth() === date.getMonth()) { // 判断月份是否一致
+        const _date = new Date(dateMili)
+        dateAndDayList.push({
+          date: _date.getDate(),
+          day: _date.getDay()
+        })
+        dateMili += _oneDayByMili
+      }
+      return dateAndDayList
+    }
+    console.log('2020-7')
+    console.log(getDateAndDay('2020-7'))
+  </script>
+</body>
+</html>

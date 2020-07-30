@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .torus-process__contaienr {
+      position: relative;
+      border: 1px solid #ff3040;
+    }
+    .torus-process__big {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background-color: pink;
+    }
+    .torus-process__small {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background-color: #fff;
+    }
+    .torus-process__half-circle-right {
+      height: 0;
+      width: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div
+      class="torus-process__contaienr"
+      :style="{ width: containerWidth + 'px', height: containerWidth + 'px' }"
+    >
+      <!-- 大环 -->
+      <div
+        class="torus-process__big"
+        :style="{ width: containerWidth + 'px', height: containerWidth + 'px' }"
+      ></div>
+      <!-- 小环 -->
+      <div
+        class="torus-process__small"
+        :style="{ width: containerWidth - torusWidth + 'px', height: containerWidth - torusWidth + 'px' }"
+      ></div>
+      <!-- 右半圆 -->
+      <div
+        class="torus-process__half-circle-right"
+        :style="halfCircleRightStyle"
+      ></div>
+      <!-- 左半圆 -->
+      <div
+        class="torus-process__half-circle-right"
+      ></div>
+    </div>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        percent: .3,
+        containerWidth: 300, // 总宽度, 高度一样
+        torusWidth: 30, // 圆环宽度
+      },
+      computed: {
+        // 右半圆边框style
+        halfCircleRightBorderStyle () {
+          return {
+            'border-top': this.containerWidth + 'px solid green',
+            'border-right': this.containerWidth + 'px solid green',
+            'border-bottom': this.containerWidth + 'px solid green',
+            'border-left': 0 + ' solid #fff',
+            'border-radius': '50%'
+          }
+        },
+        halfCircleRightStyle () {
+          return Object.assign({}, this.halfCircleRightBorderStyle)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

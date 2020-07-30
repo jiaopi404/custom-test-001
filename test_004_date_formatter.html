@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class DateFormatter {
+      constructor (dateStr) {
+        this._originArg = dateStr
+        this.date = null
+        this._year = -1
+        this._month = -1
+        this._date = -1
+        this._hour = -1
+        this._minute = -1
+        this._second = -1
+        this.__init()
+
+        this._varFlagMap = {
+          YEAR: 'Y',
+          MONTH: 'M',
+          DATE: 'D',
+          HOUR: 'h',
+          MINUTE: 'm',
+          SECOND: 's'
+        }
+      }
+
+      __init () {
+        this.date = new Date(this._originArg)
+        this._year = this.date.getFullYear()
+        this._month = this.date.getMonth() + 1
+        this._date = this.date.getDate()
+        this._hour = this.date.getHours()
+        this._minute = this.date.getMinutes()
+        this._second = this.date.getSeconds()
+      }
+
+      format (format) {
+        const _flagValueMap = {
+          [this._varFlagMap.YEAR]: this._year,
+          [this._varFlagMap.MONTH]: this._month,
+          [this._varFlagMap.DATE]: this._date,
+          [this._varFlagMap.HOUR]: this._hour,
+          [this._varFlagMap.MINUTE]: this._minute,
+          [this._varFlagMap.SECOND]: this._second
+        }
+
+        let _result = format
+        for (const key in _flagValueMap) {
+          // if (!_flagValueMap.hasOwnProperty(key)) {
+          //   continue
+          // }
+          _result = _result.replace(new RegExp(key + '+'), _flagValueMap[key])
+        }
+
+        return _result
+      }
+    }
+  </script>
+</body>
+</html>

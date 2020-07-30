@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Store {
+      constructor ({ moduleName, type }) {
+        this.module = moduleName
+        this.type = type
+      }
+      setItem (value) {
+        console.log('good: ', value)
+      }
+
+      static setItemStatic ({ moduleName, type, value }={ moduleName: 'hello', value: 'work', type: 'speak' }) {
+        const _this = new Store(moduleName, type)
+        _this.setItem(value)
+      }
+    }
+
+    // Store.setItemStatic({ moduleName: 'hello', type: 'state', value: 'work' })
+    Store.setItemStatic({ moduleName: 'bad' })
+  </script>
+</body>
+</html>

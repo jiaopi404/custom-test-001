@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    async function get () {
+      try {
+        const res = await getPromise({ flag: 0 })
+        return res
+      } catch (error) {
+        console.log('这不在 catch 里')
+      }
+    }
+    function getPromise ({ flag }) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (flag === 1) {
+            resolve(233)
+          } else {
+            reject(new Error('错了呢'))
+          }
+        }, 1000)
+      })
+    }
+    get().then(res => {
+      console.log('res is: ', res)
+    }).catch(err => {
+      console.log('err is: ', err)
+    })
+
+    function testComplexity () {
+      let a = 1
+      let b = 2
+      // if (a && b) {
+      //   return a
+      // } else {
+      //   return b
+      // }
+      return a && b ? a : b
+    }
+  </script>
+</body>
+</html>

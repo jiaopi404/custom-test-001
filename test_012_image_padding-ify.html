@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // const imgUrl = 'data:image/png;base64,' + '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'
+    // const imgUrl = './637x844.png'
+
+    // const img = new Image()
+    // img.src = imgUrl
+    // img.onload = function (e) {
+    //   // console.log(e)
+    //   // console.log(e.target.height)
+    //   // console.log(e.target.width)
+    //   const result = img2Base64({ w: e.target.width, h: e.target.height, img })
+    //   console.log('result is: ', result)
+    // }
+
+    imgWrapper({ imgUrl }).then(res => console.log(res))
+
+    function imgWrapper ({ imgUrl }) {
+      return new Promise(resolve => {
+        const img = new Image()
+        img.src = imgUrl
+        img.onload = function (e) {
+          console.log(e.target.height)
+          console.log(e.target.width)
+          const result = img2Base64({ w: e.target.width, h: e.target.height, img })
+          resolve(result)
+        }
+      })
+    }
+
+    function img2Base64 ({ w, h, img }) {
+      const PAGE_HEIGHT = 840
+      const PAGE_WIDTH = 593
+
+      const pixelPurGrid = 8
+
+      const PADDING_LEFT = 8 * pixelPurGrid
+      const PADDING_TOP = 4 * pixelPurGrid
+      const PADDING_RIGHT = 5 * pixelPurGrid
+      const PADDING_BOTTOM = 6 * pixelPurGrid
+
+      const MAX_WIDTH = PAGE_WIDTH - PADDING_LEFT - PADDING_RIGHT
+      const MAX_HEIGHT = PAGE_HEIGHT - PADDING_TOP - PADDING_BOTTOM
+
+      const canvas = document.createElement('canvas')
+      if (w <= MAX_WIDTH && h <= MAX_HEIGHT) {
+        canvas.width = PAGE_WIDTH
+        canvas.height = PAGE_HEIGHT
+      } else {
+        if (w > MAX_WIDTH) {
+          const tmpWidth = w
+          w = MAX_WIDTH
+          h = MAX_WIDTH * h / tmpWidth
+        }
+        canvas.width = PAGE_WIDTH
+        if (h > MAX_HEIGHT) {
+          canvas.height = h + PADDING_TOP + PADDING_BOTTOM
+        } else {
+          canvas.height = PAGE_HEIGHT
+        }
+      }
+
+      const ctx = canvas.getContext('2d')
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.drawImage(img, PADDING_LEFT, PADDING_TOP, w, h)
+      return canvas.toDataURL('image/png')
+    }
+  </script>
+</body>
+</html>
