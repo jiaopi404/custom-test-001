@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app" style="height: 800px; width: 800px; margin: 50px auto;">
+  <canvas
+    id="canvas"
+    style="height: 100%; width: 100%;"
+  ></canvas>
+</div>
+<script>
+  const canvas = document.querySelector('#canvas')
+  canvas.height = 800
+  canvas.width = 800
+  const ctx = canvas.getContext('2d')
+  console.log('canvas is: ')
+  console.dir(canvas)
+  ctx.fillStyle = '#ff3040'
+  ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight)
+
+  // canvas 位置信息, canvas offset
+  const co = {
+    left: canvas.offsetLeft,
+    top: canvas.offsetTop
+  }
+
+  // 开始点击鼠标位置
+  let pos = null
+  // 鼠标按下时
+  canvas.onmousedown = (e) => {
+    pos = getPosInCanvas(e)
+    canvas.onmousemove = (e) => {
+      pos = getPosInCanvas(e)
+      // console.log(pos)
+    }
+  }
+  // 鼠标松开时
+  canvas.onmouseup = (e) => {
+    pos = null
+    canvas.onmousemove = null
+  }
+
+  let rafId = 1
+  // requestAnimationFrame(() => {
+  // })
+  draw()
+
+  function draw () {
+    // drawBg()
+    drawBall()
+    if (rafId) {
+      rafId = requestAnimationFrame(draw)
+    }
+  }
+
+  // event 位置 转为 canvas 中位置
+  function getPosInCanvas ({ x, y }) {
+    return { x: x - co.left, y: y - co.top }
+  }
+
+  // 画背景
+  function drawBg () {
+    ctx.fillStyle = '#ff3040'
+    ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight)
+  }
+
+  // 画球
+  function drawBall () {
+    if (!pos) {
+    } else {
+      // console.log('画: ', pos)
+      ctx.strokeStyle = '#fff'
+      // ctx.fillStyle = '#fff'
+      ctx.beginPath()
+      console.log('画圆参数: ', pos)
+      ctx.arc(pos.x, pos.y, 30, 0, Math.PI * 2, false)
+      ctx.stroke()
+      // ctx.fill()
+      ctx.closePath()
+    }
+  }
+</script>
+</body>
+</html>

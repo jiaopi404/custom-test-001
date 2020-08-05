@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<a id="anchor">下载JSON呢</a>
+<script>
+  const obj = {
+    a: 1,
+    b: 2
+  }
+  // ele
+  const a = document.querySelector('#anchor')
+
+  const blob = new Blob([JSON.stringify(obj)])
+  // fr
+  const fr = new FileReader()
+  fr.onloadend = function (e) {
+    a.download = +new Date() + '.json'
+    a.href = e.target.result
+  }
+  fr.readAsDataURL(blob)
+</script>
+</body>
+</html>
