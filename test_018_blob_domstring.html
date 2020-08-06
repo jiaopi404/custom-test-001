@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <img id="img" src="./637x844.png" alt="">
+  </div>
+  <script>
+    // const app = document.querySelector('#app')
+    // const blob = new Blob([app.innerHTML], { type: 'text/html' })
+    // const fr = new FileReader()
+    // fr.onloadend = function (e) {
+    //   console.log(e.target.result)
+    // }
+    // fr.readAsDataURL(blob)
+
+    // 图片拥有跨域问题, 放弃尝试
+    window.onload = function () {
+      const img = document.getElementById('img')
+      console.dir(img)
+
+      const canvas = document.createElement('canvas')
+      canvas.width = img.clientWidth
+      canvas.height = img.clientHeight
+      canvas.getContext('2d').drawImage(img, 0, 0, img.clientWidth, img.clientHeight)
+      canvas.toBlob(function (blob) {
+        console.log('blob is: ', blob)
+        const fr = new FileReader()
+        fr.onloadend = function (e) {
+          console.log(e.target.result)
+        }
+        fr.readAsDataURL(blob)
+      }, 'image/png', .5)
+      canvas.toDataURL('image/png', .3)
+    }
+  </script>
+</body>
+</html>
