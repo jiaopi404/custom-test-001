@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function EventHandler () {
+      this.handlers = {}
+    }
+
+    EventHandler.prototype.addHandler = function ({ event, handler }) {
+      if (!this.handlers[event]) {
+        this.handlers[event] = []
+      }
+      this.handlers[event].push(handler)
+    }
+
+    EventHandler.prototype.fire = function ({ event, payload }) {
+      if (!this.handlers[event]) {
+        throw new Error('[fire] 找不到此事件')
+      }
+      if (!this.handlers[event].length) {
+        throw new Error('[fire] 此事件无 handler')
+      }
+      for (const handler of this.handlers[event]) {
+        handler(payload)
+      }
+    }
+
+    EventHandler.prototype.removeHandler = function ({ event, handler = null }) {
+      if (!this.handlers[event]) {
+        throw new Error('[removeHandler] 找不到此事件')
+      }
+      if (!this.handlers[event].length) {
+        throw new Error('[removeHandler] 此事件无 handler')
+      }
+      if (handler) {
+        const handlerIndex = this.handlers[event].findIndex(item => item === handler)
+        this.handlers[event].splice(handlerIndex, 1)
+      } else {
+        this.handlers[event].shift()
+      }
+    }
+
+    const myEvent = new EventHandler()
+    function testEventPromise () {
+      return new Promise((resolve, reject) => {
+        myEvent.addHandler({
+          event: 'event_001',
+          handler: (payload) => {
+            myEvent.removeHandler({ event: 'event_001' })
+            resolve(payload)
+          }
+        })
+      })
+    }
+
+    testEventPromise().then(res => {
+      console.log('promise res: ', res)
+    })
+    setTimeout(() => {
+      myEvent.fire({ event: 'event_001', payload: { msg: '这是payload' } })
+    }, 5000)
+  </script>
+</body>
+</html>
