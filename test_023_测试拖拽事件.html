@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="a" style="height: 200px; width: 200px; background-color: #ff3040;" draggable="true">aaa</div>
+  <div id="b" style="height: 200px; width: 200px; background-color: #4030ff;">bbb</div>
+  <script>
+    const a = document.getElementById('a')
+    const b = document.getElementById('b')
+
+    a.addEventListener('dragstart', (e) => {
+      console.log('drag start e: ', e)
+      e.dataTransfer.setData('text', JSON.stringify({ a: 1, b: 2 }))
+    })
+
+    b.addEventListener('drop', (e) => {
+      console.log('drop: ', e)
+      const data = e.dataTransfer.getData('text')
+      console.log('data is: ', data)
+    })
+
+    // b.addEventListener('dragenter', (e) => {
+    //   console.log('drag enter e: ', e)
+    // })
+    b.addEventListener('dragover', e => {
+      e.preventDefault()
+    })
+  </script>
+</body>
+</html>
