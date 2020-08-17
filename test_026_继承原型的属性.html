@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function VueInterface (editorUi) {
+      VueInterface.prototype.editorUi = editorUi
+    }
+
+    VueInterface.prototype.getTableBool = function () {
+      return true
+    }
+
+    /**
+    以下为失败的继承方法. 原因: 执行顺序理解不清
+    执行顺序: 1. ViEditor.prototype.toShowView; 2. ViEditor.prototype = new VueInterface(editorUi)
+    因此, 自定义属性被重置掉
+    此方法为 drawIO vue-interface 中 继承 VueInterface 类的试验, 而 VueInterface 中原型属性的赋值在定义之后, 因此无法进行传统的继承;
+    */
+    function ViEditor (editorUi) { // 失败的继承方法
+      ViEditor.prototype = new VueInterface(editorUi)
+      ViEditor.prototype.constructor = ViEditor
+    }
+
+    ViEditor.prototype.toShowView = function () {}
+  </script>
+</body>
+</html>
