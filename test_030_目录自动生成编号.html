@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const data = JSON.parse(`[{"id":1,"catalog_number":"01","catalog_name":"xx 项目流程目录","is_leaf":2,"department":"xx责任部门","complete_percent":60,"flow_id":"","flow_name":"","page_name":"","level":0,"children":[{"id":1597714505279,"catalog_number":"01.","catalog_name":"发个货款","is_leaf":2,"department":"","complete_percent":0,"flow_id":78,"flow_name":"flow_011","page_name":"","level":1,"parent_name":"xx 项目流程目录","children":[{"id":1597719784520,"catalog_number":"01.01.","catalog_name":"Ninhao","is_leaf":2,"department":"","complete_percent":0,"flow_id":"","flow_name":"","page_name":"","level":2,"parent_name":"发个货款","children":[{"id":1597719829540,"catalog_number":"01.01.02.","catalog_name":"企鹅窝染头发滚动时王企鹅","is_leaf":2,"department":"","complete_percent":0,"flow_id":"","flow_name":"","page_name":"","level":3,"parent_name":"Ninhao","children":[{"id":1597719854852,"catalog_number":"01.01.02.01.","catalog_name":"的发生分歧维AFDSADS ","is_leaf":2,"department":"","complete_percent":0,"flow_id":"","flow_name":"","page_name":"","level":4,"parent_name":"企鹅窝染头发滚动时王企鹅"}]},{"id":1597719867632,"catalog_number":"01.01.03.","catalog_name":"SADFSADSFFSGASD","is_leaf":2,"department":"","complete_percent":0,"flow_id":"","flow_name":"","page_name":"","level":3,"parent_name":"Ninhao"}]},{"id":1597719844111,"catalog_number":"01.02.","catalog_name":"发送到萨阿迪","is_leaf":2,"department":"","complete_percent":0,"flow_id":"","flow_name":"","page_name":"","level":2,"parent_name":"发个货款"}],"pid":1},{"id":1597719823371,"catalog_number":"02.","catalog_name":"第三方卡店了解到","is_leaf":2,"department":"","complete_percent":0,"flow_id":"","flow_name":"","page_name":"","level":1,"parent_name":"xx 项目流程目录"}],"pid":""}]`)
+    console.log(data)
+
+    
+
+    let numberList = recursiveGetNumber(data[0], [])
+    console.log(numberList)
+
+    recursiveModifyNumber(data[0].children, '')
+    numberList = recursiveGetNumber(data[0], [])
+    console.log(numberList)
+
+
+    /**
+     * 递归修改编号
+     */
+    function recursiveModifyNumber (data, numberPrefix) {
+      if (data) {
+        data.forEach((item, index) => {
+          item.catalog_number = numberPrefix + (index + 1 + '').padStart(2, '0') + '.'
+          recursiveModifyNumber(item.children, item.catalog_number)
+        })
+      } else {
+        return
+      }
+    }
+
+    /**
+     * 递归获取编号
+     */
+    function recursiveGetNumber (data, result) {
+      if (Object.prototype.hasOwnProperty.call(data, 'children') && data.children) {
+        result.push(data.catalog_number)
+        data.children.forEach(item => {
+          recursiveGetNumber(item, result)
+        })
+      } else {
+        result.push(data.catalog_number)
+      }
+      return result
+    }
+  </script>
+</body>
+</html>
