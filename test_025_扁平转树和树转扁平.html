@@ -64,8 +64,10 @@
 
     // const tree = reTree(data)
     // console.log('tree is: ', tree)
-    const list = getTreeRecursive(data[0], [], '')
-    console.log('list is: ', list, JSON.stringify(list))
+    // const list = getTreeRecursive(data[0], [], '')
+    // console.log('list is: ', list, JSON.stringify(list))
+    const list2 = getListRecursiveV2(data, [], '')
+    console.log('list2 is: ', list2, JSON.stringify(list2))
 
     const _tree = reTree(list)
     console.log('_tree is: ', _tree)
@@ -78,6 +80,17 @@
         })
       } else {
         result.push(Object.assign({}, root, { children: null, parent_id: parentId }))
+      }
+      return result
+    }
+
+    // 修改为传入列表层级
+    function getListRecursiveV2 (list, result, parentId) {
+      if (list) {
+        list.forEach(item => {
+          result.push(Object.assign({}, item, { children: null, parent_id: parentId }))
+          getListRecursiveV2(item.children, result, parentId)
+        })
       }
       return result
     }
