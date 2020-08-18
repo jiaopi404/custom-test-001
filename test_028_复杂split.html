@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function arraySplit ({ arr, rule }) {
+      let indexStr = ''
+      arr.forEach((item, index, array) => {
+        if (rule(item, index, array)) {
+          indexStr += 'g' // gap
+        } else {
+          indexStr += index + 'c' // connector
+        }
+      })
+      // debugger
+      const indexArr = indexStr.split('g').map(item => item.split('c').filter(innerItem => Boolean(innerItem))).filter(item => item.length)
+      return indexArr.map(item => item.map(innerItem => arr[innerItem]))
+    }
+
+    function arraySplitTwoCond ({ arr, rule1, rule2 }) {
+      let indexStr = ''
+      arr.forEach((item, index, array) => {
+        if (rule1(item, index, array)) {
+          indexStr += 'g' // gap
+        }
+        if (rule2(item, index, array)) {
+          indexStr += index + 'c'
+        } else {
+          return
+        }
+      })
+      // debugger
+      const indexArr = indexStr.split('g').map(item => item.split('c').filter(innerItem => Boolean(innerItem))).filter(item => item.length)
+      return indexArr.map(item => item.map(innerItem => arr[innerItem]))
+    }
+
+    const arr = [
+      { id: 1, control: false, risk: true },
+      { id: 2, control: true, risk: false },
+      { id: 3, control: true, risk: false },
+      { id: 4, control: false, risk: true },
+      { id: 5, control: true, risk: false },
+      { id: 6, control: true, risk: false }
+    ]
+    const arr2 = [
+      { id: 1, control: false, risk: true },
+      { id: 2, control: true, risk: false },
+      { id: 3, control: true, risk: false },
+      { id: 4, control: true, risk: true },
+      { id: 5, control: true, risk: false },
+      { id: 6, control: true, risk: false }
+    ]
+
+    console.log(arraySplit({
+      arr,
+      rule: function (item, index, arr) {
+        return item.risk
+      }
+    }))
+
+    console.log(arraySplitTwoCond({
+      arr: arr2,
+      rule1: item => item.risk,
+      rule2: item => item.control
+    }))
+    const result = arraySplitTwoCond({
+      arr: arr2,
+      rule1: item => item.risk,
+      rule2: item => item.control
+    })
+  </script>
+</body>
+</html>
