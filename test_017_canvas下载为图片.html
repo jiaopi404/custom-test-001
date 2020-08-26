@@ -12,6 +12,7 @@
 </head>
 <body>
 <div id="app" style="height: 800px; width: 800px; margin: 50px auto;">
+  <button id="downloadBtn" style="position: absolute; top: 20px; left: 20px;"> 下载 canvas 为图片</button>
   <canvas
     id="canvas"
     style="height: 100%; width: 100%;"
@@ -88,6 +89,16 @@
       ctx.closePath()
     }
   }
+
+  const downloadBtn = document.querySelector('#downloadBtn')
+  downloadBtn.addEventListener('click', () => {
+    const canvas = document.querySelector('#canvas')
+    const imgSrc = canvas.toDataURL('image/jpg')
+    const a = document.createElement('a')
+    a.download = +new Date() + '.jpg'
+    a.href = imgSrc
+    a.click()
+  })
 </script>
 </body>
 </html>
