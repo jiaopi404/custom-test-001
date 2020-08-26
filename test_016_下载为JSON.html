@@ -18,8 +18,10 @@
   // fr
   const fr = new FileReader()
   fr.onloadend = function (e) {
+    console.log('e.target.result is: ', e.target.result)
     a.download = +new Date() + '.json'
     a.href = e.target.result
+    a.click()
   }
   fr.readAsDataURL(blob)
 </script>
