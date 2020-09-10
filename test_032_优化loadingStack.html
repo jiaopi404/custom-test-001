@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 区分 全局 + 单模块
+    // 依然有问题: 当某个地方使用 globalLoading, 但是某个地方使用 module loading, 当
+    // module loading 时, global 也会 loading;
+    // 因此可能需要重新创造实例进行解决;
+    class LoadingStack {
+      constructor () {
+        this.loadingStack = []
+        this.moduleStack = {}
+      }
+
+      /**
+       * mutate 方法, dispatch 到 start & end
+       * @param flag
+       * @param module
+       */
+      mutate ({ flag, module='' }) {
+        if (flag === 'start') {
+          this.start({ module })
+        } else if (flag === 'end') {
+          this.end({ module })
+        }
+      }
+
+      /**
+       * start 方法, 开始 loading
+       * @param module
+       */
+      start ({ module='' }) {
+        if (module) {
+          if (!Object.prototype.hasOwnProperty.call(this.moduleStack, module)) {
+            this.moduleStack[module] = []
+          }
+          this.moduleStack[module].push(1)
+        } else {
+          this.loadingStack.push(1)
+        }
+      }
+
+      /**
+       * end 方法, 结束 loading
+       * @param module
+       */
+      end ({ module='' }) {
+        if (module) {
+          if (!Object.prototype.hasOwnProperty.call(this.moduleStack, module)) {
+            return
+          }
+          this.moduleStack[module].pop()
+        } else {
+          this.loadingStack.pop()
+        }
+      }
+
+      /**
+       * 获取 global loading
+       * @returns {boolean}
+       */
+      getGlobalLoading () {
+        let _total = 0
+        // global
+        _total += this.loadingStack.length
+        // module
+        for (const [key, value] of Object.entries(this.moduleStack)) {
+          _total += value.length
+        }
+        return _total !== 0
+      }
+
+      /**
+       * 根据 module 获取 loading
+       * @param module
+       * @returns {boolean}
+       */
+      getModuleLoading ({ module }) {
+        if (!module) {
+          return false
+        }
+        if (!Object.prototype.hasOwnProperty.call(this.moduleStack, module)) {
+          return false
+        } else {
+          return this.moduleStack[module].length !== 0
+        }
+      }
+    }
+
+    const myStack = new LoadingStack()
+    myStack.mutate({ flag: 'start', module: 'hello-world' })
+    myStack.mutate({ flag: 'start' })
+
+    console.log('global loading is: ', myStack.getGlobalLoading())
+    console.log('module loading is: ', myStack.getModuleLoading({ module: 'hello-world' }))
+
+    console.log('myStack is: ', myStack)
+    console.log('loadingStack is: ', LoadingStack)
+</script>
+</body>
+</html>
