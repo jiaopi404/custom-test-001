@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试 function 解析</title>
+</head>
+<body>
+<script>
+    // 目的, 解析字符串的 javascript 表达式
+    const compression = `return 1 + 1 > 2 ? 'aaa' : 'bbb'`
+    const fn = new Function('a', compression)
+    console.log(fn)
+    console.log(fn())
+
+    // 以下考虑在 vue 中的情况
+    // 假如模板中的表达式: {{ someAttr + 2 }}
+    const compression2 = `someAttr + 2`
+    // vm 表示 vue 实例
+    const vm = {
+      someAttr: 23,
+      attr2: 11
+    }
+    // 解析函数
+    // 1. 先将 key value 进行对应
+    const keys = Object.keys(vm)
+    const values = Object.values(vm)
+    const args = keys.join(',')
+    // 创建解析函数, 注意, 不要有副作用
+    const fn2 = new Function(args, 'return ' + compression2)
+    // 进行调用, 传入参数
+    console.log('result is: ', fn2.apply(window, values))
+</script>
+</body>
+</html>
