@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #app {
+      width: 100px;
+      background-color: pink;
+      /* 文字强制一行显示 */
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" title=" ksdjfldskfjkdsfjksskdjfsdlk">
+    我是你的谁啊多喝水死三等奖稍等计费SDK冯老师安检副书记阿卡就开始啦家具空间拉进来安居客数据
+  </div>
+  <script>
+    const pattern = /^(?<prefix>\w[-\w.+]*)@(?<loopGroup>(?<lastGroup>[A-Za-z0-9][-A-Za-z0-9]+\.)+)[A-Za-z]{2,14}$/
+    const email = '1240659804@qq.abc.xyz.com'
+    const result = email.match(pattern)
+    console.log('result is: ', result)
+  </script>
+</body>
+</html>
