@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试 debounce</title>
+  <style>
+    body {
+      height: 1000px;
+      width: 100vw;
+      background-color: pink;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function debounce1 (fn, gapTime=1000) {
+      let timer = null // 闭包
+      return function () {
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.apply(this, arguments)
+        }, gapTime)
+      }
+    }
+
+    function debounce2 (fn, gapTime=1000) {
+      let timer = null // 闭包用
+      return function () {
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.apply(this, arguments)
+        }, gapTime)
+      }
+    }
+
+    function debounce3 ({ fn, gapTime=1000 }) {
+      let timer = null // 闭包
+      return function () {
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.apply(this, arguments)
+        }, gapTime)
+      }
+    }
+
+    function bodyClickHandler (e) {
+      console.log('点击了 body: ', { x: e.x, y: e.y })
+    }
+
+    // document.body.addEventListener('click', debounce1(bodyClickHandler, 2000))
+    document.body.addEventListener('click', debounce3({ fn: bodyClickHandler }))
+  </script>
+</body>
+</html>
