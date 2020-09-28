@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const list = [] // 接口数据
+    const taskPromiseList = []
+    list.forEach(item => {
+      const taskPromise = new Promise((resolve, reject) => {
+        // 这里对 item 进行异步任务, 如 添加到数据库 addToDataBase
+        addToDataBase().then(result => {
+          resolve()
+        }).catch(err => {
+          reject(err)
+        })
+      })
+      taskPromiseList.push(taskPromise)
+    })
+    // 以上只是创建了任务, 没有真正执行
+    // 以下执行所有任务
+    Promise.all(taskPromiseList).then(res => {
+      // 这里执行后续逻辑
+      // res 数据结构 [result1, result2, result3] 顺序与 taskPromiseList 中 taskPromise 一致
+    }).catch(err => {
+      // 这里 catch 到错误, 如果 taskPromiseList 中任意一个 任务
+      // 出错, 所有任务都会停止
+    })
+</script>
+</body>
+</html>
