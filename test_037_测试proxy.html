@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // Proxy 是一个包含另一个对象或函数并允许你对其进行拦截的对象。
+    const person = {
+      name: 'jiaopi',
+      age: 10
+    }
+
+    const proxy = new Proxy(person, {
+      get (target, prop, receiver) { // 陷阱
+        console.log('这是 person 的 proxy')
+        console.log('Reflect is: ', Reflect)
+        // track(target, prop)
+        return Reflect.get(...arguments)
+      },
+      set (target, key, value, receiver) {
+        console.log('setter is: ', target, key, value)
+        // trigger(target, key)
+        return Reflect.set(...arguments)
+      }
+    })
+
+    // console.log('name is: ', proxy.name)
+
+    // const smb = Symbol('jiaopi')
+    // console.log('smb is: ', smb)
+    // console.log('some obj use smb as key is: ', {
+    //   [smb]: 'this stands name'
+    // })
+</script>
+</body>
+</html>
