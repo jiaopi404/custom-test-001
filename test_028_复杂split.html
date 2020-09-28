@@ -16,6 +16,7 @@
           indexStr += index + 'c' // connector
         }
       })
+      console.log('indexStr is: ', indexStr, arr) // 打印生成的索引/标签字符串
       // debugger
       const indexArr = indexStr.split('g').map(item => item.split('c').filter(innerItem => Boolean(innerItem))).filter(item => item.length)
       return indexArr.map(item => item.map(innerItem => arr[innerItem]))
