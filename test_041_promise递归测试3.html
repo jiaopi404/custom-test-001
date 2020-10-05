@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  /**
+   * 关键: 返回一个: 返回 promise 的函数
+   * @param tag
+   * @returns {function(): Promise<unknown>}
+   */
+  function promiseConstructor (tag) {
+    return () => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          console.log('tag in returnPromiseFunc is: ', tag)
+          resolve(tag)
+        }, 2000)
+      })
+    }
+  }
+
+  /**
+   * 递归函数
+   * @param arr 函数数组
+   * @param index
+   * @param resultArr
+   * @returns {Promise<unknown>}
+   */
+  function promiseRecursive (arr, index, resultArr) {
+    return new Promise((resolve => {
+      if (index === arr.length) {
+        resolve(resultArr)
+      } else {
+        arr[index]().then(result => {
+          resultArr.push({ code: 'success', data: result })
+        }).catch(err => {
+          resultArr.push({ code: 'fail', data: err })
+        }).finally(() => {
+          promiseRecursive(arr, ++index, resultArr).then(() => {
+            resolve(resultArr)
+          })
+        })
+      }
+    }))
+  }
+
+  promiseRecursive(
+    [promiseConstructor(1), promiseConstructor(2), promiseConstructor(3), promiseConstructor(4), promiseConstructor(5)],
+    0,
+    []
+  ).then(res => {
+    console.log('res of pr is: ', res)
+  })
+</script>
+</body>
+</html>

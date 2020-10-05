@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  /**
+   * 测试失败, 纯 promise 有毛病
+   */
+  function promiseConstructor (tag) {
+    return new Promise((resolve, reject) => {
+      const timeSpan = (Math.random() * 5000).toFixed(1)
+      setTimeout(() => {
+        const tmp = tag
+        console.log('tmp in setTimeout is: ', tmp)
+        // console.log('timeSpan is: ', timeSpan)
+        resolve(tmp)
+      }, 1000)
+      // }, 5000)
+    })
+  }
+
+  function promiseRecursive (arr, index, resultArr) {
+    let tmpIndex = index
+    if (!arr[tmpIndex]) {
+      return
+    }
+    return new Promise((resolve, reject) => {
+      arr[tmpIndex].then(res => {
+        console.log('res in recursive is: ', res)
+        resultArr.push(res)
+        resolve(res)
+      }).then((res) => {
+        promiseRecursive(arr, ++tmpIndex, resultArr)
+      })
+    })
+  }
+
+  function promiseRecursive2 (arr, index, resultArr) {
+    if (index === arr.length) {
+      return
+    }
+    arr[index].then(res => {
+      console.log('res in recursive2 is: ', res)
+      resultArr.push(res)
+    }).then(() => {
+      promiseRecursive2(arr, ++index, resultArr)
+    })
+  }
+
+  const promiseList = [promiseConstructor(1), promiseConstructor(2), promiseConstructor(3), promiseConstructor(4)]
+  const result = []
+  // promiseRecursive(promiseList, 0, result)
+  // promiseRecursive2(promiseList, 0, result)
+  // promiseRecursive3(promiseList, 0, result).then(res => {
+  //   console.log('res is: ', res)
+  // })
+
+  function promiseRecursive3 (arr, index, resultArr) {
+    return new Promise((resolve, reject) => {
+      if (index === arr.length) {
+        resolve('全部完成')
+      } else {
+        arr[index].then(res => {
+          resultArr.push(res)
+          promiseRecursive3(arr, ++index, resultArr).then(res => {
+            resolve(res)
+          })
+        })
+      }
+    })
+  }
+
+  async function runPromiseList (list) {
+    await list[0]
+    await list[1]
+    await list[2]
+    await list[3]
+  }
+  runPromiseList(promiseList)
+
+  promiseList[0].then(() => {
+    promiseList[1].then(() => {
+      promiseList[2].then(() => {
+        promiseList[3].then(() => {})
+      })
+    })
+  })
+</script>
+</body>
+</html>

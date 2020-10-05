@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script>
+    // let count = 0
+    // const p1 = function () {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log('p1 res is: ', 1, count++)
+    //       resolve(1)
+    //     }, 1000)
+    //   })
+    // }
+    //
+    // const p2 = function () {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log('p2 res is: ', 2, count++)
+    //       resolve(2)
+    //     }, 1000)
+    //   })
+    // }
+    //
+    // const p3 = function () {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //       console.log('p3 res is: ', 3, count++)
+    //       resolve(3)
+    //     }, 1000)
+    //   })
+    // }
+
+    function promiseConstructor (tag) {
+      return () => {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            console.log('tag in returnPromiseFunc is: ', tag)
+            resolve(tag)
+          }, 2000)
+        })
+      }
+    }
+
+    // p1().then(() => {
+    //   p2().then(() => {
+    //     p3().then(() => {})
+    //   })
+    // })
+
+    // const chunkList = []
+
+    // promise 递归函数
+    function promiseRecursive (arr, index, resultArr) {
+      return new Promise((resolve => {
+        if (index === arr.length) {
+          resolve(resultArr)
+        } else {
+          arr[index]().then(result => {
+            resultArr.push({ code: 'success', data: result })
+          }).catch(err => {
+            resultArr.push({ code: 'fail', data: err })
+          }).finally(() => {
+            promiseRecursive(arr, ++index, resultArr).then(() => {
+              resolve(resultArr)
+            })
+          })
+        }
+      }))
+    }
+
+    // const taskList = chunkList.map(() => {
+    //   // 返回一个: 返回 promise 的函数
+    //   return () => {
+    //     // 伪代码
+    //     // 组织 form, config, url
+    //     return new Promise((resolve, reject) => {
+    //       this.$http.post(url, form, config).then(res => {
+    //         resolve(res)
+    //       }).catch(err => {
+    //         reject(err)
+    //       })
+    //     })
+    //   }
+    // })
+
+    // // 调用
+    // promiseRecursive(taskList, 0, []).then(result => {
+    //   // result 包含了结果, 按 taskList 顺序, 成功失败可以通过 code 区分
+    // })
+
+
+
+
+    // promiseRecursive([p1, p2, p3], 0, []).then(res => {
+    //   console.log('res of pR is: ', res)
+    // })
+    promiseRecursive(
+      [promiseConstructor(1), promiseConstructor(2), promiseConstructor(3), promiseConstructor(4), promiseConstructor(5)],
+      0,
+      []
+    ).then(res => {
+      console.log('res of pr is: ', res)
+    })
+
+
+
+    // 纯 promise 在创建时就会执行, 可能是常见 return <Promise> 的原因??
+    // const pp1 = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     console.log('pp1 res is: ', 11)
+    //     resolve()
+    //   }, 1000)
+    // })
+    //
+    // const pp2 = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     console.log('pp2 res is: ', 22)
+    //     resolve()
+    //   }, 1000)
+    // })
+    // pp1.then(() => {
+    //   pp2.then(() => {})
+    // })
+
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>
