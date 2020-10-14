@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="speak" class="level1">
+  <div class="level2">
+    <div class="level3_1"></div>
+    <div class="index_btnBox_sdflsdkfd level3_2">
+      <div class="index_btn1 level4_1">btn1</div>
+      <div class="index_btn2 level4_2">btn2</div>
+    </div>
+  </div>
+</div>
+<script>
+  window.onload = function () {
+    // 扇贝 油猴 脚本
+    let btnBox = null // 按钮 1 的类名
+    const PREFIX = 'index_btnBox'
+    const PREFIX_REGEXP = /index_btnBox/
+    // 错误写法, 不能完全遍历完
+    // function getBtnBox (root, result) {
+    //   // debugger
+    //   if (PREFIX_REGEXP.test(root.className)) {
+    //     result = root
+    //     return
+    //   } else {
+    //     if (root.children.length) {
+    //       for (let ele of root.children) {
+    //         console.log('ele.className is: ', ele.className)
+    //         return getBtnBox(ele, result)
+    //       }
+    //     } else {
+    //       return
+    //     }
+    //   }
+    // }
+    /**
+     *
+     * @param root
+     * @param result 必须引用类型; 函数传参为值传递, 当使用基础数据类型时, 修改的值不会保留下来
+     * @returns {*}
+     */
+    function getBtnBox (root, result) {
+      if (root.children.length) {
+        for (let ele of root.children) {
+          console.log('ele.className is: ', ele.className)
+          if (PREFIX_REGEXP.test(ele.className)) {
+            console.log('进了么 is: ', ele.className)
+            result.dom = ele
+            break
+          }
+          getBtnBox(ele, result)
+        }
+      }
+      return result
+    }
+
+    document.addEventListener('keyup', (e) => {
+      if (e.keyCode === 38) { // 上键
+        e.preventDefault();
+        let result = {}
+        result = getBtnBox(document.body, result)
+        if (result.dom) {
+          btnBox = result.dom
+          btnBox.firstElementChild.click()
+        }
+      }
+    })
+  }
+</script>
+</body>
+</html>
