@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  // 封装一个前置处理函数, 成功后调用回调, 类似 node 中的很多函数
+  // 练习节流/防抖函数
+  // 注意节流/防抖函数中 apply 的使用
+  // apply(context, argsArray) argsArray: 数组 or 类数组对象; 而函数的 arguments 就是类数组对象
+  let i = 0
+  function doSomethingBefore (cb) {
+    if (i === 0) {
+      cb.call(this)
+    } else {
+      console.log('do nothing')
+    }
+  }
+  function checkBefore (condition, cb) {
+    return function () {
+      if (condition) {
+        cb.apply(this, arguments)
+      }
+    }
+  }
+  const doCheckBefore = checkBefore(true, function () {
+    console.log('do: ', arguments)
+  })
+  doCheckBefore(123, [])
+  doSomethingBefore(() => {
+    console.log('我是回调')
+    console.log()
+  })
+
+  function debounce (cb, timeSpan = 1000) {
+    let timer = 0
+    return function () {
+      timer && clearTimeout(timer)
+      timer = setTimeout(() => {
+        cb.apply(this, arguments)
+      }, timeSpan)
+    }
+  }
+
+  function throttle (cb, timeSpan = 1000) {
+    let _lastTime = null
+    return function () {
+      const _nowTime = +new Date() // 当前时间戳
+      if (!_lastTime || _nowTime - _lastTime > timeSpan) {
+        cb.apply(this, arguments)
+        _lastTime = _nowTime
+      }
+    }
+  }
+
+  function getTime () {
+    console.log('time : ', new Date().toLocaleDateString())
+  }
+
+  const getTimeDebounce = debounce(getTime, 5000)
+  for (let i = 0; i < 20; i++) {
+    getTimeDebounce()
+  }
+</script>
+</body>
+</html>
