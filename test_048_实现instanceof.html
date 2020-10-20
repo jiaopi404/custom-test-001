@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  Object.prototype.instanceof = function (constructor) {
+    const prototype = constructor.prototype
+    let left = this.__proto__
+    while (true) {
+      if (!left) return false
+      if (left === prototype) return true
+      left = left.__proto__
+    }
+  }
+
+  function Book (name) {
+    this.name = name
+  }
+
+  const b1 = new Book('sss')
+
+  console.log('b1.instanceof(Book) is: ', b1.instanceof(Book))
+  console.log('b1.instanceof(Function) is: ', b1.instanceof(Function))
+</script>
+</body>
+</html>
