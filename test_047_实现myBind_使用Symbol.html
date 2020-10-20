@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  // 实现
+  Function.prototype.myBind = function (ctx) {
+    const fn = Symbol()
+    ctx[fn] = this
+    return function () {
+      const res = ctx[fn](...arguments)
+      delete ctx[fn]
+      return res
+    }
+  }
+
+  // 测试
+  const obj = {
+    name: 'jiaopi'
+  }
+  function showName (...rest) {
+    console.log('this is: ', this) // this is:  {name: "jiaopi", Symbol(): ƒ}
+    console.log('this.name is: ', this.name) // this.name is:  jiaopi
+    console.log('arguments is: ', rest)
+  }
+  const showNameObj = showName.myBind(obj)
+  showNameObj(1, 2, 3)
+</script>
+</body>
+</html>
