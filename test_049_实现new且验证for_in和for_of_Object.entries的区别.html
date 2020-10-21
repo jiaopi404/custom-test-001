@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  function Book (name) {
+    this.name = name
+  }
+  Book.prototype.getName = function () {
+    return this.name
+  }
+  Function.prototype.create = function (...rest) {
+    const obj = {}
+    obj.__proto__ = this.prototype
+    this.apply(obj, rest)
+    return obj
+  }
+
+  const b1 = Book.create('我是名字')
+  console.log('b1 is: ', b1)
+  const b2 = new Book('我是名字')
+  console.log('b2 is: ', b2)
+
+  // 验证 for...in 和 for...of 遍历对象的区别
+  console.log('============== 分割线 =============')
+
+  // for...in 遍历可以遍历到继承属性
+  for (let key in b2) {
+    // 判断是不是在对象上的属性
+    if (!Object.prototype.hasOwnProperty.call(b2, key)) {
+      console.log('property key is: ', key) // getName
+    }
+    console.log('key is: ', key) // name, getName
+  }
+  console.log('============== 分割线 =============')
+  // for...of Object.entries(obj) 只可以获取到对象上的属性
+  for (let [key, value] of Object.entries(b2)) {
+    console.log('key, value is: ', key, value)
+  }
+
+</script>
+</body>
+</html>
