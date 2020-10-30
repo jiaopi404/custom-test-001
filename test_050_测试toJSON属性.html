@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  /**
+   * 经测试知:
+   * 1. toJSON 方法只能作为前置输入的方法, 直接返回结果处理过程太复杂, 复杂类型如 数组, 对象, 函数等不方便进行处理,
+   * 因此只合适进行中间处理, 参考 java 中的 toString() 方法
+   */
+  const obj = {
+    a: 1,
+    b: 2,
+    c: '3',
+    // d: ['a', 'b', { c: 3 }],
+    toJSON: function () {
+      const json = []
+      for (let [key, value] of Object.entries(this)) {
+        if (value instanceof Function) {
+          continue
+        }
+        json.push(`${key}=${value}`)
+      }
+      return json.join('&') // a=1&b=2&c=3
+    }
+  }
+
+  console.log('json is: ', JSON.stringify(obj))
+</script>
+</body>
+</html>
