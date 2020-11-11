@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  function setTimeoutPromise (i) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        console.log('i is: ', i)
+        resolve(i)
+      }, 1000)
+    })
+  }
+
+  /**
+   * 循环的方法
+   * @returns {Promise<void>}
+   */
+  async function foo () {
+    for (let i = 0; i < 5; i++) {
+      await setTimeoutPromise(i)
+    }
+  }
+
+  // 根据次数递归的方法
+  function bar (count) {
+    if (count !== 0) {
+      setTimeoutPromise(5 - count).then(() => {
+        bar(--count)
+      })
+    }
+  }
+
+  // foo() // 正常
+  // bar(5) // 正常
+
+  // 附带: 打印正常的 i
+  // for (let i = 0; i < 5; i++) {
+  //   setTimeout(() => {
+  //     console.log('i is: ', i)
+  //   }, 1000)
+  // }
+
+  for (var i = 0; i < 5; i++) {
+    // 立即执行函数/匿名函数/闭包
+    (function (i) {
+      setTimeout(function () {
+        console.log('i is: ', i)
+      }, 1000)
+    })(i)
+  }
+</script>
+</body>
+</html>
