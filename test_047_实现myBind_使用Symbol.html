@@ -28,6 +28,39 @@
   }
   const showNameObj = showName.myBind(obj)
   showNameObj(1, 2, 3)
+
+
+  // ---------------------
+  console.log('分割线 is: ', '========================')
+
+  function myBind (ctx, func) {
+    const fn = Symbol()
+    ctx[fn] = func
+    return function () {
+      const res = ctx[fn](...arguments)
+      delete ctx[fn]
+      return res
+    }
+  }
+
+  function myApply(ctx, func, ...arg) {
+    const fn = Symbol()
+    ctx[fn] = func
+    const res = arg.length === 0 ? ctx[fn]() : ctx[fn](...arg)
+    delete ctx[fn]
+    return res
+  }
+
+  const obj2 = {
+    name: 'jiao da pi'
+  }
+
+  const funcAfterMyBind = myBind(obj2, showName)
+  console.log('bind 结果 is:  - -----------------', )
+  funcAfterMyBind()
+  console.log('apply 结果 is: - ------------------', )
+  myApply(obj2, showName, 1, 2, 3, 4)
+  myApply(obj, showName)
 </script>
 </body>
 </html>
