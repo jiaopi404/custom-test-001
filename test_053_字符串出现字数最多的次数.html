@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const str = 'sdklfasjdlkfjadskassakfaasasfsdfas'
+
+  const getMaxNumOfChar = (str) => {
+    const obj = Array.prototype.reduce.call(str, (prev, item) => {
+      // if (!Object.prototype.hasOwnProperty.call(prev, item)) {
+      //   prev[item] = 1
+      // } else {
+      //   prev[item]++
+      // }
+      // or
+      if (item in prev) {
+        prev[item]++
+      } else {
+        prev[item] = 1
+      }
+      return prev
+    }, {})
+    // console.log('obj is: ', obj)
+    const max = Math.max(...Object.values(obj))
+    return Object.entries(obj).map(([key, value]) => value === max ? { [key]: value } : null).filter(item => item)
+  }
+  console.log('max is: ', getMaxNumOfChar(str))
+
+  // 测试 in
+  function People (name) {
+    this.name = name
+  }
+  People.prototype.gender = 1
+
+  const p1 = new People('jiaopi')
+
+  if ('gender' in p1) {
+    console.log('gender is in p1: ', )
+  }
+  if (Object.prototype.hasOwnProperty.call(p1, 'gender')) {
+    console.log('gender in p1 ??? is: ', )
+  }
+</script>
+</body>
+</html>
