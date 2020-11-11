@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const arr = [1, [1, 2, [3, 4], 5], 6, [7, 8, 9]]
+
+  const platArr = function (arr, prev) {
+    return arr.reduce((prev, item) => {
+      if (Object.prototype.toString.call(item) === '[object Array]') {
+        return platArr(item, prev)
+      } else {
+        prev.push(item)
+      }
+      return prev
+    }, prev)
+  }
+
+  // const flatten = function (arr) {
+  //   return arr.reduce((prev, next) => {
+  //     return prev.concat(Object.prototype.toString.call(next) === '[object Array]' ? flatten(next) : next)
+  //   }, [])
+  // }
+  const flatten = function (arr) {
+    return arr.reduce((prev, next) => {
+      return prev.concat(Array.isArray(next) ? flatten(next) : next)
+    }, [])
+  }
+
+  console.log('arr is: ', platArr(arr, []))
+  console.log('arr is: ', flatten(arr))
+</script>
+</body>
+</html>
