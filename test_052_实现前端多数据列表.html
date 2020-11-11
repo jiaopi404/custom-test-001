@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="./vue.js"></script>
+  <style>
+    .data-box {
+      height: 500px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      background-color: pink;
+    }
+    .data-sub-box {
+    }
+    .data-item {
+      height: 100px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #999;
+      line-height: 100px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="data-box">
+    <div
+      class="data-sub-box"
+    >
+      <div
+        class="data-item"
+        v-for="item in dataList"
+        :key="item.id"
+      >
+        id: {{ item.id }}, name: {{ item.name }}, num: {{ item.num }}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // 未实现, 好 j8 难
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      hello: 'hello world',
+      dataList: []
+    },
+    mounted () {
+      const beforeGetTimeStamp = +new Date()
+      this.dataList = this.getDataList(100000)
+      this.$nextTick(() => {
+        const tmpTimeStamp = +new Date()
+        console.log('getData takes is: ', tmpTimeStamp - beforeGetTimeStamp)
+        this.$nextTick(() => {
+          const tmp2TimeStamp = +new Date() - tmpTimeStamp
+          console.log('rendering takes is: ', tmp2TimeStamp)
+        })
+      })
+    },
+    methods: {
+      /**
+       * get data list
+       * @param length 总条数
+       * @returns {[]} JSON 数据
+       */
+      getDataList (length) {
+        const tmpList = []
+        for (let i = 1; i <= length; i++) {
+          tmpList.push({ id: i, name: i ** 2 + '', num: Math.floor(Math.random() * 10000000000) })
+        }
+        return tmpList
+      }
+    }
+  })
+</script>
+</body>
+</html>
