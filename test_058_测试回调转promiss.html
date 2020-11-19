@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  function request ({ data, success, fail, complete }) {
+    setTimeout(() => {
+      if (data === 0) {
+        success && success('success')
+      }
+      if (data === 1) {
+        fail && fail('fail')
+      }
+      complete && complete('complete')
+    }, 1000)
+  }
+
+  request({
+    data: 1,
+    success: function (res) {
+      console.log('success res: ', res)
+    },
+    fail: function (res) {
+      console.log('fail res: ', res)
+    },
+    complete: function (res) {
+      console.log('complete res: ', res)
+    }
+  })
+  // 未完成
+</script>
+</body>
+</html>
