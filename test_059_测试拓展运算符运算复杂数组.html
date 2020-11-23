@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  // 结构解析可运算实现遍历器接口的类型
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 1. 测试数组
+  const arr = [
+    { name: 'aaa', gender: 0 },
+    { name: 'aaa', gender: 0 },
+    { name: 'aaa', gender: 0 }
+  ]
+
+  console.log('...arr is: ', ...arr)
+
+  // 2. 测试类数组
+  function testArgs () {
+    console.log('arg is: ', [...arguments])
+  }
+
+  testArgs(...arr)
+
+  // 3. 测试字符串
+  console.log('string is: ', ...'string')
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const obj = {
+    body: {
+      h1: '111',
+      div: {
+        p: 'p内容'
+      }
+    }
+  }
+
+  const { body: { div: { p: myP } } } = obj
+
+  console.log('myP is: ', myP)
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // TODO: 构建伪数组，实现遍历器接口
+</script>
+</body>
+</html>
