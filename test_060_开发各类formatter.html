@@ -36,13 +36,9 @@
     return prop.split('&').map(propString => propString.split('.').reduce((prev, propItem) => prev[propItem], data))
   }
   const obj2 = {
-    a: 1,
-    b: 2,
-    c: {
-      d: {
-        e: 'hello'
-      },
-      f: 'world'
+    addPerson: {
+      perName: 'cyk',
+      mobile: '18577777777'
     }
   }
   // console.log('result is: ', duoValueGetter(obj2, 'a&c.d.e&c.f'))
@@ -52,6 +48,7 @@
    * 1: "hello"
    * 2: "world"
    */
+  console.log('result is: ', duoValueGetter(obj2, 'addPerson.perName&addPerson.mobile'))
 
   /**
    * 3. 日期格式化
@@ -65,6 +62,7 @@
   /**
    * 4. 数字格式化, 转千位
    * @param value
+   * @param toFixedNum
    * @returns {string}
    */
   const toThousandsFormatter = (value, toFixedNum) => {
@@ -120,6 +118,7 @@
 
   console.log('result is: ', templateFormatter('hello', '$1 world')) // result is:  hello world
   console.log('result is: ', templateFormatter(['hello', 'world'], '$1 $2')) // result is:  hello world
+  console.log('result is: ', templateFormatter(duoValueGetter(obj2, 'addPerson.perName&addPerson.mobile'), '($1)$2'))
 
 
 </script>
