@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  /**
+   * 1. 嵌套数据获取
+   * @param data: 多层嵌套数据
+   * @param prop: a.b.c.d
+   */
+  const valueGetter = (data, prop) => {
+    return prop.split('.').reduce((prev, propItem) => prev[propItem], data)
+  }
+  const obj1 = {
+    a: 1,
+    b: {
+      c: 2,
+      d: {
+        e: {
+          f: 'hello world'
+        }
+      }
+    }
+  }
+  // console.log('result is: ', valueGetter(obj1, 'b.d.e.f')) // result is:  hello world
+
+  /**
+   * 2. 双值嵌套数据获取
+   * @param data
+   * @param prop: a.b.c&c.d.e
+   */
+  const duoValueGetter = (data, prop) => {
+    return prop.split('&').map(propString => propString.split('.').reduce((prev, propItem) => prev[propItem], data))
+  }
+  const obj2 = {
+    a: 1,
+    b: 2,
+    c: {
+      d: {
+        e: 'hello'
+      },
+      f: 'world'
+    }
+  }
+  // console.log('result is: ', duoValueGetter(obj2, 'a&c.d.e&c.f'))
+  /**
+   * result
+   * 0: 1
+   * 1: "hello"
+   * 2: "world"
+   */
+
+  /**
+   * 3. 日期格式化
+   * timeFormat; value, format
+   */
+  const timeFormat = () => {}
+  const dateFormatter = (value, format) => {
+    return timeFormat(value, format)
+  }
+
+  /**
+   * 4. 数字格式化, 转千位
+   * @param value
+   * @returns {string}
+   */
+  const toThousandsFormatter = (value, toFixedNum) => {
+    let num = Math.floor(value)
+    let result = '', counter = 0
+    num = (num || 0).toString()
+    for (let i = num.length - 1; i >= 0; i--) {
+      counter++
+      result = num.charAt(i) + result
+      if (!(counter % 3) && i !== 0) {
+        result = ',' + result;
+      }
+    }
+
+    let decimal = Number(value).toFixed(toFixedNum ? toFixedNum : 0).split('.')[1]
+    return decimal ? `${result}.${decimal}` : result
+  }
+
+  // console.log('result is: ', toThousandsFormatter(1000000.08787, 3)) // result is:  1,000,000.088
+
+  /**
+   * 4. map 获取值 formatter
+   * @param value
+   * @param dictObj
+   * @returns {*}
+   */
+  const mapValueFormatter = (value, dictObj) => {
+    return dictObj[value]
+  }
+
+  const map1 = {
+    '1': 20,
+    '2': 40
+  }
+
+  // console.log('mapValueGetter is: ', mapValueGetter(1, map1)) // mapValueGetter is:  20
+
+  /**
+   * 模板格式化器, 支持 multi value
+   * @param value
+   * @param template
+   * @returns {void|string|*}
+   */
+  const templateFormatter = (value, template) => {
+    if (Array.isArray(value)) {
+      return value.reduce((prev, item, index) => {
+        return prev.replace(new RegExp('\\$' + (index + 1), 'g'), item)
+      }, template)
+    } else {
+      return template.replace(new RegExp('\\$1', 'g'), value)
+    }
+  }
+
+  console.log('result is: ', templateFormatter('hello', '$1 world')) // result is:  hello world
+  console.log('result is: ', templateFormatter(['hello', 'world'], '$1 $2')) // result is:  hello world
+
+
+</script>
+</body>
+</html>
