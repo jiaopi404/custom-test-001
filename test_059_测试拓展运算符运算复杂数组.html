@@ -16,17 +16,23 @@
     { name: 'aaa', gender: 0 }
   ]
 
-  console.log('...arr is: ', ...arr)
+  // console.log('...arr is: ', ...arr)
 
   // 2. 测试类数组
   function testArgs () {
-    console.log('arg is: ', [...arguments])
+    // console.log('arg is: ', [...arguments])
   }
 
   testArgs(...arr)
 
   // 3. 测试字符串
-  console.log('string is: ', ...'string')
+  // console.log('string is: ', ...'string')
+
+  // 4. 测试空值
+  const arr1 = [() => {}]
+  const [fn1, ...arg] = arr1
+  // console.log('fn1 is: ', fn1) // fn1 is:  () => {}
+  // console.log('arg is: ', arg) // arg is:  []
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const obj = {
@@ -40,7 +46,7 @@
 
   const { body: { div: { p: myP } } } = obj
 
-  console.log('myP is: ', myP)
+  // console.log('myP is: ', myP)
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // TODO: 构建伪数组，实现遍历器接口
