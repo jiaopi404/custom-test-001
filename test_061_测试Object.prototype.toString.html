@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const a = {}
+
+  console.log('a.b toString is: ', Object.prototype.hasOwnProperty.call(a, 'b'))
+
+  const b = null
+
+  console.log('b.a toString is: ', Object.prototype.toString.call(b, 'a'))
+
+  const c = undefined
+
+  console.log('b.a toString is: ', Object.prototype.toString.call(c))
+
+  const d = {
+    a: undefined
+  }
+  console.log('d.a is: ', Object.prototype.hasOwnProperty.call(d, 'a'))
+  console.log('c is: ', c === undefined)
+
+  const e = ''
+  console.log('e.a is: ', Object.prototype.hasOwnProperty.call(e, 'a'))
+</script>
+</body>
+</html>
