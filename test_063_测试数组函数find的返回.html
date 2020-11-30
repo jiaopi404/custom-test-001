@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const arr = [
+    { param: 'aaa', value: [1] },
+    { param: 'bbb', value: [1] },
+    { param: 'ccc', value: [1] }
+  ]
+
+  const _result = arr.find(item => item.param === 'ddd')
+  console.log('_result is: ', _result) // undefined
+</script>
+</body>
+</html>
