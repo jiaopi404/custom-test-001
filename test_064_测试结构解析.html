@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  // 测试结构解析，深层结构
+  const res = {
+    data: {
+      content: [1, 2, 3],
+      last: true
+    }
+  }
+
+  const { data: { content: _content, last: _last } } = res
+  console.log('_content is: ', _content)
+  console.log('_last is: ', _last)
+</script>
+</body>
+</html>
