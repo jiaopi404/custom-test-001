@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="entry">
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">合同名称：</view>
+      <view
+        class="common-list__list-item__right common-list__list-item__right--1"
+        name="navigateTo(defaultUrlPrefix + '?type=' + module.CONTRACT_MANAGEMENT + '&contractId=' + item.id + '&title=合同详情', item)"
+      >{{ valueGetter(item, 'name') }} &gt;></view>
+    </view>
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">合同代码：</view>
+      <view
+        class="common-list__list-item__right comp-list-item__content--2"
+      >{{ valueGetter(item, 'purConCode') }}</view>
+    </view>
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">合同类型：</view>
+      <view class="common-list__list-item__right">{{ valueGetter(item, 'project.ageType.name') }}</view>
+    </view>
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">合同金额（元）：</view>
+      <view class="common-list__list-item__right">{{ valueGetter(item, 'conAmount') | toThousandsFormatter }}</view>
+    </view>
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">项目名称：</view>
+      <view
+        class="common-list__list-item__right common-list__list-item__right--1"
+        name="navigateTo(defaultUrlPrefix + '?type=' + module.CONTRACT_MANAGEMENT + '&projectId=' + valueGetter(item, 'project.id') + '&title=项目详情', item)"
+      >{{ valueGetter(item, 'project.proName') }} &nbsp;></view>
+    </view>
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">项目编号：</view>
+      <view
+        class="common-list__list-item__right comp-list-item__content--2"
+      >{{ valueGetter(item, 'project.proCode') }}</view>
+    </view>
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">中标公司名称：</view>
+      <view class="common-list__list-item__right">{{ valueGetter(item, 'project.bargainPerson.organization.name') }}</view>
+    </view>
+    <view class="common-list__list-item">
+      <view class="common-list__list-item__left">中标日期：</view>
+      <view class="common-list__list-item__right">{{ valueGetter(item, 'project.bargainDate') | dateFormatter }}</view>
+    </view>
+  </div>
+</body>
+</html>

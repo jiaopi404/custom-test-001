@@ -1,0 +1,49 @@
+
+    <comp-info-item-collapse
+      label="合同名称："
+    >
+      <text slot="content1" @click="navigateTo(defaultUrlPrefix + '?type=' + module.CONTRACT_MANAGEMENT + '&contractId=' + item.id + '&title=合同详情', item)" class="common-list__list-item__right common-list__list-item__right--1">{{ valueGetter(item, 'name') }} &gt;></text>
+      <text slot="content2" @click="navigateTo(defaultUrlPrefix + '?type=' + module.CONTRACT_MANAGEMENT + '&contractId=' + item.id + '&title=合同详情', item)" class="common-list__list-item__right common-list__list-item__right--1">{{ valueGetter(item, 'name') }} &gt;></text>
+    </comp-info-item-collapse>
+    <comp-info-item-collapse
+      label="合同代码："
+    >
+      <text slot="content1" class="common-list__list-item__right comp-list-item__content--2">{{ valueGetter(item, 'purConCode') }}</text>
+      <text slot="content2" class="common-list__list-item__right comp-list-item__content--2">{{ valueGetter(item, 'purConCode') }}</text>
+    </comp-info-item-collapse>
+    <comp-info-item-collapse
+      label="合同类型："
+    >
+      <text slot="content1" class="common-list__list-item__right">{{ valueGetter(item, 'project.ageType.name') }}</text>
+      <text slot="content2" class="common-list__list-item__right">{{ valueGetter(item, 'project.ageType.name') }}</text>
+    </comp-info-item-collapse>
+    <comp-info-item-collapse
+      label="合同金额（元）："
+    >
+      <text slot="content1" class="common-list__list-item__right">{{ valueGetter(item, 'conAmount') | toThousandsFormatter }}</text>
+      <text slot="content2" class="common-list__list-item__right">{{ valueGetter(item, 'conAmount') | toThousandsFormatter }}</text>
+    </comp-info-item-collapse>
+    <comp-info-item-collapse
+      label="项目名称："
+    >
+      <text slot="content1" @click="navigateTo(defaultUrlPrefix + '?type=' + module.CONTRACT_MANAGEMENT + '&projectId=' + valueGetter(item, 'project.id') + '&title=项目详情', item)" class="common-list__list-item__right common-list__list-item__right--1">{{ valueGetter(item, 'project.proName') }} &nbsp;></text>
+      <text slot="content2" @click="navigateTo(defaultUrlPrefix + '?type=' + module.CONTRACT_MANAGEMENT + '&projectId=' + valueGetter(item, 'project.id') + '&title=项目详情', item)" class="common-list__list-item__right common-list__list-item__right--1">{{ valueGetter(item, 'project.proName') }} &nbsp;></text>
+    </comp-info-item-collapse>
+    <comp-info-item-collapse
+      label="项目编号："
+    >
+      <text slot="content1" class="common-list__list-item__right comp-list-item__content--2">{{ valueGetter(item, 'project.proCode') }}</text>
+      <text slot="content2" class="common-list__list-item__right comp-list-item__content--2">{{ valueGetter(item, 'project.proCode') }}</text>
+    </comp-info-item-collapse>
+    <comp-info-item-collapse
+      label="中标公司名称："
+    >
+      <text slot="content1" class="common-list__list-item__right">{{ valueGetter(item, 'project.bargainPerson.organization.name') }}</text>
+      <text slot="content2" class="common-list__list-item__right">{{ valueGetter(item, 'project.bargainPerson.organization.name') }}</text>
+    </comp-info-item-collapse>
+    <comp-info-item-collapse
+      label="中标日期："
+    >
+      <text slot="content1" class="common-list__list-item__right">{{ valueGetter(item, 'project.bargainDate') | dateFormatter }}</text>
+      <text slot="content2" class="common-list__list-item__right">{{ valueGetter(item, 'project.bargainDate') | dateFormatter }}</text>
+    </comp-info-item-collapse>
