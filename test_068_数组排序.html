@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const list = [
+    { result: 3 },
+    { result: 1 },
+    { result: 2 }
+  ]
+
+  const result = list.sort((item, prevItem) => item.result - prevItem.result)
+  console.log('result is: ', result)
+  console.log('list is: ', list)
+</script>
+</body>
+</html>

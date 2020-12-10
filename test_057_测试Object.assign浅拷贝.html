@@ -16,6 +16,21 @@
   console.log('result is: ', result)
   console.log('dkfjsdkf is: ', 'adsfdasf')
   console.log('dkfjsdkf is: ', 'adsfdasf') // daily push
+
+  function loading (loadingStatus, config = { mask: true }) {
+    if (loadingStatus) {
+      const _obj = Object.assign(
+        { title: '加载中' },
+        { mask: true },
+        config
+      )
+      console.log('_obj is: ', _obj)
+    }
+  }
+
+  loading(true, { title: '俺加载了' })
+  loading(true, { title: '俺加载了2', mask: false })
+  loading(true)
 </script>
 </body>
 </html>
