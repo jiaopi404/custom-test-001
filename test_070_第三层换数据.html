@@ -16,6 +16,13 @@
       })
     }
   }
+
+  const btnList = []
+  this.rightsList.forEach(level1 => {
+    level1.menuChildren.forEach(level2 => {
+      btnList.push(...level2.buttonChildren)
+    })
+  })
 </script>
 </body>
 </html>
