@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const str = '0123456789'
+
+  console.log('前三位', str.substr(0, 3))
+  console.log('后三位', str.substr(str.length - 3))
+
+  console.log('前三位', str.substring(0, 3)) // 012
+  console.log('前三位', str.substring(str.length - 3, str.length))
+
+  console.log('后 is: ', str.substr(-3))
+</script>
+</body>
+</html>
