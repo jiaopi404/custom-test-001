@@ -7,9 +7,9 @@
 <body>
 <script>
   const list = [
-    { result: 3 },
-    { result: 1 },
-    { result: 2 }
+    {result: 3},
+    {result: 1},
+    {result: 2}
   ]
 
   const result = list.sort((item, prevItem) => item.result - prevItem.result)
@@ -30,6 +30,13 @@
   console.log('list is: ', list) // daily push
   console.log('list is: ', list) // daily push
   console.log('list is: ', list) // daily push
+  const item = {}
+  const bool = item.proStatus.id === 1 ?
+    (
+      item.ifBack ? (item.ifWaitPurchase ? '审核中' : '已退回') : (item.ifWaitPurchase ? '审核中' : '待申报')
+    ) : (
+      (item.proStatus.id > 1 && item.proStatus.id < 8) || item.proStatus.id === 31 ? '审核中' : '已审核'
+    )
 </script>
 </body>
 </html>
