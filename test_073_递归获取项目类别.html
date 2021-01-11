@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const pro = {
+    fundCategory: {
+      name: 'cate3',
+      fundCategory: {
+        name: 'cate2',
+        fundCategory: {
+          name: 'cate1'
+        }
+      }
+    }
+  }
+  function getProjectCategory (category, categoryList) {
+    if (!category) {
+      return categoryList
+    }
+    categoryList.unshift(category.name)
+    return getProjectCategory(category.fundCategory, categoryList)
+  }
+  console.log(getProjectCategory(pro.fundCategory, []))
+</script>
+</body>
+</html>
