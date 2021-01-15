@@ -2,9 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
+  <style>
+    #container {
+      position: relative;
+    }
+    #canvas-watermark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      opacity: .3;
+    }
+  </style>
 </head>
 <body>
-$END$
+<img class="logo-img" src="logo.jpeg" alt="" style="height: 0; width: 0;">
+<button class="print-btn">打印</button>
+<button class="export-btn">导出base64</button>
+<div id="container">
+  <canvas id="canvas-watermark"></canvas>
+  <table width="100%" border="1" align="center">
+    <caption style="caption-side: top;">小标题</caption>
+    <tbody class="tbody">
+      <tr>
+        <th>11111</th>
+        <th>11111</th>
+        <th>11111</th>
+        <th>11111</th>
+        <th>11111</th>
+        <th>11111</th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  // 1. 填内容
+  function render () {
+    const tr = document.querySelector('.tbody')
+    for (let i = 0; i < 10; i++) {
+      tr.innerHTML += `
+        <tr>
+          <td>${(i + '').repeat(6)}</td>
+          <td>${(i + 1 + '').repeat(6)}</td>
+          <td>${(i + 2 + '').repeat(6)}</td>
+          <td>${(i + 3 + '').repeat(6)}</td>
+          <td>${(i + 4 + '').repeat(6)}</td>
+          <td>${(i + 5 + '').repeat(6)}</td>
+        </tr>
+      `
+    }
+  }
+  // 2. canvas
+  function draw () {
+    const canvas = document.querySelector('#canvas-watermark')
+    const ctx = canvas.getContext('2d')
+    ctx.rotate(getDeg(-45))
+    const img = new Image();
+    img.src = 'bg.jpg'
+    img.onload = function (e) {
+      // debugger
+      for (let i = 0; i < 20; i++) {
+        for (let j = -10; j < 10; j++) {
+          ctx.drawImage(
+            img,
+            i % 2 === 0 ? 60 * j : 60 * j + 40,
+            30 * i,
+            40,
+            20
+          )
+        }
+      }
+      // ctx.fillStyle="#FF0000";
+      // ctx.fillRect(0,0,150,75);
+    }
+    // const logoImg = document.querySelector('.logo-img')
+    // console.log(logoImg)
+  }
+  // 3. print
+  function myPrint () {
+    document.querySelector('.print-btn').addEventListener('click', () => {
+      window.print();
+    })
+  }
+  function myExport () {
+    document.querySelector('.export-btn').addEventListener('click', () => {
+      const canvas = document.querySelector('#canvas-watermark')
+      console.log(canvas.toDataURL('image/jpeg'))
+    })
+  }
+  function start () {
+    console.log('start')
+    render();
+    draw();
+    myPrint();
+    myExport();
+  }
+  function getDeg (d) {
+    return d * Math.PI / 180
+  }
+  window.onload = start
+</script>
 </body>
 </html>

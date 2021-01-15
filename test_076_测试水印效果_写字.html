@@ -2,9 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
+  <style>
+    #container {
+    }
+    /*#canvas-watermark {*/
+    /*  position: absolute;*/
+    /*  top: 0;*/
+    /*  left: 0;*/
+    /*  z-index: -1;*/
+    /*  width: 100%;*/
+    /*  opacity: .3;*/
+    /*}*/
+  </style>
 </head>
 <body>
-$END$
+<button class="print-btn">打印</button>
+<div id="container">
+  <table width="100%" border="1" align="center">
+    <caption style="caption-side: top;">小标题</caption>
+    <tbody class="tbody">
+    <tr>
+      <th>11111</th>
+      <th>11111</th>
+      <th>11111</th>
+      <th>11111</th>
+      <th>11111</th>
+      <th>11111</th>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  // 1. 填内容
+  function render () {
+    const tr = document.querySelector('.tbody')
+    for (let i = 0; i < 10; i++) {
+      tr.innerHTML += `
+        <tr>
+          <td>${(i + '').repeat(6)}</td>
+          <td>${(i + 1 + '').repeat(6)}</td>
+          <td>${(i + 2 + '').repeat(6)}</td>
+          <td>${(i + 3 + '').repeat(6)}</td>
+          <td>${(i + 4 + '').repeat(6)}</td>
+          <td>${(i + 5 + '').repeat(6)}</td>
+        </tr>
+      `
+    }
+  }
+  // 2. canvas
+  function draw (text) {
+    const canvas = document.createElement('canvas');
+    const HEIGHT = 200; // canvas height
+    const WIDTH = 200; // canvas width
+    // const WM_WIDTH = 80; // 每个水印 height
+    // const WM_HEIGHT = 40; // watermark width
+    canvas.height = HEIGHT;
+    canvas.width = WIDTH;
+    const ctx = canvas.getContext('2d');
+    ctx.rotate(this.getDeg(-45));
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(-WIDTH, 0, 2 * WIDTH, 1.414 * HEIGHT);
+    ctx.globalAlpha = .2;
+    ctx.fillStyle = '#000';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 0, HEIGHT / 1.414);
+    const base64 = canvas.toDataURL('image/jpeg', 1);
+    return base64;
+    setStyle(base64);
+    // const img = new Image();
+    // img.src = '../../../assets/images/guomao/org-logo.png';
+    // img.onload = (e) => {
+    //   // debugger
+    //   for (let i = 0; i < 20; i++) {
+    //     for (let j = -10; j < 10; j++) {
+    //       ctx.drawImage(
+    //         img,
+    //         i % 2 === 0 ? WM_WIDTH * j : WM_WIDTH * j + WM_WIDTH / 2,
+    //         1.5 * WM_HEIGHT * i,
+    //         WM_WIDTH,
+    //         WM_HEIGHT
+    //       );
+    //     }
+    //   }
+    //   const base64 = canvas.toDataURL('image/jpeg', 1)
+    //   setStyle(base64);
+    // };
+  }
+  // 3. print
+  function myPrint () {
+    document.querySelector('.print-btn').addEventListener('click', () => {
+      window.print();
+    })
+    // const my_window = window.open('', 'mywindow', 'status=1,width=350,height=150');
+    // my_window.document.write('<html><head><title>Print Me</title></head>');
+    // my_window.document.write('<body onafterprint="self.close()">');
+    // my_window.document.write('<p>When you print this window, it will close afterward.</p>');
+    // my_window.document.write('</body></html>');
+  }
+  function setStyle (base64) {
+    console.log(base64)
+    const container = document.querySelector('#container')
+    container.style.backgroundColor = '#fff'
+    container.style.backgroundImage = `url(${base64})`
+    container.style.backgroundPosition = '0 0'
+  }
+  function start () {
+    console.log('start')
+    render();
+    draw('陕西联兴科技');
+    myPrint();
+  }
+  function getDeg (d) {
+    return d * Math.PI / 180
+  }
+  window.onload = start
+
+
+
+
+
+</script>
 </body>
 </html>
