@@ -18,26 +18,27 @@
 </head>
 <body>
 <button class="print-btn">打印</button>
-<div id="container">
-  <table width="100%" border="1" align="center">
-    <caption style="caption-side: top;">小标题</caption>
-    <tbody class="tbody">
-    <tr>
-      <th>11111</th>
-      <th>11111</th>
-      <th>11111</th>
-      <th>11111</th>
-      <th>11111</th>
-      <th>11111</th>
-    </tr>
-    </tbody>
-  </table>
+<canvas id="canvas"></canvas>
+<div id="container" style="height: 3000px; width: 100%;">
+<!--  <table width="100%" border="1" align="center" style="border-collapse:collapse; color: #666;">-->
+<!--    <caption style="caption-side: top;">小标题</caption>-->
+<!--    <tbody class="tbody">-->
+<!--    <tr>-->
+<!--      <th>11111</th>-->
+<!--      <th>11111</th>-->
+<!--      <th>11111</th>-->
+<!--      <th>11111</th>-->
+<!--      <th>11111</th>-->
+<!--      <th>11111</th>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
 </div>
 <script>
   // 1. 填内容
   function render () {
     const tr = document.querySelector('.tbody')
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
       tr.innerHTML += `
         <tr>
           <td>${(i + '').repeat(6)}</td>
@@ -51,56 +52,134 @@
     }
   }
   // 2. canvas
-  function draw (text) {
+  const rawWatermark = function (text, options) {
+    const _options = options || {
+      height: 200, // canvas 大小
+      width: 200,
+      fontSize: 16,
+      fontFamily: 'sans-serif',
+      alpha: .2 // 字透明度
+    };
     const canvas = document.createElement('canvas');
-    const HEIGHT = 200; // canvas height
-    const WIDTH = 200; // canvas width
-    // const WM_WIDTH = 80; // 每个水印 height
-    // const WM_HEIGHT = 40; // watermark width
+    const HEIGHT = _options.height; // canvas height
+    const WIDTH = _options.width; // canvas width
     canvas.height = HEIGHT;
     canvas.width = WIDTH;
     const ctx = canvas.getContext('2d');
-    ctx.rotate(this.getDeg(-45));
+    ctx.translate(100, 100);
+    ctx.rotate(getDeg(45));
     ctx.fillStyle = '#fff';
-    ctx.fillRect(-WIDTH, 0, 2 * WIDTH, 1.414 * HEIGHT);
-    ctx.globalAlpha = .2;
+    ctx.fillRect(0, 0, 1.414 * WIDTH, 1.414 * HEIGHT);
+    ctx.globalAlpha = _options.alpha;
     ctx.fillStyle = '#000';
-    ctx.font = '14px sans-serif';
+    ctx.font = `${_options.fontSize}px ${_options.fontFamily}`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(text, 0, HEIGHT / 1.414);
+    ctx.fillText(text, 100, 100);
+    return canvas.toDataURL('image/jpeg', 1);
+  };
+  function draw (text, options) {
+    const _options = options || {
+      height: 200, // canvas 大小
+      width: 200,
+      fontSize: 16,
+      fontFamily: 'sans-serif',
+      alpha: .2, // 字透明度
+      deg: 30
+    };
+    // const canvas = document.createElement('canvas');
+    const canvas = document.getElementById('canvas');
+    const HEIGHT = _options.height; // canvas height
+    const WIDTH = _options.width; // canvas width
+    const deg = _options.deg
+    const p = 1 / Math.sin(getDeg(deg));
+    canvas.height = HEIGHT;
+    canvas.width = WIDTH;
+    const ctx = canvas.getContext('2d');
+    // 转换
+    const translateX = 100;
+    const translateY = 100;
+    ctx.translate(translateX, translateY);
+    ctx.rotate(getDeg(deg));
+    ctx.fillStyle = '#ff3040'
+    ctx.fillRect(0 - p * translateX, 0 - p * translateY, p * WIDTH, p * HEIGHT);
+    ctx.translate(-100, -100);
+    // 转换结束，写字
+    ctx.globalAlpha = _options.alpha;
+    ctx.fillStyle = '#000';
+    ctx.font = `${_options.fontSize}px ${_options.fontFamily}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 100, 100);
     const base64 = canvas.toDataURL('image/jpeg', 1);
-    return base64;
     setStyle(base64);
-    // const img = new Image();
-    // img.src = '../../../assets/images/guomao/org-logo.png';
-    // img.onload = (e) => {
-    //   // debugger
-    //   for (let i = 0; i < 20; i++) {
-    //     for (let j = -10; j < 10; j++) {
-    //       ctx.drawImage(
-    //         img,
-    //         i % 2 === 0 ? WM_WIDTH * j : WM_WIDTH * j + WM_WIDTH / 2,
-    //         1.5 * WM_HEIGHT * i,
-    //         WM_WIDTH,
-    //         WM_HEIGHT
-    //       );
-    //     }
-    //   }
-    //   const base64 = canvas.toDataURL('image/jpeg', 1)
-    //   setStyle(base64);
-    // };
+  }
+
+  function draw2(text, options) {
+    const _options = options || {
+      height: 200, // canvas 大小
+      width: 600,
+      fontSize: 16,
+      fontFamily: 'sans-serif',
+      alpha: .2, // 字透明度
+      deg: 9
+    };
+    const canvas = document.createElement('canvas');
+    const HEIGHT = _options.height; // canvas height
+    const WIDTH = _options.width; // canvas width
+    const deg = _options.deg
+    canvas.height = HEIGHT;
+    canvas.width = WIDTH;
+    const ctx = canvas.getContext('2d');
+    // 1. 画圆
+    const radius = Math.ceil(Math.sqrt(((HEIGHT / 2) ** 2 + (WIDTH / 2) ** 2))); // 半径
+    ctx.beginPath();
+    ctx.arc(WIDTH / 2, HEIGHT / 2, radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+    // 2. 旋转
+    ctx.translate(WIDTH / 2, HEIGHT / 2);
+    ctx.rotate(getDeg(deg));
+    ctx.translate(-WIDTH / 2, -HEIGHT / 2);
+    // 3. 在16宫格的三个点写字
+    const points = [
+      { x: 1 / 8, y: 2 / 4 },
+      { x: 2 / 4, y: 3 / 4 },
+      { x: 7 / 8, y: 2 / 4 }
+    ].map(item => ({ x: item.x * WIDTH, y: item.y * HEIGHT }));
+    ctx.globalAlpha = _options.alpha;
+    ctx.fillStyle = '#000';
+    ctx.font = `${_options.fontSize}px ${_options.fontFamily}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    points.forEach(item => {
+      ctx.fillText(text, item.x, item.y);
+    });
+    return canvas.toDataURL('image/jpeg', 1);
+    // setStyle(canvas.toDataURL('image/jpeg', 1))
+  }
+  function draw3 () {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+// Non-rotated rectangle
+    ctx.fillStyle = 'gray';
+    ctx.fillRect(80, 60, 140, 30);
+
+// Matrix transformation
+    ctx.translate(150, 75);
+    ctx.rotate(Math.PI / 2);
+    ctx.translate(-150, -75);
+
+// Rotated rectangle
+    ctx.fillStyle = 'red';
+    ctx.fillRect(80, 60, 140, 30);
   }
   // 3. print
   function myPrint () {
     document.querySelector('.print-btn').addEventListener('click', () => {
       window.print();
     })
-    // const my_window = window.open('', 'mywindow', 'status=1,width=350,height=150');
-    // my_window.document.write('<html><head><title>Print Me</title></head>');
-    // my_window.document.write('<body onafterprint="self.close()">');
-    // my_window.document.write('<p>When you print this window, it will close afterward.</p>');
-    // my_window.document.write('</body></html>');
   }
   function setStyle (base64) {
     console.log(base64)
@@ -108,11 +187,14 @@
     container.style.backgroundColor = '#fff'
     container.style.backgroundImage = `url(${base64})`
     container.style.backgroundPosition = '0 0'
+    // container.style.backgroundRepeat = 'no-repeat'
   }
   function start () {
     console.log('start')
-    render();
-    draw('陕西联兴科技');
+    // render();
+    // draw('陕西联兴科技');
+    draw2('陕西联兴科技公司');
+    // draw3('sdsf');
     myPrint();
   }
   function getDeg (d) {
