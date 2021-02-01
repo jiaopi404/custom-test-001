@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #app {
+      max-height: 400px;
+      background-color: pink;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+<div id="app">内容</div>
+<button class="btn">点击渲染元素</button>
+<script>
+  window.onload = function () {
+    const app = document.getElementById('app');
+
+    document.querySelector('.btn').addEventListener('click', () => {
+      // renderEle(100000);
+      const renderFunc = render(100000);
+      const setIntervalId = setInterval(() => {
+        const result = renderFunc();
+        result && clearInterval(setIntervalId);
+      }, 16);
+    })
+
+    function renderEle (num, selector) {
+      const _docFrame = document.createDocumentFragment();
+      for (let i = 0; i < num; i++) {
+        const _div = document.createElement('div');
+        _div.innerHTML = (i + '').repeat(10);
+        _docFrame.appendChild(_div);
+      }
+      document.querySelector(selector || '#app').appendChild(_docFrame);
+    }
+    function renderEle2 (num, selector) {
+      const _docFrame = document.createDocumentFragment();
+      for (let i = 0; i < num; i++) {
+        const _div = document.createElement('div');
+        _div.innerHTML = (i + '').repeat(10);
+        _docFrame.appendChild(_div);
+      }
+      document.querySelector(selector || '#app').appendChild(_docFrame);
+    }
+    function render (num, selector) {
+      let count = 0;
+      return function () {
+        const _docFrame = document.createDocumentFragment();
+        let _count = 0;
+        for (;count < num; count++, _count++) {
+          const _div = document.createElement('div');
+          _div.innerHTML = (count + '').repeat(10);
+          _docFrame.appendChild(_div);
+          if (_count === 1000) {
+            break;
+          }
+        }
+        _count !== 0 && document.querySelector(selector || '#app').appendChild(_docFrame);
+        return _count === 0;
+      }
+    }
+  }
+</script>
+</body>
+</html>
