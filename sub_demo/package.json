@@ -1,0 +1,15 @@
+{
+  "name": "sub_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "001_测试找到重复元素.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.20"
+  }
+}
