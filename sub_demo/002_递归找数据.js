@@ -32,3 +32,4 @@ function recursive2 (list, id, result) {
 }
 
 console.log(recursive2(_data, 2, null));
+console.log(recursive2(_data, 2, null)); // daily push
