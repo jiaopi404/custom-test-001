@@ -13,3 +13,4 @@ for (let i = 0; i < total; i++) {
 }
 
 console.log(count / total);
+console.log('daily push')
