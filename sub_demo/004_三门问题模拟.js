@@ -5,7 +5,7 @@ function tripleDoors () { // calculate the result after change the door you choo
 }
 
 let count = 0;
-const total = 10000
+const total = 10000;
 for (let i = 0; i < total; i++) {
     if (tripleDoors()) {
         count++;
