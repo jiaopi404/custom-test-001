@@ -19,5 +19,10 @@ function intersection2 (arr1, arr2) {
   return [...new Set(arr1.filter(item => arr2.indexOf(item) !== -1))];
 }
 
+function intersection3 (arr1, arr2) {
+  return [...new Set(arr1.filter(item => arr2.indexOf(item) !== -1))];
+}
+
 console.log(intersection(firstArray, secondArray));
 console.log(intersection2(firstArray, secondArray));
+console.log(intersection3(firstArray, secondArray));
