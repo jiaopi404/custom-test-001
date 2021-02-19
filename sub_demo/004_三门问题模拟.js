@@ -16,3 +16,4 @@ console.log(count / total);
 console.log('daily push')
 console.log('爱倩倩啦')
 console.log('爱倩倩啦')
+console.log('爱倩倩啦')
