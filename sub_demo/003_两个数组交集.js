@@ -26,3 +26,4 @@ function intersection3 (arr1, arr2) {
 console.log(intersection(firstArray, secondArray));
 console.log(intersection2(firstArray, secondArray));
 console.log(intersection3(firstArray, secondArray));
+console.log('爱倩倩')
