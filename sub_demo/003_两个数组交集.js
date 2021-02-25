@@ -28,3 +28,4 @@ console.log(intersection2(firstArray, secondArray));
 console.log(intersection3(firstArray, secondArray));
 console.log('爱倩倩')
 console.log('爱倩倩')
+console.log('爱倩倩❤️')
