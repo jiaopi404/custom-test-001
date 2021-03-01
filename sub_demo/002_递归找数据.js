@@ -35,3 +35,11 @@ console.log(recursive2(_data, 2, null));
 console.log(recursive2(_data, 2, null)); // daily push
 console.log(recursive2(_data, 2, null)); // daily push
 console.log(recursive2(_data, 2, null)); // daily push
+
+const a = {
+  foo: 1,
+  bar: 2
+}
+
+const b = { ...{foo:1,bar:2} };
+console.log(b);
