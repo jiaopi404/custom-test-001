@@ -43,3 +43,4 @@ const a = {
 
 const b = { ...{foo:1,bar:2} };
 console.log(b);
+console.log(b);
