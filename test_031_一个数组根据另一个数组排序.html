@@ -10,8 +10,8 @@
     const arr1 = [1, 2, 3, 4, 6]
     const arr2 = [6, 4, 7, 1, 3, 5]
 
-    console.info(sortSepcial(arr1, arr2))
-    function sortSepcial (arr1, arr2) {
+    console.info(sortSpecial(arr1, arr2))
+    function sortSpecial (arr1, arr2) { // arr2 根据 arr1 排序
       let arrInArr1 = arr2.filter(item => arr1.indexOf(item) !== -1)
       const arrOutArr2 = arr2.filter(item => arr1.indexOf(item) === -1)
       arrInArr1.sort((a, b) => {
