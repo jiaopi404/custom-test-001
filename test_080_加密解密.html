@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+  <h1>加密 & 解密</h1>
+  <el-row>
+    <el-col :span="4">
+      <el-input size="mini" v-model="formData.toEncrypt" />
+    </el-col>
+    <el-col :span="2">
+      <el-button style="margin-left: 10px;" size="mini" @click="encryptContent">点击加密</el-button>
+    </el-col>
+  </el-row>
+  <el-row style="min-height: 30px; padding: 10px;">
+    <el-col :span="24">{{ showData.encrypted }}</el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="4">
+      <el-input size="mini" v-model="formData.toDecrypt" />
+    </el-col>
+    <el-col :span="2">
+      <el-button style="margin-left: 10px;" size="mini" @click="decryptContent">点击解密</el-button>
+    </el-col>
+  </el-row>
+  <el-row style="min-height: 30px; padding: 10px;">
+    <el-col :span="24">{{ showData.decrypted }}</el-col>
+  </el-row>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/index.min.js"></script>
+<!-- 引入 CDN Crypto.js 开始 AES加密 注意引入顺序 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/enc-base64.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/md5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/evpkdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/cipher-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/aes.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/pad-pkcs7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/mode-ecb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/enc-utf8.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/enc-hex.min.js"></script>
+<!-- 引入 CDN Crypto.js 结束 -->
+<script>
+  const { AES, mode, pad, enc } = window.CryptoJS
+  const key = enc.Utf8.parse('1234567812345678') // 十六位十六进制数作为密钥
+  const iv = enc.Utf8.parse('1234567812345678') // 十六位十六进制数作为密钥偏移量
+  new Vue({
+    el: '#app',
+    data: function() {
+      return {
+        formData: {
+          toEncrypt: '',
+          toDecrypt: ''
+        },
+        showData: {
+          encrypted: '',
+          decrypted: ''
+        }
+      }
+    },
+    mounted () {
+      console.log(window)
+      console.log(crypto)
+    },
+    methods: {
+      encryptContent () {
+        if (!this.formData.toEncrypt) {
+          return
+        }
+        this.showData.encrypted = this.encrypt(this.formData.toEncrypt)
+      },
+      decryptContent () {
+        if (!this.formData.toDecrypt) {
+          return
+        }
+        this.showData.decrypted = this.decrypt(this.formData.toDecrypt)
+      },
+      encrypt (word) {
+        const srcs = enc.Utf8.parse(word);
+        const encrypted = AES.encrypt(srcs, key, {
+          iv,
+          mode: mode.ECB,
+          padding: pad.Pkcs7
+        });
+        return encrypted.ciphertext.toString().toUpperCase();
+      },
+      decrypt (encryptedStr) {
+        const encryptedHexStr = enc.Hex.parse(encryptedStr);
+        const srcs = enc.Base64.stringify(encryptedHexStr);
+        const decrypt = AES.decrypt(srcs, key, {
+          iv,
+          mode: mode.ECB,
+          padding: pad.Pkcs7
+        });
+        const decryptedStr = decrypt.toString(enc.Utf8);
+        return decryptedStr.toString();
+      }
+    }
+  })
+</script>
+</html>
