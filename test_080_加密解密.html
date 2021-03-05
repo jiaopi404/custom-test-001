@@ -51,8 +51,8 @@
 <!-- 引入 CDN Crypto.js 结束 -->
 <script>
   const { AES, mode, pad, enc } = window.CryptoJS
-  const key = enc.Utf8.parse('1234567812345678') // 十六位十六进制数作为密钥
-  const iv = enc.Utf8.parse('1234567812345678') // 十六位十六进制数作为密钥偏移量
+  const key = enc.Utf8.parse('ABCD23456781ABCD') // 十六位十六进制数作为密钥
+  const iv = enc.Utf8.parse('ABCD23456781ABCD') // 十六位十六进制数作为密钥偏移量
   new Vue({
     el: '#app',
     data: function() {
