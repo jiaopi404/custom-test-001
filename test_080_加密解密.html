@@ -53,7 +53,7 @@
   const { AES, mode, pad, enc } = window.CryptoJS
   const key = enc.Utf8.parse('ABCD23456781ABCD') // 十六位十六进制数作为密钥
   const iv = enc.Utf8.parse('ABCD23456781ABCD') // 十六位十六进制数作为密钥偏移量
-  new Vue({
+  const vm = new Vue({
     el: '#app',
     data: function() {
       return {
@@ -94,6 +94,10 @@
         return encrypted.ciphertext.toString().toUpperCase();
       },
       decrypt (encryptedStr) {
+        if (!encryptedStr || typeof encryptedStr !== 'string') {
+          console.log('解密 falsy', encryptedStr)
+          return '';
+        }
         const encryptedHexStr = enc.Hex.parse(encryptedStr);
         const srcs = enc.Base64.stringify(encryptedHexStr);
         const decrypt = AES.decrypt(srcs, key, {
