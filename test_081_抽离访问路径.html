@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<h1>test</h1>
+<button id="btn">点击</button>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  const str = 'http://192.168.110.99:9090/pmis/3/baseInfoFile/b3f1904fd1c54a7e9fee43867a72bcec.docx'
+  const arr = str.split('/')
+  console.log(arr.splice(3).join('/'))
+
+  // 跨域请求图片
+  const btn = document.getElementById('btn')
+  btn.addEventListener('click', () => {
+    // $.ajax({
+    //   url: 'http://47.108.156.216:8088/4000.png',
+    //   type: 'get',
+    //   dataType: 'jsonp',
+    //   success: data => {
+    //     console.log('success', data)
+    //   },
+    //   fail: err => {
+    //     console.log('err', err)
+    //   }
+    // })
+    const script = document.createElement('script')
+    script.src = 'http://47.108.156.216:8088/data.json?cb=callback'
+    document.body.appendChild(script)
+  })
+
+  function callback (data) {
+    debugger
+    console.log('data is: ', data)
+  }
+</script>
+</body>
+</html>
