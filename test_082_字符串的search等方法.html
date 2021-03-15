@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  /**
+   * Number str.search(String | RegExp)
+   * String str.replace(String | RegExp, String)
+   * Array str.match(String | RegExp)
+   * Iterable str.matchAll(RegExp) // RegExp with g flag
+   * Array<String> str.split(String | RegExp)
+   */
+  const str = 'hello world good for u 1 2 3'
+  // 1.1 传入字符串
+  console.log(str.search('world'))
+  // 1.2 传入正则
+  console.log(str.search(/good/))
+  // 3.1 传入字符串
+  console.log(str.match('ld'))
+  // 3.2 传入正则
+  console.log(str.match(/l/g)) // ["l", "l", "l"]
+  console.log(str.match(/\d+/g)) // ["1", "2", "3"]
+  console.log(str.match(/l/)) // 同字符串的结果集, Array
+  // 4.1 matchAll 需要传入的正则带 g flag
+  const iter = str.matchAll(/l/g)
+  let tmp = iter.next()
+  while (!tmp.done) {
+    console.log(tmp.value)
+    tmp = iter.next()
+  }
+</script>
+</body>
+</html>
