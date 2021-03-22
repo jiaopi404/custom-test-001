@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>测试focus 和 blur 事件</h1>
+<button id="blur">blur</button>
+<button id="focus">focus</button>
+<button id="alert">show popup</button>
+
+<script>
+  // event handler blur
+  window.onblur = function (event) {
+    console.log('window blur: ', event)
+  }
+  // event handler focus
+  window.onfocus = function (event) {
+    console.log('window focus: ', event)
+  }
+  // add event handler to btn
+  document.getElementById('blur').addEventListener('click', function (event) {
+    console.log('btn blur clicked')
+    window.blur()
+  })
+  document.getElementById('focus').addEventListener('click', function (event) {
+    console.log('btn focus clicked')
+    window.blur()
+  })
+  document.getElementById('alert').addEventListener('click', function (event) {
+    console.log('btn focus clicked')
+    window.alert('show alert')
+  })
+  /**
+   * 测试结论:
+   * 窗口获得焦点时, 会触发 focus 事件;
+   * 窗口失去焦点时, 会触发 blur 事件;
+   *
+   * window.alert() 事件会将 window 的所有监听/任务(猜测, 未测试)挂起, 点击 alert 的确认之后会先后触发 blur & focus
+   */
+</script>
+</body>
+</html>
