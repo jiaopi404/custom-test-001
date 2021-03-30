@@ -66,11 +66,11 @@
     // console.log('tree is: ', tree)
     // const list = getTreeRecursive(data[0], [], '')
     // console.log('list is: ', list, JSON.stringify(list))
-    const list2 = getListRecursiveV2(data, [], '')
-    console.log('list2 is: ', list2, JSON.stringify(list2))
-
-    const _tree = reTree(list)
-    console.log('_tree is: ', _tree)
+    // const list2 = getListRecursiveV2(data, [], '')
+    // console.log('list2 is: ', list2, JSON.stringify(list2))
+    //
+    // const _tree = reTree(list)
+    // console.log('_tree is: ', _tree)
 
     function getTreeRecursive (root, result, parentId) {
       if (Object.prototype.hasOwnProperty.call(root, 'children')) {
@@ -94,6 +94,64 @@
       }
       return result
     }
+
+    /**
+     * 树数据遍历方法
+     */
+    function treeForEach (data, fn, level) {
+      if (typeof level === 'undefined') {
+        level = 0
+      }
+      data.forEach((item, index) => {
+        fn(item, index, level)
+        if (item.children && item.children.length) {
+          treeForEach(item.children, fn, level + 1)
+        }
+      })
+    }
+    console.log('data is: ', data)
+    treeForEach(data, (item, index, level) => {
+      console.log('我要打印各个级别的 catalog_name: ', item.catalog_name, index, level)
+    })
+
+    /**
+     * 树转扁平方法
+     * @param data
+     * @param fn
+     * @return {[]}
+     */
+    function treeFlat (data, fn) {
+      const result = []
+      data.forEach(item => {
+        result.push(fn(item))
+        if (item.children && item.children.length) {
+          result.push(...treeFlat(item.children, fn))
+        }
+      })
+      return result
+    }
+    console.log('tree node id flat: ', treeFlat(data, item => item.id))
+    /**
+     * 树找到某个节点方法
+     * @param data
+     * @param fn
+     * @return {any|number}
+     */
+    function treeFind (data, fn) { // treeFind 方法找到某个节点
+      for (const item of data) {
+        if (fn(item)) { // 找到, 返回节点
+          return item
+        }
+        if (item.children && item.children.length) {
+          const tmpResult = treeFind(item.children, fn)
+          if (tmpResult) {
+            return tmpResult
+          }
+        }
+      }
+      return null
+    }
+    console.log('tree find 方法', treeFind(data, item => item.id === 1597228173244))
   </script>
 </body>
 </html>
