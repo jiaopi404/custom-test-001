@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const itemLevel2 = {
+    "id": 6939,
+    "performanceStandard": {
+      "id": 154,
+      "name": "资金管理",
+      "score": 0,
+      "indicatorsDesc": null,
+      "addDateTime": 1617001582000,
+      "standard": null,
+      "ifDelete": 0,
+      "indicatorsValue": null
+    },
+    "parentProStandardId": 6938,
+    "children": [
+      {
+        "id": 6956,
+        "performanceStandard": {
+          "id": 155,
+          "name": "监督检查",
+          "score": 0,
+          "indicatorsDesc": null,
+          "addDateTime": 1617001582000,
+          "standard": null,
+          "ifDelete": 0,
+          "indicatorsValue": ""
+        },
+        "parentProStandardId": 6939,
+        "children": [],
+        "name": "监督检查",
+        "score": 0,
+        "indicatorsDesc": "3",
+        "standard": null,
+        "indicatorsValue": "12",
+        "ifDelete": 0,
+        "content": null,
+        "ifNecessary": 0,
+        "ifProPerformanceStandard": 1,
+        "nameSecond": null,
+        "indicatorsValueSecond": null,
+        "indicatorsDescSecond": null,
+        "isLeaf": true
+      },
+      {
+        "id": 6957,
+        "performanceStandard": {
+          "id": 156,
+          "name": "信息公开",
+          "score": 0,
+          "indicatorsDesc": null,
+          "addDateTime": 1617001583000,
+          "standard": null,
+          "ifDelete": 0,
+          "indicatorsValue": ""
+        },
+        "parentProStandardId": 6939,
+        "children": [],
+        "name": "信息公开",
+        "score": 0,
+        "indicatorsDesc": "434",
+        "standard": null,
+        "indicatorsValue": "12",
+        "ifDelete": 0,
+        "content": null,
+        "ifNecessary": 0,
+        "ifProPerformanceStandard": 1,
+        "nameSecond": null,
+        "indicatorsValueSecond": null,
+        "indicatorsDescSecond": null,
+        "isLeaf": true
+      },
+      {
+        "id": 6958,
+        "performanceStandard": {
+          "id": 157,
+          "name": "资金使用",
+          "score": 0,
+          "indicatorsDesc": null,
+          "addDateTime": 1617001583000,
+          "standard": null,
+          "ifDelete": 0,
+          "indicatorsValue": ""
+        },
+        "parentProStandardId": 6939,
+        "children": [],
+        "name": "资金使用",
+        "score": 0,
+        "indicatorsDesc": "只有指标内容",
+        "standard": null,
+        "indicatorsValue": "",
+        "ifDelete": 0,
+        "content": null,
+        "ifNecessary": 0,
+        "ifProPerformanceStandard": 1,
+        "nameSecond": null,
+        "indicatorsValueSecond": null,
+        "indicatorsDescSecond": null,
+        "isLeaf": true
+      }
+    ],
+    "name": "资金管理",
+    "score": 0,
+    "indicatorsDesc": null,
+    "standard": null,
+    "indicatorsValue": null,
+    "ifDelete": 0,
+    "content": null,
+    "ifNecessary": 0,
+    "ifProPerformanceStandard": 1,
+    "nameSecond": null,
+    "indicatorsValueSecond": null,
+    "indicatorsDescSecond": null,
+    "isLeaf": true
+  }
+  console.log(itemLevel2)
+  const result = itemLevel2.children.some(itemLevel3 => itemLevel3.indicatorsValue || itemLevel3.indicatorsValueSecond)
+  console.log(result)
+</script>
+</body>
+</html>
