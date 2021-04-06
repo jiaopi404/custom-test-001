@@ -36,18 +36,20 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/index.min.js"></script>
+<!--<script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/index.min.js"></script>-->
 <!-- 引入 CDN Crypto.js 开始 AES加密 注意引入顺序 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/enc-base64.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/md5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/evpkdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/cipher-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/aes.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/pad-pkcs7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/mode-ecb.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/enc-utf8.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/enc-hex.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>-->
+<script src="./crypto-js/index.js"></script>
+<script src="./crypto-js/core.js"></script>
+<script src="./crypto-js/enc-base64.js"></script>
+<script src="./crypto-js/md5.js"></script>
+<script src="./crypto-js/evpkdf.js"></script>
+<script src="./crypto-js/cipher-core.js"></script>
+<script src="./crypto-js/aes.js"></script>
+<script src="./crypto-js/pad-pkcs7.js"></script>
+<script src="./crypto-js/mode-ecb.js"></script>
+<script src="./crypto-js/enc-utf8.js"></script>
+<script src="./crypto-js/enc-hex.js"></script>
 <!-- 引入 CDN Crypto.js 结束 -->
 <script>
   const { AES, mode, pad, enc } = window.CryptoJS
@@ -95,7 +97,6 @@
       },
       decrypt (encryptedStr) {
         if (!encryptedStr || typeof encryptedStr !== 'string') {
-          console.log('解密 falsy', encryptedStr)
           return '';
         }
         const encryptedHexStr = enc.Hex.parse(encryptedStr);
@@ -110,6 +111,5 @@
       }
     }
   })
-  console.log('爱倩倩')
 </script>
 </html>
