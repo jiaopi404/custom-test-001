@@ -152,6 +152,157 @@
       return null
     }
     console.log('tree find 方法', treeFind(data, item => item.id === 1597228173244))
+    function treeFilter (data, fn) {
+      return data.filter(item => {
+        if (item.children && item.children.length) {
+          item.children = treeFilter(item.children, fn)
+        }
+        return fn(item)
+      })
+    }
+
+    const data2 = [
+      {
+        "id": 2,
+        "name": "基本1",
+        "code": "352",
+        "type": 0,
+        "fundsType": 0,
+        "fundsCategory": null,
+        "fundsFiscalCategory": null,
+        "parent": null,
+        "relevantDep": null,
+        "relevantUser": null,
+        "ifQuota": 1,
+        "ifOther": 0,
+        "ifShowKpi": 0,
+        "ifPossessKpi": 0,
+        "flowId": null,
+        "remark": "",
+        "controlLimitStart": 0,
+        "controlLimitEnd": 0,
+        "addUser": null,
+        "addDateTime": 1617193288000,
+        "upDateDateTime": 1617345659000,
+        "useMark": 1,
+        "ifDelete": 0,
+        "parentId": null,
+        "children": [
+          {
+            "id": 5,
+            "name": "基本1-1",
+            "code": "52144",
+            "type": 0,
+            "fundsType": 0,
+            "fundsCategory": null,
+            "fundsFiscalCategory": null,
+            "parent": null,
+            "relevantDep": null,
+            "relevantUser": null,
+            "ifQuota": 0,
+            "ifOther": 0,
+            "ifShowKpi": 1,
+            "ifPossessKpi": 0,
+            "flowId": null,
+            "remark": "8976512456123156",
+            "controlLimitStart": 0,
+            "controlLimitEnd": 0,
+            "addUser": null,
+            "addDateTime": 1617345282000,
+            "upDateDateTime": 1617345321000,
+            "useMark": 1,
+            "ifDelete": 0,
+            "parentId": 2,
+            "isDisabled": false
+          },
+          {
+            "id": 6,
+            "name": "基本1-2",
+            "code": "875621",
+            "type": 0,
+            "fundsType": 0,
+            "fundsCategory": null,
+            "fundsFiscalCategory": null,
+            "parent": null,
+            "relevantDep": null,
+            "relevantUser": null,
+            "ifQuota": 0,
+            "ifOther": 0,
+            "ifShowKpi": 1,
+            "ifPossessKpi": 0,
+            "flowId": null,
+            "remark": "fthhghtdhffdfg",
+            "controlLimitStart": 0,
+            "controlLimitEnd": 0,
+            "addUser": null,
+            "addDateTime": 1617345346000,
+            "upDateDateTime": 1617345659000,
+            "useMark": 1,
+            "ifDelete": 0,
+            "parentId": 2,
+            "isDisabled": false
+          }
+        ],
+        "isDisabled": false
+      },
+      {
+        "id": 3,
+        "name": "重心下移1",
+        "code": "a",
+        "type": 0,
+        "fundsType": 0,
+        "fundsCategory": null,
+        "fundsFiscalCategory": null,
+        "parent": null,
+        "relevantDep": null,
+        "relevantUser": null,
+        "ifQuota": 0,
+        "ifOther": 0,
+        "ifShowKpi": 1,
+        "ifPossessKpi": 0,
+        "flowId": null,
+        "remark": "45256563",
+        "controlLimitStart": 0,
+        "controlLimitEnd": 0,
+        "addUser": null,
+        "addDateTime": 1617193288000,
+        "upDateDateTime": 1617240073000,
+        "useMark": 1,
+        "ifDelete": 0,
+        "parentId": null,
+        "children": [
+          {
+            "id": 4,
+            "name": "重心下移1-1",
+            "code": "0012",
+            "type": 0,
+            "fundsType": 0,
+            "fundsCategory": null,
+            "fundsFiscalCategory": null,
+            "parent": null,
+            "relevantDep": null,
+            "relevantUser": null,
+            "ifQuota": 0,
+            "ifOther": 0,
+            "ifShowKpi": 1,
+            "ifPossessKpi": 0,
+            "flowId": null,
+            "remark": "这是个重心下移二级",
+            "controlLimitStart": 50,
+            "controlLimitEnd": 90,
+            "addUser": null,
+            "addDateTime": 1617243000000,
+            "upDateDateTime": null,
+            "useMark": 1,
+            "ifDelete": 0,
+            "parentId": 3,
+            "isDisabled": false
+          }
+        ],
+        "isDisabled": false
+      }
+    ]
+    console.log('tree filter 方法', treeFilter(data2, item => item.id !== 5))
   </script>
 </body>
 </html>
