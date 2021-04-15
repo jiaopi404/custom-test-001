@@ -12,6 +12,7 @@
   // alert(str);
   // 转千分位 通用函数
   function toThousand (num, fractionDigits) {
+    fractionDigits = fractionDigits || 0
     if (typeof num !== 'number') {
       num = Number(num)
     }
@@ -24,7 +25,7 @@
     int = int.replace(pattern, ',')
     // 处理小数
     decimal = Number('0.' + decimal).toFixed(fractionDigits)
-    return int + '.' + decimal.split('.')[1]
+    return decimal === '0' ? int : (int + '.' + decimal.split('.')[1])
   }
 
   function number_chinese(money) {
