@@ -147,6 +147,34 @@
     }
   }
   console.log('window is: ', window)
+  const obj2 = {
+    /**
+     * 树 组合字段 通用方法; 注! 会修改原数组
+     * @param data 树数据
+     * @param paramArr 默认 [code, name]
+     * @param template 默认 '$1 - $2'
+     * @param resultField 默认 name
+     */
+    combineCodeAndNameForTreeItem (data, paramArr, template, resultField) {
+      if (!paramArr) {
+        paramArr = ['code', 'name']
+      }
+      if (!template) {
+        template = '$1 - $2'
+      }
+      if (!resultField) {
+        resultField = 'name'
+      }
+      this.treeForEach(data, item => {
+        const valueArr = paramArr.map(param => item[param])
+        const content = valueArr.reduce((prev, value, index) => {
+          return prev.replace(new RegExp('\\$' + (index + 1)), value)
+        }, template)
+        item[resultField] = content
+      })
+      return data
+    }
+  }
 </script>
 </body>
 </html>
