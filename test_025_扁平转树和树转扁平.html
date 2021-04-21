@@ -302,7 +302,23 @@
         "isDisabled": false
       }
     ]
-    console.log('tree filter 方法', treeFilter(data2, item => item.id !== 5))
+    // console.log('tree filter 方法', treeFilter(data2, item => item.id !== 5))
+    function treeReduce (data, fn, prev) {
+      data.forEach((item, index) => {
+        prev = fn(prev, item, index)
+        if (item.children && item.children.length) {
+          prev = treeReduce(item.children, fn, prev)
+        }
+      })
+      return prev
+    }
+    console.log('tree reduce: ', treeReduce(data2, (prev, item, index) => {
+      if (item.id === 5) {
+        return prev
+      } else {
+        return prev + item.id
+      }
+    }, ''))
   </script>
 </body>
 </html>
