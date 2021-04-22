@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #a {font-size:12px}
+        div p{ font-size:13px } /* 最终字体样式以此为准；继承来的样式，权重低 */
+        div .c{ font-size:14px }
+        .a .b .c{ font-size:15px }
+        #b{ font-size:16px }
+    </style>
+</head>
+<body>
+<!--1. 字体样式问题-->
+<div id="a" class="a">
+    <div id="b" class="b">
+        <p id="c" class="c">I’am here</p>
+    </div>
+</div>
+</body>
+</html>
