@@ -7,16 +7,26 @@
         .para {
             /** 依次
             font-style
-            font-variant(设置小型大写字母的字体显示文本 normal small-caps inherit)
+            font-variant(
+                设置小型大写字母的字体显示文本 normal small-caps inherit;
+                更像是一种格式化，将所有字母变为大写，之后根据原本的大小写改变字体大小，印刷体常用
+            )
             font-weight
             font-size / line-height
             font-family
             **/
             font: italic small-caps bold 14px SansSerif;
+            /**
+            控制文本的大小写
+            uppercase 全大写
+            lowercase 全小写
+            capitalize 首字母大写
+             */
+            /*text-transform: uppercase;*/
         }
     </style>
 </head>
 <body>
-<p class="para">Speak of this, 我是一个段落，我在这里什么都不是，你看看我; I can't tell this.</p>
+<p class="para">Speak Of this, 我是一个段落，我在这里什么都不是，你看看我; I can't tell this.</p>
 </body>
 </html>
