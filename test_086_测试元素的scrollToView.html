@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .container {
+      border: 2px solid #ff3040;
+      height: 300px;
+      width: 500px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin: 10px;
+    }
+    .box {
+      height: 100px;
+      width: 300px;
+      margin: 20px;
+      background-color: pink;
+    }
+    .nested-box {
+      margin-top: 40px;
+      height: 20px;
+      width: 100px;
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+<div class="form">
+  <input id="input" type="text">
+  <button id="btn">滚</button>
+  <button id="some-btn">0</button>
+</div>
+<div class="container">
+  <div class="box">1</div>
+  <div class="box">2</div>
+  <div class="box">3</div>
+  <div class="box">4</div>
+  <div class="box">5</div>
+  <div class="box">6</div>
+  <div class="box">7</div>
+  <div class="box" style="padding-top: 40px;">
+    <div class="nested-box">8</div>
+  </div>
+  <div class="box">9</div>
+  <div class="box">10</div>
+  <div class="box">11</div>
+  <div class="box">12</div>
+  <div class="box">13</div>
+  <div class="box">14</div>
+  <div class="box">15</div>
+  <div class="sub-box" style="padding: 20px 0; border: 1px solid #003344;">
+    <div class="box">16</div>
+  </div>
+  <div class="box">17</div>
+  <div class="box">18</div>
+  <div class="box">19</div>
+</div>
+<script>
+  const btn = document.querySelector('#btn')
+  const input = document.querySelector('#input')
+  btn.addEventListener('click', () => {
+    const inputValue = input.value // 序号
+    const boxes = document.querySelectorAll('.box')
+    boxes[inputValue] && boxes[inputValue].scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest'
+    })
+  })
+  const nestedBox = document.querySelector('.nested-box')
+
+  const container = document.querySelector('.container')
+  container.addEventListener('scroll', throttle(event => {
+    // console.log('event is: ', event)
+    const _container = event.target
+    const _scrollTop = _container.scrollTop
+    console.log('_scrollTop is: ', _scrollTop)
+    const indexNum = calcEle(_scrollTop)
+    document.querySelector('#some-btn').innerHTML = indexNum
+  }, 1000))
+  function calcEle (scrollTop) {
+    const boxes = document.querySelectorAll('.box')
+    for (let i = 0; i < boxes.length; i++) {
+      const box = boxes[i]
+      if (box.offsetTop > scrollTop) {
+        return i + 1
+      }
+    }
+  }
+
+  function debounce (fn, timeSpan) {
+    let timer = null
+    return function () {
+      timer && clearTimeout(timer)
+      timer = setTimeout(() => {
+        fn.call(this, ...arguments)
+      }, timeSpan)
+    }
+  }
+  function throttle (fn, timeSpan) {
+    let timer = null
+    return function () {
+      if (timer) {
+        return
+      }
+      fn.call(this, ...arguments)
+      timer = setTimeout(() => {
+        timer = null
+      }, timeSpan)
+    }
+  }
+
+  function getOffsetTop (ele1, ele2, offsetTop) {
+    if (ele2.parentNode === ele1) {
+      offsetTop = ele2.offsetTop
+      return offsetTop
+    } else {
+      return getOffsetTop(ele1, ele2.parentNode, offsetTop)
+    }
+  }
+
+  console.log('result is: ', getOffsetTop(container, nestedBox, 0))
+</script>
+</body>
+</html>
