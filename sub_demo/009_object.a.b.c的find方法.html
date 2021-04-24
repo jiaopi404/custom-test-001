@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const obj = {
+        a: {
+            b: {
+                c: 1,
+                d: 2
+            }
+        },
+        b: {
+            a: [11, 22, 33]
+        }
+    }
+
+    /**
+     * 递归方法
+     * @param obj 对象
+     * @param str
+     * @returns {*}
+     */
+    function find (obj, str) {
+        const strArr = str.split('.')
+        if (strArr.length > 1) {
+            return find(obj[strArr[0]], strArr.slice(1).join('.'))
+        } else {
+            return obj[strArr[0]]
+        }
+    }
+
+    console.log(find(obj, 'a.b.c'))
+    console.log(find(obj, 'b.a.2'))
+</script>
+</body>
+</html>
