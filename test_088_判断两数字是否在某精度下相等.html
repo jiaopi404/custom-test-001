@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  /**
+   * 判断两个数字是否在误差范围内相等
+   * @param num1
+   * @param num2
+   * @param precision 精度， 10^-precision
+   * @return {boolean}
+   */
+  function ifNumberEqual (num1, num2, precision = 6) {
+    console.log(Math.abs(num1 - num2))
+    console.log(Math.pow(10, -1 * 6))
+    return Math.abs(num1 - num2) < Math.pow(10, -1 * precision)
+  }
+  console.log(ifNumberEqual(0.0001, 0.000011, 2))
+</script>
+</body>
+</html>
