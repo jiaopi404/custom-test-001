@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+  <el-button type="primary" @click="generateBtnClickHandler">生成</el-button>
+  <el-card title="result">
+    <el-input type="textarea" :autosize="true" v-model="result"></el-input>
+  </el-card>
+</div>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js"></script>
+<script>
+  const templateData = {
+    className: 'sub-project-list', // 模块类名
+    addName: '添加项目', // 添加按钮名称
+    formData: [
+      { prop: 'someProp', label: '某属性' },
+      { prop: 'someProp2', label: '某属性2' },
+      { prop: 'someProp3', label: '某属性3' },
+    ]
+  }
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      result: ''
+    },
+    methods: {
+      generateBtnClickHandler () {
+        this.result = this.codeGenerate(templateData)
+      },
+      codeGenerate (tpl) {
+        // ======================== [template] ===============================
+        let tableColumns = ''
+        for (const value of tpl.formData) {
+          tableColumns += `
+        <el-table-column
+          width="200"
+        >
+          <template slot="header">
+            <span>${value.label}</span>
+            <el-tooltip placement="top" content="${value.label}说明">
+              <i class="el-icon el-color--warning el-icon-warning-outline"></i>
+            </el-tooltip>
+          </template>
+          <template slot-scope="{ row }">
+            <el-form-item v-if="row.id === currentId" prop="${value.prop}">
+              <!-- TODO: 控件绑定属性: formData.${value.prop} -->
+            </el-form-item>
+            <span v-else>{{ row.${value.prop} }}</span>
+          </template>
+        </el-table-column>
+`
+        }
+        let template = `
+<template>
+  <div class="${tpl.className}">
+    <basic-summary>
+      <div class="${tpl.className}__summary-box">
+        <span>总计：{{ total.totalBudgetAmount | number(6) }} 金额大写：{{ total.totalBudgetAmount | n2c }}</span>
+        <span class="el-color--primary">单位：万元</span>
+      </div>
+    </basic-summary>
+    <basic-add-btn add-name="${tpl.addName}" @click="addRowInline('')" />
+    <el-form
+      :model="formData"
+      :rules="formRules"
+      ref="tableForm"
+      label-width="0px"
+      size="mini"
+    >
+      <el-table
+        :data="tableData"
+        :stripe="false"
+        @row-dblclick="rowDblClickHandler"
+        style="width: 100%"
+      >
+        <el-table-column
+          fixed="left"
+          type="index"
+          label="序号"
+          width="80"
+        >
+        </el-table-column>
+${tableColumns}
+        <el-table-column
+          fixed="right"
+          width="120"
+          label="操作"
+        >
+          <template slot-scope="{ row }">
+            <template v-if="row.id === currentId">
+              <el-tooltip placement="top" content="保存">
+                <el-button type="text" @click="saveRow(row)">
+                  保存
+                </el-button>
+              </el-tooltip>
+              <el-tooltip placement="top" content="取消">
+                <el-button type="text" @click="cancelOperate(row)">
+                  取消
+                </el-button>
+              </el-tooltip>
+            </template>
+            <template v-else>
+              <el-tooltip placement="top" content="编辑">
+                <el-button type="text" @click="editRow(row)">
+                  <i class="iconfont iconfont-24 iconbianji"></i>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip placement="top" content="删除">
+                <el-button type="text" @click="delRow(row)">
+                  <i class="iconfont iconfont-24 iconshanchu el-color--danger"></i>
+                </el-button>
+              </el-tooltip>
+            </template>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-form>
+    <basic-paginator ref="basicPaginator" @page-change="pageChangeHandler"></basic-paginator>
+  </div>
+</template>
+`
+        // ======================== [script] ===============================
+        let formDataTpl = ''
+        for (const value of tpl.formData) {
+          formDataTpl += `
+        ${value.prop}: '', // ${value.label}`
+        }
+        let script = `
+// components
+import BasicSummary from '@/components/basic/basic-summary'
+import BasicAddBtn from '@/components/basic/basic-add-btn'
+import BasicPaginator from '@/components/basic/basic-paginator'
+// mixins
+import $util from '@/utils/util'
+const FORM_NAME = 'tableForm'
+const PAGINATOR = 'basicPaginator'
+export default {
+  components: {
+    BasicSummary,
+    BasicAddBtn,
+    BasicPaginator
+  },
+  data () {
+    return {
+      tableData: [], // 清单数据
+      formData: { // 表单数据${formDataTpl}
+      },
+      formRules: {},
+      formOptions: {},
+      currentId: null, // null 未编辑， -999 新增， 其他编辑
+      subProData: null, // 当前编辑的项目
+      tmpTableData: [], // 暂存添加项目时溢出的表格数据
+      page: {
+        pageNum: 1,
+        pageSize: 10
+      },
+      total: {
+        totalBudgetAmount: 0
+      }
+    }
+  },
+  methods: {
+    // ======================== [初始化] ===============================
+    init () {
+      // 初始化表单
+      this.$refs[FORM_NAME] && this.$refs[FORM_NAME].resetFields()
+      this.$nextTick(() => {
+        // 初始化 currentId
+        this.currentId = null
+        this.subProData = null
+        // tableData
+        this.tableData = []
+        // 置空 tmpTableData
+        this.tmpTableData = []
+        // 置空分页
+        this.page = { pageNum: 1, pageSize: 10 }
+        this.$refs[PAGINATOR].updatePage(this.page)
+        // 获取数据
+        this.getPageList()
+      })
+    },
+    // ======================== [获取列表数据] ===============================
+    getPageList () {
+      // TODO: 获取数据
+    },
+    // ======================== [添加 or 编辑] ===============================
+    /**
+     * 添加 or 编辑
+     * @param row
+     */
+    addRowInline (row) {
+      if (this.currentId) { // 已在编辑状态，禁止
+        return
+      }
+      if (!row) { // 新增
+        this.currentId = -999
+        const _row = JSON.parse(JSON.stringify(this.formData)) // TODO: 处理表单到数据，formData -> row
+        _row.id = -999
+        // 判断当前 tableData 是否已经满
+        if (this.tableData.length === this.page.pageSize) {
+          this.tmpTableData.push(this.tableData.pop())
+        }
+        this.tableData.unshift(_row)
+      } else { // 编辑
+        this.currentId = row.id
+        this.$nextTick(() => {
+          // TODO: 处理数据到表单，row -> formData
+        })
+      }
+      // TODO: 初始化表单选择项
+      // this.initFormOptions()
+    },
+    // ======================== [列表操作列] ===============================
+    /**
+     * 弹窗编辑
+     * @param row
+     */
+    editRow (row) {
+      // console.log('编辑 row is: ', row)
+    },
+    /**
+     * 删除项目
+     */
+    delRow (row) {},
+    /**
+     * 保存项目
+     */
+    async saveRow (row) {
+      try {
+        await this.$refs[FORM_NAME].validate()
+        // 区分新增 保存
+        let _row = this.savePrevProcessor()
+        // TODO: 调取接口
+        // const res = await xxApi.saveRow(_row)
+        this.$message.success(this.$constants.SAVE_SUCCESS)
+        this.init()
+      } catch (err) {
+        console.log('Error: Method [saveRow]', err)
+        if (err.msg || err.message) {
+          this.$message.error(err.msg || err.message)
+        }
+      }
+    },
+    /**
+     * 取消操作
+     */
+    cancelOperate () {
+      if (this.currentId === -999) { // 新增时
+        const _index = this.tableData.find(item => item.id === this.currentId)
+        this.tableData.splice(_index, 1)
+        this.tableData.push(...this.tmpTableData)
+        this.tmpTableData = []
+        this.currentId = null
+      } else { // 编辑时
+        this.$refs[FORM_NAME].resetFields() // 重置表单
+        this.$nextTick(() => {
+          this.currentId = null
+          this.subProData = null
+        })
+      }
+    },
+    /**
+     * 行双击进入编辑状态
+     * @param row
+     * @param column
+     * @param event
+     */
+    rowDblClickHandler (row, column, event) {
+      this.subProData = row
+      this.addRowInline(row)
+    },
+    // ======================== [分页] ===============================
+    /**
+     * page change 的 handler
+     * @param pageNum
+     * @param pageSize
+     */
+    pageChangeHandler({ pageNum, pageSize }) {
+      this.page = { pageNum, pageSize };
+      // TODO: 获取数据
+      this.getPageList(this.proData.id)
+    },
+    // ======================== [前处理] ===============================
+    savePrevProcessor () {
+      let _row = JSON.parse(JSON.stringify(this.formData))
+      if (this.currentId === -999) { // 新增
+        _row.id = null
+      } else {
+        _row.id = this.currentId
+      }
+      // TODO 处理 其他数据
+      return _row
+    }
+  }
+}
+
+`
+        // ======================== [ style ] ===============================
+        let style = `
+// 不要 scope
+.${tpl.className} {
+  .${tpl.className}__summary-box {
+    display: flex;
+    justify-content: space-between;
+  }
+  .el-form-item {
+    margin-bottom: 0;
+  }
+  .el-icon-warning-outline {
+    margin-left: 3px;
+  }
+}
+`
+        return template + script + style
+      }
+    }
+  })
+</script>
+</body>
+</html>
