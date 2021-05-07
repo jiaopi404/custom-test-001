@@ -18,12 +18,24 @@
 <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js"></script>
 <script>
   const templateData = {
-    className: 'sub-project-list', // 模块类名
-    addName: '添加项目', // 添加按钮名称
+    className: 'sub-project-specify', // 模块类名
+    addName: '添加细化项目', // 添加按钮名称
     formData: [
-      { prop: 'someProp', label: '某属性' },
-      { prop: 'someProp2', label: '某属性2' },
-      { prop: 'someProp3', label: '某属性3' },
+      /**
+       proName: '', // 项目名称
+       projectCategory: { id: null }, // 项目类别
+       budgetAmount: 0, // 预算金额
+       ifIncDistribution: 0, // 是否收入分配 1 是 0 否
+       ifSpecify: 0, // 是否预算细化
+       depIncome: 0, // 部门所得金额
+       schoolIncome: 0, // 学校所得金额
+       distribution: '', // 收入分配依据
+       calculationBasisOfFunds: '', // 经费测算依据
+       */
+      { prop: 'proName', label: '项目名称' },
+      { prop: 'proNumber', label: '项目编号' },
+      { prop: 'budgetAmount', label: '预算金额' },
+      { prop: 'projectSummary', label: '项目建设摘要' }
     ]
   }
   const vm = new Vue({
@@ -64,7 +76,7 @@
     <basic-summary>
       <div class="${tpl.className}__summary-box">
         <span>总计：{{ total.totalBudgetAmount | number(6) }} 金额大写：{{ total.totalBudgetAmount | n2c }}</span>
-        <span class="el-color--primary">单位：万元</span>
+        <span class="el-color--danger">单位：万元</span>
       </div>
     </basic-summary>
     <basic-add-btn add-name="${tpl.addName}" @click="addRowInline('')" />
@@ -98,12 +110,12 @@ ${tableColumns}
             <template v-if="row.id === currentId">
               <el-tooltip placement="top" content="保存">
                 <el-button type="text" @click="saveRow(row)">
-                  保存
+                  <i class="el-icon el-icon__operate el-icon-circle-check el-color--primary"></i>
                 </el-button>
               </el-tooltip>
               <el-tooltip placement="top" content="取消">
                 <el-button type="text" @click="cancelOperate(row)">
-                  取消
+                  <i class="el-icon el-icon__operate el-icon-circle-close el-color--info"></i>
                 </el-button>
               </el-tooltip>
             </template>
@@ -316,6 +328,12 @@ export default {
   }
   .el-icon-warning-outline {
     margin-left: 3px;
+  }
+  .el-button {
+    padding: 0;
+  }
+  .el-icon__operate {
+    font-size: 20px;
   }
 }
 `
