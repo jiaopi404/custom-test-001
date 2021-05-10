@@ -18,8 +18,8 @@
 <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js"></script>
 <script>
   const templateData = {
-    className: 'sub-project-specify', // 模块类名
-    addName: '添加细化项目', // 添加按钮名称
+    className: 'project-asset-allocation', // 模块类名
+    addName: '添加资产配置', // 添加按钮名称
     formData: [
       /**
        proName: '', // 项目名称
@@ -31,11 +31,27 @@
        schoolIncome: 0, // 学校所得金额
        distribution: '', // 收入分配依据
        calculationBasisOfFunds: '', // 经费测算依据
+       id: null,
+       name: "", // 名称
+       purchaseType: "", // 采购类型
+       number: 1, // 采购数量
+       unItDicId: "", // 计量单位
+       unitPrice: 0, // 单价
+       spec: "", // 技术参数
+       content: "", //服务内容 // 单独处理
+       ifDelete: 0, // 单独处理
+       useMark: 1, // 单独处理
+       projectId: this.proData.id, // 单独处理
+       另外总价：单独计算到头部之中
        */
-      { prop: 'proName', label: '项目名称' },
-      { prop: 'proNumber', label: '项目编号' },
-      { prop: 'budgetAmount', label: '预算金额' },
-      { prop: 'projectSummary', label: '项目建设摘要' }
+      { prop: 'name', label: '名称' },
+      { prop: 'purchaseType', label: '采购类型' },
+      { prop: 'unitPrice', label: '单价' },
+      { prop: 'number', label: '采购数量' },
+      { prop: 'allAmount', label: '总价' },
+      { prop: 'unItDicId', label: '计量单位' },
+      // { prop: 'content', label: '服务内容' },
+      { prop: 'spec', label: '技术参数' },
     ]
   }
   const vm = new Vue({
@@ -76,7 +92,7 @@
     <basic-summary>
       <div class="${tpl.className}__summary-box">
         <span>总计：{{ total.totalBudgetAmount | number(6) }} 金额大写：{{ total.totalBudgetAmount | n2c }}</span>
-        <span class="el-color--danger">单位：万元</span>
+        <span class="el-color--danger">单位：元</span>
       </div>
     </basic-summary>
     <basic-add-btn add-name="${tpl.addName}" @click="addRowInline('')" />
@@ -241,7 +257,11 @@ export default {
     /**
      * 删除项目
      */
-    delRow (row) {},
+    delRow (row) {
+      if (this.currentId) { // 已在编辑状态，禁止
+        return
+      }
+    },
     /**
      * 保存项目
      */
@@ -270,7 +290,10 @@ export default {
         this.tableData.splice(_index, 1)
         this.tableData.push(...this.tmpTableData)
         this.tmpTableData = []
-        this.currentId = null
+        this.$refs[FORM_NAME].resetFields()
+        this.$nextTick(() => {
+          this.currentId = null
+        })
       } else { // 编辑时
         this.$refs[FORM_NAME].resetFields() // 重置表单
         this.$nextTick(() => {
@@ -329,8 +352,10 @@ export default {
   .el-icon-warning-outline {
     margin-left: 3px;
   }
-  .el-button {
-    padding: 0;
+  .cell {
+    .el-button {
+      padding: 0;
+    }
   }
   .el-icon__operate {
     font-size: 20px;
