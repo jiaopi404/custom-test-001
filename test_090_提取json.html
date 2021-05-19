@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="container" style="height: 40px; background-color: #ff3040;">
+  <div class="sub0" style="float: left; width: 100%; background-color: blue; height: 100%;"></div>
+  <div class="sub1" style="float: right; background-color: pink; height: 100%;">222323223</div>
+  <div class="sub1" style="float: right; background-color: pink; height: 80%;">222323223</div>
+  <script>
+    const str = `
+               researchAreaId: '', // 专业类别
+                academicTitleId: '', // 专家职称
+                postId: '', // 职务
+                schoolingRecordId: '', // 专家学历
+                academicDegreeId: '', // 专家学位
+                agencyCategoryId: '', // 单位类别
+                projectPropertyId: '', // 项目属性
+                hotCategoryId: '', // 项目热点分类
+                fundSourceId: '', // 项目资金来源
+                projectEvaluationMethodId: '', // 项目评审方式
+                resultOpinionId: '', // 审核调整方案
+                purchaseTypeId: '', // 采购类型
+                unitId: '', // 计量单位
+                orgWayId: '', // 采购组织形式
+                typeFeeId: '', // 费用类型
+                meetingTypeId: '', // 会议类别
+                groupTypesId: '', // 团组类别
+                groupAttributesId: '', // 团组属性
+                accountTypeId: '', // 结算账户类型
+                bankAccountTypeId: '', // 银行账户类型
+                commonWordsId: '', // 常用语
+                questionTypeId: '', // 问题类型
+                downloadTypeId: '', // 下载文件类型
+                projectStatusId: '', // 项目状态
+                fundingStatusId: '', // 经费状态
+                reimbursementStatusId: '', // 报账状态
+                businessPhaseId: '', // 业务阶段
+                govBudgetCategoryId: '', // 政府预算类别
+                fundPropertiesId: '', // 项目资金性质
+                fundsCategoryPropertyId: '', // 经费属性
+              bbbbb: '' // 菜单模块字典
+`
+    const patternProp = /\b[a-zA-Z]+\b/g
+    const patternLabel = /[\u4e00-\u9fa5]+/g
+    let resultProp = patternProp.exec(str)
+    let resultLabel = patternLabel.exec(str)
+    const result = []
+    while (resultProp && resultLabel) {
+      console.log(resultProp, resultLabel)
+      const _obj = { prop: resultProp[0], label: resultLabel[0], defaultValue: '' }
+      result.push(_obj)
+      resultProp = patternProp.exec(str)
+      resultLabel = patternLabel.exec(str)
+    }
+
+    let resultStr = ``
+    result.forEach(item => {
+      const tmpStr = `
+{ prop: '${item.prop}', label: '${item.label}', defaultValue: '' },`
+      resultStr += tmpStr
+    })
+    console.log(resultStr)
+    console.log(result)
+  </script>
+</div>
+</body>
+</html>
