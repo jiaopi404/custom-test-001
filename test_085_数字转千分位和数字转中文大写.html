@@ -28,6 +28,64 @@
     return decimal === '0' ? int : (int + '.' + decimal.split('.')[1])
   }
 
+  function toThousand3 (num, fractionDigits) {
+    fractionDigits = fractionDigits || 0
+    if (typeof num !== 'number') {
+      num = Number(num)
+    }
+    const numStr = (num || 0).toString()
+    const arr = numStr.split('.')
+    let int = arr[0] // 整数部分
+    let decimal = arr[1] || 0 // 小数
+    // 处理整数
+    const pattern = /(?=(?!(\b))(\d{3})+$)/g
+    int = int.replace(pattern, ',')
+    // 处理小数
+    // if fractionDigits = 6 表示万元，小数位数 < 2 时， 格式化到 2 位， 2 - 6 位之间，格式化到 2 - 6 位， 6位以上， 格式化到 6 位
+    if (fractionDigits === 6) {
+      if (!decimal || decimal.length <= 2) {
+        fractionDigits = 2
+      } else if (decimal.length <= 6 && decimal > 2) {
+        fractionDigits = decimal.length
+      } else {
+        fractionDigits = 6
+      }
+    }
+    decimal = Number('0.' + decimal).toFixed(fractionDigits)
+    return decimal === '0' ? int : (int + '.' + decimal.split('.')[1])
+  }
+
+  function toThousand2 (num, fractionDigits) {
+    // debugger
+    fractionDigits = fractionDigits || 0
+    if (typeof num !== 'number') {
+      num = Number(num)
+    }
+    if (fractionDigits > 0) {
+      num = Math.round(num * Math.pow(10, fractionDigits)) / Math.pow(10, fractionDigits)
+    }
+    const numStr = (num || 0).toString()
+    const arr = numStr.split('.')
+    let int = arr[0] // 整数部分
+    let decimal = arr[1] || 0 // 小数
+    // 处理整数
+    const pattern = /(?=(?!(\b))(\d{3})+$)/g
+    int = int.replace(pattern, ',')
+    // 处理小数
+    // if fractionDigits = 6 表示万元，小数位数 < 2 时， 格式化到 2 位， 2 - 6 位之间，格式化到 2 - 6 位， 6位以上， 格式化到 6 位
+    if (fractionDigits === 6) {
+      if (!decimal || decimal.length <= 2) {
+        fractionDigits = 2
+      } else if (decimal.length <= 6 && decimal.length > 2) {
+        fractionDigits = decimal.length
+      } else {
+        fractionDigits = 6
+      }
+    }
+    decimal = Number('0.' + decimal).toFixed(fractionDigits)
+    return decimal === '0' ? int : (int + '.' + decimal.split('.')[1])
+  }
+
   function number_chinese(money) {
     //  将数字金额转换为大写金额
     var cnNums = new Array(
