@@ -142,6 +142,7 @@ export default {
     }
   }
 }
+console.log('sdfsdsdfksdkjsfkklsd')
 </script>
 
 <style lang="scss" scoped>
