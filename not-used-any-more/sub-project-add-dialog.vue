@@ -568,6 +568,7 @@ export default {
     }
   }
 }
+console.log('sdsjfsdkf')
 </script>
 
 <style lang="scss" scoped>
