@@ -143,7 +143,157 @@
   <tr>
     <td id="1" class="tr1" onclick="view('1')">1</td>
     <td id="2" class="tr1" onclick="view('2')">2</td>
-    <td id="3" class="tr1" onclick="view('3')">3</td>
+    <td id="3" class="tr1" onclick="view('3')">3</td><!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>简单的计算器</title>
+      <style>
+          body{
+              margin: 0;
+          }
+          .tab{
+              border: 3px solid black ;
+              border-radius: 2px;
+              border-collapse:collapse;
+              width: 268px;
+              height: 402px;
+              margin: 100px auto;
+          }
+
+          .tr{
+              height: 67px;
+              width: 268px;
+              border: 3px solid black ;
+              text-align: right;
+          }
+          .tr1{
+              width: 268px;
+              height: 67px;
+              border: 3px solid black ;
+              text-align: center;
+          }
+          .tr2{
+              width: 67px;
+              height: 67px;
+              border: 3px solid black ;
+              text-align: center;
+          }
+
+
+      </style>
+      <script>
+
+        var s1 = "";
+        var s2 = "";
+        var s3 = "";
+        var s4 = "";
+        var s5 = "";
+        function view(val){
+          var a = document.getElementById(val);
+          s1 = a.innerHTML;
+          if(s1=="+" || s1=="-" || s1=="*" || s1=="/"){
+            s3 = s1;
+            s1 = "";
+          }
+
+          if(s3=="+" || s3=="-" || s3=="*" || s3=="/"){
+            add2(s1);
+
+          }
+
+          if(s3==""){
+            add1(s1);
+
+          }
+
+
+
+
+        }
+        function add1(s1){
+          s2 = s2 + s1;
+          show();
+        }
+        function add2(s1){
+          s4 = s4 + s1;
+          show();
+        }
+
+        function cal(){
+          switch(s3){
+            case "+":{
+              s5 = (String)((parseFloat(s2)+parseFloat(s4)).toFixed(2));
+              result.innerHTML = s5;
+              break;
+            }
+            case "-":{
+              s5 = (String)((parseFloat(s2)-parseFloat(s4)).toFixed(2));
+              result.innerHTML = s5;
+              break;
+            }
+            case "*":{
+              s5 = (String)((parseFloat(s2)*parseFloat(s4)).toFixed(2));
+              result.innerHTML = s5;
+              break;
+            }
+            case "/":{
+              s5 = (String)((parseFloat(s2)/parseFloat(s4)).toFixed(2));
+              result.innerHTML = s5;
+              break;
+            }
+          }
+
+        }
+
+        function show(){
+          var result = document.getElementById("result");
+
+          result.innerHTML = s2+s3+s4;
+
+        }
+
+
+
+      </script>
+    </head>
+    <body>
+    <table class="tab">
+      <tr class = "tr2">
+        <td colspan="4">简易计算器</td>
+      </tr>
+      <tr class="tr">
+        <td id="result" colspan="4" >
+
+        </td>
+      </tr>
+      <tr >
+        <td id="+" class="tr1" onclick="view('+')">+</td>
+        <td id="-" class="tr1" onclick="view('-')">-</td>
+        <td id="*" class="tr1" onclick="view('*')">*</td>
+        <td id="/" class="tr1" onclick="view('/')">/</td>
+      </tr>
+      <tr >
+        <td id="7" class="tr1" onclick="view('7')">7</td>
+        <td id="8" class="tr1" onclick="view('8')">8</td>
+        <td id="9" class="tr1" onclick="view('9')">9</td>
+        <td id="0" class="tr1" onclick="view('0')">0</td>
+      </tr>
+      <tr>
+        <td id="4" class="tr1" onclick="view('4')">4</td>
+        <td id="5" class="tr1" onclick="view('5')">5</td>
+        <td id="6" class="tr1" onclick="view('6')">6</td>
+        <td id="." class="tr1" onclick="view('.')">.</td>
+      </tr>
+      <tr>
+        <td id="1" class="tr1" onclick="view('1')">1</td>
+        <td id="2" class="tr1" onclick="view('2')">2</td>
+        <td id="3" class="tr1" onclick="view('3')">3</td>
+        <td id="=" class="tr1" onclick="cal()" >=</td>
+      </tr>
+    </table>
+    </body>
+    </html>
     <td id="=" class="tr1" onclick="cal()" >=</td>
   </tr>
 </table>
