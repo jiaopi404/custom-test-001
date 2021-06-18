@@ -2,9 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+  /**
+   * new 的过程
+   * var Person = function () {}
+   * var p = new Person()
+   * 
+   * new 的过程拆分为以下三步
+   * var p = {} // 初始化一个 对象 p
+   * p._proto_ = Person.prototype
+   * Person.call(p) // 构造 p，也就是初始化 p
+   */
+  // 函数构造器
+  function Parent (name, age) {
+    this.name = name
+    this.age = age
+  }
+  Parent.prototype.sayName = function () {
+    console.log('this.name is: ', this.name)
+  }
+  
+  // 自低级定义的 new 方法
+  let newMethod = function (Parent, ...rest) {
+    // 1. 以构造器的 prototype 属性为原型，创建新对象
+    let child = Object.create(Parent.prototype)
+    // 2. 将 this 和 调用参数传递给构造器执行
+    let result = Parent.call(child, ...rest)
+    // 3. 如果构造器没有手动返回对象，则返回第一步的对象
+    return typeof result === 'object' ? result : child
+  }
+  
+  // 创建实例，将构造函数 Parent 与 参数传入
+  const child = newMethod(Parent, 'echo', 26)
+  child.sayName()
+  
+  // 检验看是否与 new 的效果相同
+  console.log(child instanceof Parent)
+  console.log(child.hasOwnProperty('name'))
+  console.log(child.hasOwnProperty('age'))
+  console.log(child.hasOwnProperty('sayName'))
+  
+  // 创建实例2
+  const child2 = new Parent('echo2', 22)
+  child2.sayName()
+
+  // 检验看是否与 new 的效果相同
+  console.log(child2 instanceof Parent)
+  console.log(child2.hasOwnProperty('name'))
+  console.log(child2.hasOwnProperty('age'))
+  console.log(child2.hasOwnProperty('sayName'))
+</script>
 </body>
 </html>
