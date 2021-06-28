@@ -11,6 +11,43 @@
   console.log(num.toFixed(6))
   console.log(num.toFixed(6))
   console.log(num.toFixed(6))
+  const watcher = {
+    treeNodesMap: {
+      handler (nv) {
+        console.log('tree nodes map watcher, nv is: ', nv)
+        if (!nv) {
+          return
+        }
+        const _treeData = []
+        for (const [key, nodesMapElement] of Object.entries(nv)) {
+          if (nodesMapElement.visible) {
+            _treeData.push(nodesMapElement.data)
+          }
+        }
+        const _treeDataIdsStr = _treeData.map(item => item.id).join(',')
+        const _checkedIdsStr = this.checkedIds.join(',')
+        this.allChecked = _treeDataIdsStr === _checkedIdsStr
+      },
+      deep: true
+    },
+    treeFundNodesMap: {
+      handler (nv) {
+        if (!nv) {
+          return
+        }
+        const _treeData = []
+        for (const [key, nodesMapElement] of Object.entries(nv)) {
+          if (nodesMapElement.visible) {
+            _treeData.push(nodesMapElement.data)
+          }
+        }
+        const _treeDataIdsStr = _treeData.map(item => item.id).join(',')
+        const _checkedIdsStr = this.checkedFundIds.join(',')
+        this.allCheckedFund = _treeDataIdsStr === _checkedIdsStr
+      },
+      deep: true
+    }
+  }
 </script>
 </body>
 </html>
