@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  window.setTimeoutPromise = function (timer) {
+    return new Promise(resolve => {
+      const timerId = setTimeout(() => {
+        resolve(timerId)
+      }, timer)
+    })
+  }
+  console.log('开始')
+  setTimeoutPromise(10000).then(timerId => {
+    console.log('timer Id is:', timerId)
+    console.log('这个10秒钟之后打印出来')
+  })
+</script>
+</body>
+</html>
