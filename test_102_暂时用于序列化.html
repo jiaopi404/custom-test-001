@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<textarea rows="5" cols="5" id="input" style="width: 300px; height: 100px;"></textarea>
+<div>
+  <button id="btn">click</button>
+</div>
+<script>
+  const obj1 = JSON.stringify({
+    color: '#ff3040',
+    icon: 'someIcon',
+    dashboardRouteName: 'addExpenditure',
+    wxIfShow: false,
+    wxIcon: '',
+    wxNavigatePage: ''
+  })
+  // 预算管理 {"color":"#6d9af7","icon":"iconyusuanbaobiao","dashboardRouteName":"Dashboard","wxIfShow":true,"wxBgImageName":"yusuan"}
+    // 添加项目 {"color":"#ff3040","icon":"someIcon","dashboardRouteName":"addExpenditure","wxIfShow":false,"wxIcon":"","wxNavigatePage":""}
+    // 待申报 {"color":"#ff3040","icon":"someIcon","dashboardRouteName":"waitDeclare","wxIfShow":false,"wxIcon":"","wxNavigatePage":""}
+    // 校内预算申报 {"color":"","icon":"","dashboardRouteName":"","wxIfShow":true,"wxIcon":"&#xe60b;","wxNavigatePage":""}
+    // 预算申报审核 {"color":"","icon":"","dashboardRouteName":"","wxIfShow":true,"wxIcon":"&#xe60b;","wxNavigatePage":""}
+    // 归口审核 {"color":"","icon":"","dashboardRouteName":"","wxIfShow":true,"wxIcon":"&#xe60b;","wxNavigatePage":""}
+    // 经费申报审核 {"color":"","icon":"","dashboardRouteName":"","wxIfShow":true,"wxIcon":"&#xe60b;","wxNavigatePage":"/pages/funds/fund-declaration"}
+  // 项目库 {"color":"#ffa458","icon":"iconxiangmu","dashboardRouteName":"LibraryDashboardChild","wxIfShow":true,"wxBgImageName":"yusuan"}
+  // 绩效评价 {"color":"#8893e7","icon":"iconjixiao","dashboardRouteName":"DefaultDashboardChild","wxIfShow":false}
+  // 报账管理 {"color":"#5ed088","icon":"iconchunaguanli","dashboardRouteName":"DefaultDashboardChild","wxIfShow":true,"wxBgImageName":"baozhang"}
+  // 会计核算 {"color":"#8c99af","icon":"iconshenhe1","dashboardRouteName":"DefaultDashboardChild","wxIfShow":false}
+  // 结算支付 {"color":"#fe696d","icon":"iconzhangdan","dashboardRouteName":"DefaultDashboardChild","wxIfShow":false}
+  // 库管理 {"color":"#6d9af7","icon":"iconkucunqingdan","dashboardRouteName":"DefaultDashboardChild","wxIfShow":false,"wxBgImageName":""}
+  // 公告管理 {"color":"#4bcfcf","icon":"icongonggao","dashboardRouteName":"DefaultDashboardChild","wxIfShow":false,"wxBgImageName":""}
+  // 个人中心 {"color":"#c071ce","icon":"iconyonghudianji","dashboardRouteName":"DefaultDashboardChild","wxIfShow":false,"wxBgImageName":""}
+  document.getElementById('btn').addEventListener('click', () => {
+    document.getElementById('input').innerHTML = obj1
+  })
+</script>
+</body>
+</html>
