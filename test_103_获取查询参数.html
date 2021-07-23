@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const url = 'http://www.baidu.com?id=23232&_nameReport=some-title'
+  // location.href
+  const keyValuePair = url.split('?')[1].split('&')
+  const keyValuePairList = keyValuePair.map(item => item.split('='))
+  const title = keyValuePairList.find(([key, value]) => {
+    if (key === '_nameReport') {
+      return true
+    }
+  })[1]
+  console.log('title is: ', title)
+  window.addEventListener('load', function () {
+    // location.href
+    const keyValuePair = url.split('?')[1].split('&')
+    const keyValuePairList = keyValuePair.map(item => item.split('='))
+    const title = keyValuePairList.find(([key, value]) => {
+      if (key === '_nameReport') {
+        return true
+      }
+    })[1]
+    console.log('title is: ', title)
+    document.title = decodeURI(title)
+  })
+</script>
+</body>
+</html>
