@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const num = 10 * 0.78
+  function toFixedNumber (num, precision = 2) {
+    if (typeof num !== 'number' || !num) { // 非数字类型
+      return
+    }
+    return Number(num.toFixed(precision))
+  }
+</script>
+</body>
+</html>
