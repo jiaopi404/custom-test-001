@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const obj = {
+    arrStr1: ['1,2,3'], // [[1, 2, 3]]
+    arrStr2: ['1,2,3'],
+    arrStr3: ['1,2,3'],
+  };
+  ['arrStr1', 'arrStr2', 'arrStr3'].forEach(prop => {
+    obj[prop] = obj[prop][0].split(',').map(item => Number(item))
+  })
+  console.log(obj)
+</script>
+</body>
+</html>
