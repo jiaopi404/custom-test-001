@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  // 不需要 babel
+  const obj = {
+    foo: {
+      bar: 1
+    }
+  }
+  console.log(obj?.foo?.bar) // ?. 可选链
+
+  // ?? 短路运算符，只有前面是 undefined or null 时才采用后面的值
+  const value1 = undefined ?? 'sdfds'
+  const value2 = null ?? 'sdfds'
+  const value3= 0 ?? 'sdfds'
+  const value4 = 1 ?? 'sdfds'
+  const value5 = '' ?? 'sdfds'
+  console.log(value1, value2, value3, value4, value5)
+</script>
+</body>
+</html>
