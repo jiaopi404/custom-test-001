@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  let data = `{
+  "id": 355,
+  "parent": {
+    "id": 353,
+    "parent": {
+      "id": 352,
+      "parent": {
+        "id": 351,
+        "parent": null,
+        "name": "楼宇",
+        "code": "1",
+        "addDateTime": 1628767290000,
+        "updateDateTime": 1628767314000,
+        "ifDelete": 0,
+        "sort": 44,
+        "node": null,
+        "useMark": 1,
+        "children": null
+      },
+      "name": "禾盛京广中心",
+      "code": "1",
+      "addDateTime": 1628767337000,
+      "updateDateTime": 1628767337000,
+      "ifDelete": 0,
+      "sort": 1,
+      "node": null,
+      "useMark": 1,
+      "children": null
+    },
+    "name": "D座",
+    "code": "1",
+    "addDateTime": 1628767368000,
+    "updateDateTime": 1628767368000,
+    "ifDelete": 0,
+    "sort": 1,
+    "node": null,
+    "useMark": 1,
+    "children": null
+  },
+  "name": "601-联兴",
+  "code": "1",
+  "addDateTime": 1628767387000,
+  "updateDateTime": 1628767387000,
+  "ifDelete": 0,
+  "sort": 1,
+  "node": null,
+  "useMark": 1,
+  "children": null
+}`
+  function getValueRecursive (data, field, result = []) {
+    if (data && data[field]) {
+      result.push(data[field])
+    }
+    if (data.parent) {
+      return getValueRecursive(data.parent, field, result)
+    } else {
+      return result
+    }
+  }
+  data = JSON.parse(data)
+  const result = getValueRecursive(data, 'name')
+  result.pop()
+  result.reverse()
+  console.log(result.join('/'))
+</script>
+</body>
+</html>
