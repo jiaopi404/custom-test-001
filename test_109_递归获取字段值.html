@@ -71,7 +71,28 @@
   result.reverse()
   console.log(result.join('/'))
   console.log(result.join('/'))
-  console.log(result.join('/'))
+  console.log(result.join('/')) // 禾盛京广中心/D座/601-联兴
+  // 测试
+  Object.prototype.toString.call(JSON)
+  // "[object JSON]"
+  Object.prototype.toString.call(location)
+  // "[object Location]"
+  Object.prototype.toString.call(window)
+  // "[object Window]"
+  Object.prototype.toString.call(Geolocation)
+  // "[object Function]"
+  Object.prototype.toString.call(RegExp)
+  // "[object Function]"
+  Object.prototype.toString.call(document)
+  // "[object HTMLDocument]"
+  Object.prototype.toString.call(null)
+  // "[object Null]"
+  Object.prototype.toString.call(undefined)
+  // "[object Undefined]"
+  Object.prototype.toString.call(NaN)
+  // "[object Number]"
+  Object.prototype.toString.call({})
+  // "[object Object]"
 </script>
 </body>
 </html>
