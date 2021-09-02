@@ -9,7 +9,7 @@
   function ass () {
     console.log('this is: ', this)
     console.log(arguments.callee)
-    console.log(arguments.callee.caller)
+    console.log(arguments.callee.caller) // 这个属性会返回一个调用该函数对象的外层函数引用。
   }
   function we () {
     can()
