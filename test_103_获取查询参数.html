@@ -7,6 +7,12 @@
 <body>
 <script>
   const url = 'http://www.baidu.com?id=23232&_nameReport=some-title'
+  const urlObj = new URL(url)
+  console.log('urlObj', urlObj)
+  // 从 url 中方便的拿到查询参数 url; url.searchParams
+  for (let [key, value] of urlObj.searchParams) {
+    console.log('key value is: ', key, value)
+  }
   // location.href
   const keyValuePair = url.split('?')[1].split('&')
   const keyValuePairList = keyValuePair.map(item => item.split('='))
