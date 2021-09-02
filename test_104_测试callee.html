@@ -7,14 +7,24 @@
 <body>
 <script>
   function ass () {
+    console.log('this is: ', this)
     console.log(arguments.callee)
     console.log(arguments.callee.caller)
   }
-  ass()
+  function we () {
+    can()
+    function can () {
+      console.log('this is: ', this)
+      console.log(arguments.callee)
+      console.log(arguments.callee.caller)
+    }
+  }
+  ass() // window; ass 函数; null
+  we() // window; ass函数; we 函数
   const a = {
     b: 1
   }
-  ass.apply(a)
+  ass.apply(a) // a; ass 函数; null
 </script>
 </body>
 </html>
