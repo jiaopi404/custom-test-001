@@ -13,13 +13,13 @@
    * Iterable str.matchAll(RegExp) // RegExp with g flag
    * Array<String> str.split(String | RegExp)
    */
-  const str = 'hello world good for u 1 2 3'
+  const str = 'hello world good for u 1 2 3 world'
   // 1.1 传入字符串
-  console.log(str.search('world'))
+  console.log(str.search('world')) // 6
   // 1.2 传入正则
-  console.log(str.search(/good/))
+  console.log(str.search(/good/)) // 12
   // 3.1 传入字符串
-  console.log(str.match('ld'))
+  console.log(str.match('ld')) // 正则结果
   // 3.2 传入正则
   console.log(str.match(/l/g)) // ["l", "l", "l"]
   console.log(str.match(/\d+/g)) // ["1", "2", "3"]
