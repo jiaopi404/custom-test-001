@@ -7,6 +7,8 @@ test-pro/node_modules
 
 */HELP.md
 */target/
+*/.mvn
+*/target
 */.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
