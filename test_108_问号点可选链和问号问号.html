@@ -22,6 +22,43 @@
   const value5 = '' ?? 'sdfds'
   console.log(value1, value2, value3, value4, value5) // sdfds sdfds 0 1 ''
   console.log(value1, value2, value3, value4, value5) // daily push
+  const tableData = [
+    { id: 1, name: 'sdjfksfds' },
+  ]
+  const $data = {
+    tableData: tableData
+  }
+  const vm = {
+    data () {
+      return {
+        formData: {
+          tableData: [
+            { id: 1, name: 'sdfkjdsfd' }
+          ]
+        }
+      }
+    }
+  }
+  // tableData.1.id // $data.tableData.1.id
+
+
+
+
+
+
+
+
+  const fromData = {
+    department: {
+      id: null
+    },
+    name: ''
+  }
+  `
+  <el-form :model="formData"
+    <el-form-item prop="department.id" // formData.department.id
+    <el-form-item prop="name" // formData.name
+  `
 </script>
 </body>
 </html>

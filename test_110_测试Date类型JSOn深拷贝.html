@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+  const row = {
+    startTime: new Date()
+  }
+  const _row = JSON.parse(JSON.stringify(row))
+  debugger
+  _row.startTime = +new Date(_row.startTime)
+  console.log(_row)
+</script>
 </body>
 </html>
