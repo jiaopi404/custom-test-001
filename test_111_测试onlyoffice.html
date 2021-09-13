@@ -2,9 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
 </head>
 <body>
-$END$
+<div id="editor-container"></div>
+<script src="http://192.168.110.91:9000/web-apps/apps/api/documents/api.js"></script>
+<script>
+  window.onload = function () {
+    new DocsAPI.DocEditor('editor-container', {
+      'document': {
+        'fileType': 'docx',
+        'key': '12NAFE',
+        'title': '1631525974499.docx',
+        'url': 'http://192.168.110.91:9090//budget/1/kpi/1631525974499.docx',
+      },
+      'documentType': 'text',
+      'width': '1600px',
+      'height': '900px',
+      'editorConfig': {
+        'callbackUrl': '',
+        'lang': 'zh-CN',
+        'mode': 'view',
+        'customization': {
+          anonymous: {
+            request: false,
+            label: 'Guest'
+          },
+          plugins: false
+        }
+      },
+      'permissions': {
+        'comment': true,
+        'download': true,
+        'edit': true,
+        'fillForms': true,
+        'print': true,
+        'review': true,
+      },
+    })
+  }
+</script>
 </body>
 </html>
