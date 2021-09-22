@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script>
+  const obj = {
+    foo: {
+      bar: {
+        zoo: [11, 22, 33]
+      }
+    }
+  }
+  /**
+   * 获取值
+   * @param row
+   * @param prop
+   * @return {null|*}
+   */
+  function valueGetter1 (row, prop) {
+    let value = row
+    if (prop === '') {
+      return row
+    }
+    try {
+      const propList = prop.split('.')
+      propList.forEach(propItem => {
+        value = value[propItem]
+      })
+      return value
+    } catch (err) {
+      // 空指针错误一般是
+      return null
+    }
+  }
+
+  /**
+   * 稍微优化一点点的 valueGetter；
+   * @param obj 对象
+   * @param propChain 属性链如：'foo.bar.zoo.2'
+   * @param defaultValue 默认值
+   * @return {null|*}
+   */
+  function valueGetter2 (obj, propChain, defaultValue = null) {
+    if (!propChain) {
+      return obj
+    }
+    try {
+      const propList = propChain.split('.')
+      return propList.reduce((prev, propItem) => {
+        obj = obj[propItem]
+        if (obj === undefined) {
+          throw new Error('找到了 undefined，不用继续了倒是')
+        }
+        return obj
+      }, obj)
+    } catch (err) {
+      return defaultValue
+    }
+  }
+  console.log(_.get(obj, 'foo.bar.zoo.2'))
+  console.log(valueGetter2(obj, 'foo.bar.zoo.6', '找不到'))
+</script>
+</body>
+</html>
