@@ -129,3 +129,20 @@ function getDIFBetweenStuNumberAndStuListLength (teacherId) {
 // 1. 超出老师意向要求的，按照学分排序，剩余的学生从关联中删除，添加到未选中组；
 // 2. 按照意向数量 与 实际数量进行排序；
 // 3. 将未选中组递归添加到选课中；
+
+function autoCourseChoosing () {
+  // 1
+  const unChooseStuList = []
+  teacherList.forEach(teacher => {
+    if (getDIFBetweenStuNumberAndStuListLength(teacher.id) < 0) {
+      let thisTeacherStuList = getStuListByTeacherId(teacher.id)
+      thisTeacherStuList.sort((a, b) => b.gpa - a.gpa)
+      // console.log('111', JSON.parse(JSON.stringify(thisTeacherStuList)))
+      // console.log('222', teacher)
+      unChooseStuList.push(...thisTeacherStuList.slice(teacher.stuNumber, thisTeacherStuList.length))
+    }
+  })
+  console.log(unChooseStuList)
+  // 2.
+}
+autoCourseChoosing()
