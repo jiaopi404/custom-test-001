@@ -11,6 +11,7 @@ const Student = require('./Student')
 const Teacher = require('./Teacher')
 const TeacherAndStudent = require('./TeacherAndStudent')
 const fs = require('fs')
+const { v4: uuidV4 } = require('uuid')
 /**
 // console.log(Student)
 // 1. 学生表
@@ -127,7 +128,7 @@ function getDIFBetweenStuNumberAndStuListLength (teacherId) {
 // ======================== [接口集  end] ===========================
 // 算法
 // 1. 超出老师意向要求的，按照学分排序，剩余的学生从关联中删除，添加到未选中组；
-// 2. 按照意向数量 与 实际数量进行排序；
+// 2. 按照意向数量 与 实际数量，对老师进行排序；
 // 3. 将未选中组递归添加到选课中；
 
 function autoCourseChoosing () {
@@ -142,7 +143,54 @@ function autoCourseChoosing () {
       unChooseStuList.push(...thisTeacherStuList.slice(teacher.stuNumber, thisTeacherStuList.length))
     }
   })
-  console.log(unChooseStuList)
-  // 2.
+  // 1.2 删除关联关系
+  unChooseStuList.forEach(stu => {
+    const tnsInfo = getTnsInfoByStuId(stu.id)
+    deleteTnsById(tnsInfo.id)
+  })
+  console.log('unchoose stu list: ', unChooseStuList)
+  console.log('current tnsList is: ', tnsList)
+  // 2. 不需要排序，直接遍历
+  // teacherList.sort((a, b) => {
+  //   const stuListLenOfA = getStuListByTeacherId(a.id).length
+  //   const stuListLenOfB = getStuListByTeacherId(b.id).length
+  //   return -(a.stuNumber - stuListLenOfA) + (b.stuNumber - stuListLenOfB)
+  // })
+  // 3. 自动补全
+  autoChooseFunc(unChooseStuList)
+  const actualStuNumTeacherList = teacherList.map(item => {
+    return {
+      ...item,
+      actualStuNum: getStuListByTeacherId(item.id).length
+    }
+  })
+  console.log('teacher list is: ', actualStuNumTeacherList)
+  console.log('stu length is: ', actualStuNumTeacherList.reduce((prev, item) => {
+    prev += item.actualStuNum
+    return prev
+  }, 0))
+}
+/**
+ * 自动补全系统
+ */
+function autoChooseFunc (unChooseStuList) {
+  teacherList.forEach(teacher => {
+    const actualStuNum = getStuListByTeacherId(teacher.id).length // 获取实际数量
+    if (actualStuNum < teacher.stuNumber) { // 实际小于需求，添加一次
+      if (unChooseStuList.length) {
+        const stu = unChooseStuList.pop()
+        tnsList.push({
+          id: uuidV4(),
+          teacherId: teacher.id,
+          stuId: stu.id
+        })
+      }
+    }
+  })
+  if (unChooseStuList.length) {
+    autoChooseFunc(unChooseStuList)
+  } else {
+    return
+  }
 }
 autoCourseChoosing()
