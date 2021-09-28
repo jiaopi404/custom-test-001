@@ -1,5 +1,6 @@
 server:
   port: 9092
+#============================================================================================================================================================================================
 spring:
   datasource:
     password: root
@@ -7,8 +8,29 @@ spring:
     url: jdbc:mysql://47.108.156.216:3306/ssm-crud?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+#  -------------------
+  banner: # 修改 banner
+#    image:
+#      location: classpath:banner/hello_kitty.jpg
+#      pixelmode: text
+#      width: 50
+#      bitdepth: 4
+#      margin: 20
+#  也可以直接加一个 banner.txt 展示
+    location: classpath:banner/banner.txt
+#-------------------
+#  mvc:
+#    static-path-pattern: /web/** # 访问静态文件的路径变为 localhost:8098/web/test.html
 
+#========================================================
 #整合mybatis,设置别名，识别mapper文件
 #mybatis:
 #  type-aliases-package: com.kuang.pojo
 #  mapper-locations: classpath:mybatis/mapper/*.xml
+
+#=====================================================================
+#yml中的自定义配置 与 表达式
+wechat-config:
+  app-id: kdfjsfkjaklfjkas
+  app-secret: skfdjdskfdsfjdas
+  port: ${server.port}

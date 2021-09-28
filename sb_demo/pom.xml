@@ -55,9 +55,15 @@
             <version>1.1.21</version>
         </dependency>
 
+<!--        Lombok 插件-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+<!--        读取配置的库 MyConfig.properties-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
     </dependencies>
 
