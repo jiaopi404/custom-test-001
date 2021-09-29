@@ -69,7 +69,7 @@ public class ResultV0 {
     }
 
     /**
-     * func SUCCESS data & msg
+     * func SUCCESS data and msg
      *
      * @param data data
      * @param msg  msg
