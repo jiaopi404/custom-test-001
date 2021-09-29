@@ -16,6 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Hello controller.
+ * 1. lombok 提供的日志功能，需要 @Slf4j 注解
+ * 2. 获取 application.yml 中的自定义配置 @value 注解
+ * 3. DI, IOC 自动注入 @Configuration 中的 Bean，如以下的 stu
+ * 4. 注入自定义属性资源配置，如以下的 sysConfig
+ */
 @RestController // 加上之后 返回 JSON, 区别于 @Controller
 @RequestMapping("/")
 @Slf4j // lombok 提供的日志功能，可以配置日志文件
@@ -38,6 +45,9 @@ public class HelloController {
 
     /**
      * save file test controller
+     *
+     * @param httpServletRequest the http servlet request
+     * @return the string
      */
     @PostMapping(path = "/saveFile")
     public String saveFile(HttpServletRequest httpServletRequest) {
@@ -51,6 +61,8 @@ public class HelloController {
 
     /**
      * get stu content
+     *
+     * @return the stu
      */
     @GetMapping(path = "/get-stu")
     public String getStu() {
@@ -64,6 +76,8 @@ public class HelloController {
 
     /**
      * get stu object
+     *
+     * @return the stu obj
      */
     @GetMapping("/get-stu-obj")
     public Object getStuObj () {
@@ -72,6 +86,8 @@ public class HelloController {
 
     /**
      * get sys config
+     *
+     * @return the sys config
      */
     @GetMapping("/get-sys-config")
     public Object getSysConfig () {
@@ -80,6 +96,8 @@ public class HelloController {
 
     /**
      * 获取 yml 自定义配置
+     *
+     * @return the yml wechat config
      */
     @GetMapping("/get-yml-wechat-config")
     public Object getYmlWechatConfig () {
@@ -99,6 +117,11 @@ public class HelloController {
 //        return "redirect:index.html";
 //    }
 
+    /**
+     * Gets student.
+     *
+     * @return the student
+     */
     @GetMapping("/get-student")
     public Object getStudent () {
         Student student = new Student("sd", "sdf", 11);

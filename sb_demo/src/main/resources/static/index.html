@@ -15,5 +15,18 @@
 3. 一般根据需求，放入模板，后端根据模板生成页面再发送到容器；
 -->
 THIS IS INDEX
+<p>以下是文件上传</p>
+<form
+        action="/student/upload"
+        method="post"
+        enctype="multipart/form-data"
+>
+    <p>
+        <input type="file" id="file" name="avatar" value="选择图片呢" accept="image/jpeg,image/jpg,image/png" />
+    </p>
+    <p>
+        <input type="submit" value="上传文件" />
+    </p>
+</form>
 </body>
 </html>

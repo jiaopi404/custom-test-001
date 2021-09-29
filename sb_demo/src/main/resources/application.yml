@@ -1,3 +1,9 @@
+# 1. 端口 server.port
+# 2. 修改控制台的启动信息 spring.banner.image or spring.banner.location
+# 3. 支持自定义属性，如下的 wechat-config
+# 4. spring.servlet.multipart.maxFileSize 属性，默认限制上传文件大小为 1m，可进行修改
+# 5. spring.servlet.multipart.maxRequestSize 属性，最大请求体体积，DataSize.ofMegabytes(10); 默认10MB
+
 server:
   port: 9092
 #============================================================================================================================================================================================
@@ -18,6 +24,12 @@ spring:
 #      margin: 20
 #  也可以直接加一个 banner.txt 展示
     location: classpath:banner/banner.txt
+  servlet:
+    multipart:
+      # 最大文件体积
+      max-file-size: 10MB
+      # 最大请求体 体积
+      max-request-size: 100MB
 #-------------------
 #  mvc:
 #    static-path-pattern: /web/** # 访问静态文件的路径变为 localhost:8098/web/test.html
@@ -34,3 +46,6 @@ wechat-config:
   app-id: kdfjsfkjaklfjkas
   app-secret: skfdjdskfdsfjdas
   port: ${server.port}
+
+#=====================================================================
+# 修改上传文件 和 请求体的大小
