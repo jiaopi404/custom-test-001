@@ -12,6 +12,7 @@ test-pro/node_modules
 */.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*/uploadfiles/
 
 ### STS ###
 */.apt_generated
