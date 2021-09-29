@@ -60,14 +60,17 @@ public class RestStudentController {
     }
 
     /**
-     * 测试 RequestHeader
+     * 测试 RequestHeader, CookieValue
      *      value: 绑定的 header
      *      如果用 Map 接收，则获取所有header
+     * 一般header 值使用 HttpServletRequest 接收, request.getHeader("")
      * @param Authorization string
      * @return Object
      */
     @PutMapping("/update")
-    public Object updateStudent (@RequestHeader("Authorization") String Authorization, HttpServletRequest request) {
+    public Object updateStudent (@RequestHeader("Authorization") String Authorization,
+                                 HttpServletRequest request,
+                                 @CookieValue("someCookie") String someCookie) {
         log.info("Authorization: " + Authorization);
         log.info("request.getHeader: " + request.getHeader("Authorization"));
         return "update student";
