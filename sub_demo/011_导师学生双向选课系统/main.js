@@ -193,4 +193,5 @@ function autoChooseFunc (unChooseStuList) {
     return
   }
 }
+// autoCourseChoosing()
 autoCourseChoosing()

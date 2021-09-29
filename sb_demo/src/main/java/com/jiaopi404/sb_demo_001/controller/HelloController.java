@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController // 加上之后 返回 JSON, 区别于 @Controller
 @RequestMapping("/")
-@Slf4j // lombok 提供的日志功能
+@Slf4j // lombok 提供的日志功能，可以配置日志文件
 public class HelloController {
     @Autowired // 控制反转；将 创建 的权利，从 控制层 放到了 容器当中；DI;IOC
     private Stu stu;
@@ -109,6 +109,14 @@ public class HelloController {
         List<Student> studentList = new ArrayList<>();
         studentList.add(student);
         studentList.add(student1);
+        /**
+         * 总共四种类型
+         * log.info
+         * log.debug
+         * log.warn
+         * log.error
+         */
+        log.warn("打印 student: " + student1.toString());
         return studentList;
     }
 }
