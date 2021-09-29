@@ -17,19 +17,19 @@ import java.util.Map;
  * 包含以下内容：
  * 1. 不同 rest 风格的 controller: get post put delete
  * 2. 参数注解
- *      RequestParam
- *      PathVariable
- *      RequestBody
- *      RequestHeader
- *      CookieValue
- *    获取Header内容通常 HttpServletRequest req, req.getHeader("xxx")
+ * RequestParam
+ * PathVariable
+ * RequestBody
+ * RequestHeader
+ * CookieValue
+ * 获取Header内容通常 HttpServletRequest req, req.getHeader("xxx")
  * 3. 返回统一的请求体 ResultV0
  * 4. 上传文件 MultipartFile file; file.transferTo(); new File(String path)
- *      4.1 获取文件名后缀
- *      4.2 生成 UUID
- *
+ * 4.1 获取文件名后缀
+ * 4.2 生成 UUID
+ * <p>
  * ****************************************************************************************************************
- *
+ * <p>
  * 测试 rest 风格的 controller
  * get
  * post
@@ -136,5 +136,16 @@ public class RestStudentController {
         File file = new File("E:\\dev\\custom-test-001\\sb_demo\\src\\main\\resources\\static\\upload\\files\\" + newFileName);
         avatar.transferTo(file);
         return ResultV0.OK(null, "上传成功，新文件名: " + file.getName());
+    }
+
+    /**
+     * Test error result v 0.
+     *
+     * @return the result v 0
+     * @throws IOException the exception
+     */
+    @PostMapping("/test-error")
+    public ResultV0 testError () throws IOException {
+        throw new IOException("错了错了");
     }
 }
