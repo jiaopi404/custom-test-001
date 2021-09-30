@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
  * <p>3. 返回值为 {@code Future<T>}</p>
  * <p>4. 同定时任务一样，在分布式系统中无法适用;</p>
  */
-@Component
-@EnableAsync // 开启异步任务
+//@Component
+//@EnableAsync // 开启异步任务
 @Slf4j
 public class CusAsyncTask {
 
