@@ -44,9 +44,9 @@ public class UserInfoInterceptorBean implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 除...之外
-        registry.addInterceptor(userInfoInterceptor()).excludePathPatterns("/student/del");
+//        registry.addInterceptor(userInfoInterceptor()).excludePathPatterns("/student/del");
         // 添加特定路径
-//        registry.addInterceptor(userInfoInterceptor()).addPathPatterns("/student/del");
+        registry.addInterceptor(userInfoInterceptor()).addPathPatterns("/student/del");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }

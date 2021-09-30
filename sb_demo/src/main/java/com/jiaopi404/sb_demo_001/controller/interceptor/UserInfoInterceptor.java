@@ -1,5 +1,6 @@
 package com.jiaopi404.sb_demo_001.controller.interceptor;
 
+import com.jiaopi404.sb_demo_001.config.exception.GraceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +23,9 @@ public class UserInfoInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // TODO: 验证 用户名和 token
         log.info("拦截器拦截到了: " + request.getRequestURI());
-//        return false; // TODO：无数据返回，就很难受，得研究下如何整
+        // return false 会导致无数据返回，就很难受，得研究下如何整
+        // 可抛出异常，中断后续的执行
+        GraceException.display("拦截器拦截到了: " + request.getRequestURI());
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
