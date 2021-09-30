@@ -42,3 +42,6 @@ test-pro/node_modules
 ### VS Code ###
 */.vscode/
 
+### data grip ###
+!sb_demo_data_source_project/.idea
+!sb_demo_data_source_project/**/*.iml
