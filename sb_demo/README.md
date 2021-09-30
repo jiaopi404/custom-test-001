@@ -1,6 +1,6 @@
 # readme
 
-## 部分文档
+## 1. 整合 DataSource
 
 ### 1. 整合数据源 `HikariCP` ，似乎就是 JDBC
 
@@ -130,3 +130,12 @@ pagehelper:
   helper-dialect: mysql           # 语言，类似上面 mapper.identity
   support-methods-arguments: true # 支持方法的参数，个人理解为 某个Bean 的方法需要 PageHelper 的参数时可以获取的到
 ```
+
+
+## 2. MyBatis 代码自动成成
+
+### 1. code-template-master, 还有改动的余地；
+
+### 2. mybatis-generator 工具 （暂未实验）
+
+### 3. IDEA mybatis 插件，可生成代码
