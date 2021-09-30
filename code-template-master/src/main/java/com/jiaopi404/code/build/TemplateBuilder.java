@@ -95,8 +95,8 @@ public class TemplateBuilder {
 
             //针对MySQL数据库进行相关生成操作
             if(databaseType.equals("MySQL")){
-                //获取所有表结构
-                ResultSet tableResultSet = metaData.getTables(null, "%", "%", new String[]{"TABLE"});
+                // 获取所有表结构
+                ResultSet tableResultSet = metaData.getTables(conn.getCatalog(), "%", "%", new String[]{"TABLE"});
 
                 //获取数据库名字
                 String database = conn.getCatalog();
