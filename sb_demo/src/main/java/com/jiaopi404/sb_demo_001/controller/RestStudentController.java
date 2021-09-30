@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Map;
 
 /**
@@ -162,6 +165,16 @@ public class RestStudentController {
         // 2. 依赖注入 cusAsyncTask
         cusAsyncTask.asyncGetSth(); // 如果有返回值，则返回的是 Future 类型；
         log.warn("test-async 已经执行了");
+        return ResultV0.OK();
+    }
+
+    @GetMapping("/test-base64")
+    public ResultV0 testBase64 (String base64) throws Exception {
+        log.info("参数 base64: " + base64);
+        Base64.Decoder decoder = Base64.getDecoder();
+        String str = new String(decoder.decode(base64));
+        String decoded = URLDecoder.decode(str, "UTF-8");
+        log.info("结果: " + decoded);
         return ResultV0.OK();
     }
 }
