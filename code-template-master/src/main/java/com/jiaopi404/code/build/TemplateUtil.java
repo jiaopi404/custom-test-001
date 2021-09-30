@@ -1,4 +1,4 @@
-package com.itheima.code.build;
+package com.jiaopi404.code.build;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -6,7 +6,6 @@ import freemarker.template.Template;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.Map;
 
 /****

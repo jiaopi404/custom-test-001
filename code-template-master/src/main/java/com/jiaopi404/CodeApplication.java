@@ -1,6 +1,6 @@
-package com.itheima;
+package com.jiaopi404;
 
-import com.itheima.code.build.TemplateBuilder;
+import com.jiaopi404.code.build.TemplateBuilder;
 
 /****
  * @Author:shenkunlin

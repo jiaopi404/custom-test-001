@@ -1,4 +1,4 @@
-package com.itheima.code.swagger;
+package com.jiaopi404.code.swagger;
 
 /*****
  * @Author: shenkunlin

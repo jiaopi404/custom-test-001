@@ -1,4 +1,4 @@
-package com.itheima.code.util;
+package com.jiaopi404.code.util;
 
 /****
  * @Author:shenkunlin

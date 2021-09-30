@@ -1,32 +1,34 @@
-package com.itheima.code.swagger;
+package com.jiaopi404.code.swagger;
+
+import java.util.List;
 
 /*****
  * @Author: shenkunlin
- * @Date: 2019/7/22 15:35
+ * @Date: 2019/7/22 15:29
  * @Description: com.itheima.code.util
- *  生成JavaBean的属性配置
+ *  javabean信息
  ****/
-public class SwaggerModelProperties {
+public class SwaggerModel {
 
-    //属性名字
+    //名字
     private String name;
 
     //类型
     private String type;
 
-    //格式
-    private String format;
+    //字段集合
+    private List<SwaggerModelProperties> properties;
 
     //描述
     private String description;
 
-    public SwaggerModelProperties() {
+    public SwaggerModel() {
     }
 
-    public SwaggerModelProperties(String name, String type, String format, String description) {
+    public SwaggerModel(String name, String type, List<SwaggerModelProperties> properties, String description) {
         this.name = name;
         this.type = type;
-        this.format = format;
+        this.properties = properties;
         this.description = description;
     }
 
@@ -46,12 +48,12 @@ public class SwaggerModelProperties {
         this.type = type;
     }
 
-    public String getFormat() {
-        return format;
+    public List<SwaggerModelProperties> getProperties() {
+        return properties;
     }
 
-    public void setFormat(String format) {
-        this.format = format;
+    public void setProperties(List<SwaggerModelProperties> properties) {
+        this.properties = properties;
     }
 
     public String getDescription() {
