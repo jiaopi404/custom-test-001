@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
  * <p>3. 方法上添加注解 Scheduled，设置 cron 属性值</p>
  * <p>4. 获取当前时间 LocalDateTime.now()</p>
  * <p>5. cron n. (计算机) 计时程序</p>
+ * <p>6. 分布式系统中有分布式系统独有的异步任务（分布式系统无法使用此种方式开启异步任务）</p>
  * <p>常用的 定时任务 表达式：</p>
  * <p>0 0 2 1 * ? *：表示在每月的1日的凌晨2点调整任务；</p>
  * <p>0 15 10 ? * MON-FRI：表示周一到周五每天上午10:15执行作业；</p>
@@ -38,8 +39,8 @@ import java.time.LocalDateTime;
  * <p>0 15 10 ? * 6L 2002-2005：2002年至2005年的每月的最后一个星期五上午10:15触发；</p>
  * <p>0 15 10 ? * 6#3：每月的第三个星期五上午10:15触发；</p>
  */
-@Configuration
-@EnableScheduling
+//@Configuration
+//@EnableScheduling
 @Slf4j
 public class CusTask {
 
