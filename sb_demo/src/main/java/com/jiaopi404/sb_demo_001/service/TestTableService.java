@@ -45,6 +45,7 @@ public interface TestTableService {
     /***
      * 修改TestTable数据
      * @param testTable the test table
+     * @return the integer
      */
     Integer update(TestTable testTable);
 
@@ -84,4 +85,17 @@ public interface TestTableService {
      * @return the list
      */
     List<TestTable> findByEntityCondition(TestTable testTable);
+
+
+    /**
+     * 测试事务的执行
+     */
+    void testTrans ();
+
+    /**
+     * 自定义 sql 进行查询
+     * @param name testTable name
+     * @return List
+     */
+    List<TestTable> getByNameLike(String name);
 }

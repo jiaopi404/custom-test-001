@@ -5,9 +5,10 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="update_time" jdbcType="TIME_WITH_TIMEZONE" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, age
+    id, `name`, age, update_time
   </sql>
   
   <select id="getInstanceV0" parameterType="java.lang.String" resultMap="BaseResultMap">

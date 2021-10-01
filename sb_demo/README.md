@@ -190,3 +190,75 @@ testTableMapper.delete(testTable)
 testTableMapper.deleteByExample(example)
 testTableMapper.deleteByPrimaryKey(id)
 ```
+
+## 7. 事务操作
+
+事务的类型:
+
+- `REQUIRED(TransactionDefinition.PROPAGATION_REQUIRED)`
+  - 默认值，有事务的话加入事务，没有事务的话新建事务
+- `SUPPORTS(TransactionDefinition.PROPAGATION_SUPPORTS)`
+  - 当前存在事务，则加入事务，如果没有事务，则以没有事务的方式执行，某些查询以这种方式进行
+- `MANDATORY(TransactionDefinition.PROPAGATION_MANDATORY)`
+  - 当前存在事务，加入；如果没有事务，则抛出异常；必须以事务方式进行
+- `REQUIRES_NEW(TransactionDefinition.PROPAGATION_REQUIRES_NEW)`
+  - 当前存在事务，则挂起，起一个新的事务进行
+- `NOT_SUPPORTED(TransactionDefinition.PROPAGATION_NOT_SUPPORTED)`
+  - 非事务方式运行，存在事务则挂起
+- `NEVER(TransactionDefinition.PROPAGATION_NEVER)`
+  - 非事务方式运行，存在事务则抛出异常
+- `NESTED(TransactionDefinition.PROPAGATION_NESTED)`
+  - 如果有事务，则子事务方式运行；没有事务，类似 required
+
+## 8. 使用自定义 sql 进行查询
+
+1. 工具生成的 xml 和 mapper 一般是使用逆向工具自动生成的，因此不建议直接在文件上修改，因此在同目录下（为了 mapper 和 mybatis 能够扫描到）创建
+自定义的 xml 和 mapper 仓库
+   
+2. 写 sql 注意格式；
+
+3. 具体写法参考如下
+
+```xml
+  <select id="getTestTableByNameLike" parameterType="java.lang.String" resultType="com.jiaopi404.sb_demo_001.pojo.TestTable">
+    select
+        *
+    from test_table
+    where
+          `name`
+    like concat('%',#{myName},'%')
+  </select>
+```
+
+以上，如果使用 `resultMap` 属性，可以定义如下的 resultMap 结点
+
+```xml
+<resultMap id="BaseResultMap" type="com.jiaopi404.sb_demo_001.pojo.TestTable">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="update_time" jdbcType="TIME_WITH_TIMEZONE" property="updateTime" />
+</resultMap>
+<!--    这个相当于要查询的列的，做一个集合, 之后语句就可以 include[refid="定义的名字"]-->
+<sql id="Base_Column_List">
+    id, `name`, age, update_time
+</sql>
+<select id="getTestTableByNameLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from test_table
+  where
+  `name`
+  like concat('%',#{name,jdbcType=VARCHAR},'%')
+</select>
+```
+
+或者使用 `@Select` 注解
+
+```java
+@Select("select * from test_table where `name` like concat('%',#{myName},'%')")
+List<TestTable> testGetTestTableByNameLike(String myName);
+```
+
+注意：
+1. like 的写法，需要使用 concat，原因暂且未知

@@ -139,4 +139,27 @@ public class TestTableController {
         }
 
     }
+
+    /**
+     * 测试事务
+     *
+     * @return the result v 0
+     */
+    @GetMapping("/test-trans")
+    public ResultV0 testTrans () {
+        testTableService.testTrans();
+        return ResultV0.OK(null,"测试事务");
+    }
+
+    /**
+     * 测试 sql 查询，自定义查询
+     *
+     * @param name the name
+     * @return the by name like
+     */
+    @GetMapping("/get-by-name-like")
+    public ResultV0 getByNameLike (String name) {
+        List<TestTable> testTables = testTableService.getByNameLike(name);
+        return ResultV0.OK(testTables);
+    }
 }
