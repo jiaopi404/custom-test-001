@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "2901c39f-f582-438b-adc0-4a4cd23ef52b",
+		"name": "sb_demo_001",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TestTableController",
+			"item": [
+				{
+					"name": "http://localhost:9092/test-table/save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"jiaopi\",\r\n    \"age\": 22\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9092/test-table/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"test-table",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:9092/test-table/get/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9092/test-table/get/013c0782019942a48f8f5a414a1fd663",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"test-table",
+								"get",
+								"013c0782019942a48f8f5a414a1fd663"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:9092/test-table/get-list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9092/test-table/get-list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"test-table",
+								"get-list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestTable2Controller",
+			"item": [
+				{
+					"name": "/save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"测试一下呢\",\r\n    \"age\": 222\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9092/testTable/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9092/testTable/07e8249c447f4d06907cc77b0deb0b63",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"07e8249c447f4d06907cc77b0deb0b63"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9092/testTable/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/save-bo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"age\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9092/testTable/save-bo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"save-bo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/query-by-example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9092/testTable/query-by-example?name=jiao&age=10000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"query-by-example"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "jiao"
+								},
+								{
+									"key": "age",
+									"value": "10000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/query-by-condition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"jiaopi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9092/testTable/query-by-condition",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"query-by-condition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"013c0782019942a48f8f5a414a1fd663\",\r\n    \"name\": \"jiaopi\",\r\n    \"age\": 23\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9092/testTable/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/test-trans",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"013c0782019942a48f8f5a414a1fd663\",\r\n    \"name\": \"jiaopi\",\r\n    \"age\": 23\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9092/testTable/test-trans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"test-trans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/get-by-name-like",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"013c0782019942a48f8f5a414a1fd663\",\r\n    \"name\": \"jiaopi\",\r\n    \"age\": 23\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9092/testTable/get-by-name-like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9092",
+							"path": [
+								"testTable",
+								"get-by-name-like"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
