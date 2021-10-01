@@ -1,63 +1,62 @@
 package com.jiaopi404.sb_demo_001.controller;
-
-import com.jiaopi404.sb_demo_001.mapper.TestTableDao;
+import com.github.pagehelper.PageInfo;
 import com.jiaopi404.sb_demo_001.pojo.TestTable;
+import com.jiaopi404.sb_demo_001.service.TestTableService;
 import com.jiaopi404.sb_demo_001.utils.ResultV0;
+
 import com.jiaopi404.sb_demo_001.utils.UUIDGetter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-/**
- * The type Test table controller.
+/****
+ * @Author:jiaopi404
+ * @Description:
+ * @Date 2021 /1/4 14:30
  */
 @RestController
-@RequestMapping("test-table")
-@Slf4j
+@RequestMapping("/testTable")
+@CrossOrigin
 public class TestTableController {
 
     @Autowired
-    private TestTableDao testTableDao;
+    private TestTableService testTableService;
 
-    /**
-     * Gets by id.
-     *
+    /***
+     * 根据ID查询TestTable数据
      * @param id the id
-     * @return the by id
+     * @return result v 0
      */
-    @GetMapping("/get/{id}")
-    public ResultV0 getById (@PathVariable("id") String id) {
-        log.info("id is: " + id);
-        TestTable table = testTableDao.selectByPrimaryKey(id);
-        return ResultV0.OK(table);
+    @GetMapping("/{id}")
+    public ResultV0 findById(@PathVariable String id){
+        //调用TestTableService实现根据主键查询TestTable
+        TestTable testTable = testTableService.findById(id);
+        return ResultV0.OK(testTable);
+    }
+
+    /***
+     * 根据ID查询TestTable数据
+     * @return result v 0
+     */
+    @GetMapping("/list")
+    public ResultV0 findList(){
+        //调用TestTableService实现根据主键查询TestTable
+        List<TestTable> testTableList = testTableService.findAll();
+        return ResultV0.OK(testTableList);
     }
 
     /**
-     * Gets list.
-     *
-     * @return the list
-     */
-    @GetMapping("/get-list")
-    public ResultV0 getList () {
-        List<TestTable> tableList = testTableDao.selectAll();
-        return ResultV0.OK(tableList);
-    }
-
-    /**
-     * 测试 insert
+     * Save result v 0.
      *
      * @param testTable the test table
      * @return the result v 0
      */
     @PostMapping("/save")
     public ResultV0 save (@RequestBody TestTable testTable) {
-        if (testTable.getId() == null) { // 新增
-            System.out.println("新增");
-            testTable.setId(UUIDGetter.getAsString()); // 设置 id
+        if (testTable.getId() == null) {
+            testTable.setId(UUIDGetter.getAsString());
         }
-        int table = testTableDao.insert(testTable);
-        return ResultV0.OK(table);
+        testTableService.add(testTable);
+        return ResultV0.OK(null, "add success");
     }
 }

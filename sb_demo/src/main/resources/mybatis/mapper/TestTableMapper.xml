@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jiaopi404.sb_demo_001.mapper.TestTableDao">
+<mapper namespace="com.jiaopi404.sb_demo_001.mapper.TestTableMapper">
   <resultMap id="BaseResultMap" type="com.jiaopi404.sb_demo_001.pojo.TestTable">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -9,12 +9,13 @@
   <sql id="Base_Column_List">
     id, `name`, age
   </sql>
-<!--  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">-->
-<!--    select -->
-<!--    <include refid="Base_Column_List" />-->
-<!--    from test_table-->
-<!--    where id = #{id,jdbcType=VARCHAR}-->
-<!--  </select>-->
+  
+  <select id="getInstanceV0" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test_table
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
 <!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
 <!--    delete from test_table-->
 <!--    where id = #{id,jdbcType=VARCHAR}-->

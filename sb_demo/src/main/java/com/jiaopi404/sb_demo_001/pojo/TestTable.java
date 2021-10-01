@@ -1,28 +1,27 @@
 package com.jiaopi404.sb_demo_001.pojo;
-
-import java.io.Serializable;
 import lombok.Data;
 
-/**
- * test_table
- * @author 
- */
+import javax.persistence.*;
+import java.io.Serializable;
+import java.lang.String;
+import java.lang.Integer;
+/****
+ * @Author:jiaopi404
+ * @Description:TestTable构建
+ * @Date 2021/1/4 14:30
+ *****/
+@Table(name="test_table")
 @Data
-public class TestTable implements Serializable {
-    /**
-     * 主键，使用 varchar，防止以后做分布式，分库分表出问题
-     */
-    private String id;
+public class TestTable implements Serializable{
 
-    /**
-     * 姓名备注
-     */
-    private String name;
+	@Id
+    @Column(name = "id")
+	private String id; // 主键，使用 varchar，防止以后做分布式，分库分表出问题
 
-    /**
-     * age 备注
-     */
-    private Integer age;
+    @Column(name = "name")
+	private String name; // 姓名备注
 
-    private static final long serialVersionUID = 1L;
+    @Column(name = "age")
+	private Integer age; // age 备注
+
 }
