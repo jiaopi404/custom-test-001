@@ -173,3 +173,12 @@ public static void validate (BindingResult bindingResult) throws ValidationExcep
 1.1 使用 Example 和 selectByExample
 
 1.2 使用 对象 和 select(Obj obj)
+
+## 5. 根据 Example 或 根据 主键 进行更新
+
+```java
+testTableMapper.updateByPrimaryKey() // 根据主键进行更新
+testTableMapper.updateByPrimaryKeySelective() // 更新，自动选择，根据主键更新属性不为null的值
+testTableMapper.updateByExample()
+testTableMapper.updateByExampleSelective()
+```

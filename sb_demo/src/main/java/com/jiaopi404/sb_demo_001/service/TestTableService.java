@@ -46,7 +46,7 @@ public interface TestTableService {
      * 修改TestTable数据
      * @param testTable the test table
      */
-    void update(TestTable testTable);
+    Integer update(TestTable testTable);
 
     /***
      * 新增TestTable

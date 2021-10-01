@@ -15,6 +15,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.persistence.FieldResult;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /****
@@ -114,5 +115,28 @@ public class TestTableController {
     public ResultV0 queryBy (@RequestBody TestTable testTable) { // param 格式参数
         List<TestTable> testTableList = testTableService.findByEntityCondition(testTable);
         return ResultV0.OK(testTableList);
+    }
+
+    /**
+     * 修改，更新操作
+     *
+     * @param testTableBO the test table bo
+     * @return the result v 0
+     */
+    @PostMapping("/update")
+    public ResultV0 update (@RequestBody TestTableBO testTableBO) {
+        if (testTableBO.getId() == null) { // id 没传，缺少
+            return ResultV0.ERROR("缺少 id");
+        }
+        TestTable testTable = testTableService.findById(testTableBO.getId());
+        BeanUtils.copyProperties(testTableBO, testTable); // 修改带 testTable
+        testTable.setUpdateTime(new Date());
+        Integer influencedRowNum = testTableService.update(testTable); // 输入同样的内容也会更新数据库
+        if (influencedRowNum > 0) {
+            return ResultV0.OK();
+        } else {
+            return ResultV0.ERROR("修改失败");
+        }
+
     }
 }

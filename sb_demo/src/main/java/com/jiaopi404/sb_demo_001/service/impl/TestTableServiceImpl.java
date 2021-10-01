@@ -107,8 +107,8 @@ public class TestTableServiceImpl implements TestTableService {
      * @param testTable
      */
     @Override
-    public void update(TestTable testTable){
-        testTableMapper.updateByPrimaryKey(testTable);
+    public Integer update(TestTable testTable){
+        return testTableMapper.updateByPrimaryKey(testTable);
     }
 
     /**

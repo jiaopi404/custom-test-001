@@ -1,10 +1,13 @@
 package com.jiaopi404.sb_demo_001.pojo;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.String;
 import java.lang.Integer;
+import java.util.Date;
+
 /****
  * @Author:jiaopi404
  * @Description:TestTable构建
@@ -23,5 +26,12 @@ public class TestTable implements Serializable{
 
     @Column(name = "age")
 	private Integer age; // age 备注
+
+	/**
+	 * 更新时间列
+	 */
+	@Column(name = "update_time")
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 似乎没有起效果；
+	private Date updateTime = new Date(); // age 备注
 
 }
