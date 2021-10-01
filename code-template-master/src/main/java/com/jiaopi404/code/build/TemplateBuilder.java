@@ -25,6 +25,9 @@ public class TemplateBuilder {
     //mapperPackage
     public static String PACKAGE_MAPPER;
 
+    // my mapper Package
+    public static String PACKAGE_MY_MAPPER;
+
     //serviceInterfacePackage
     public static String PACKAGE_SERVICE_INTERFACE;
 
@@ -63,6 +66,7 @@ public class TemplateBuilder {
             //获取对应的配置信息
             PACKAGE_POJO = props.getProperty("pojoPackage");
             PACKAGE_MAPPER = props.getProperty("mapperPackage");
+            PACKAGE_MY_MAPPER = props.getProperty("myMapperPackage"); // my mapper package
             PACKAGE_SERVICE_INTERFACE = props.getProperty("serviceInterfacePackage");
             PACKAGE_SERVICE_INTERFACE_IMPL = props.getProperty("serviceInterfaceImplPackage");
             PACKAGE_CONTROLLER = props.getProperty("controllerPackage");

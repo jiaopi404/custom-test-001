@@ -16,6 +16,7 @@ import ${set};
 <#if swagger==true>
 @ApiModel(description = "${Table}",value = "${Table}")
 </#if>
+@Data
 @Table(name="${TableName}")
 public class ${Table} implements Serializable{
 
@@ -35,17 +36,17 @@ public class ${Table} implements Serializable{
 </#list>
 
 
-<#list models as model>
-	//get方法
-	public ${model.simpleType} get${model.upperName}() {
-		return ${model.name};
-	}
-
-	//set方法
-	public void set${model.upperName}(${model.simpleType} ${model.name}) {
-		this.${model.name} = ${model.name};
-	}
-</#list>
+//<#list models as model>
+//	//get方法
+//	public ${model.simpleType} get${model.upperName}() {
+//		return ${model.name};
+//	}
+//
+//	//set方法
+//	public void set${model.upperName}(${model.simpleType} ${model.name}) {
+//		this.${model.name} = ${model.name};
+//	}
+//</#list>
 
 
 }
