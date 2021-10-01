@@ -165,3 +165,11 @@ public static void validate (BindingResult bindingResult) throws ValidationExcep
 ```
 
 ### 4. 输出错误信息，返回 ResultV0.error(map)
+
+## 4. 根据 Example 或根据 对象 查询
+
+1. 根据条件查询: 两种方式
+
+1.1 使用 Example 和 selectByExample
+
+1.2 使用 对象 和 select(Obj obj)

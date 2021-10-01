@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 import java.util.List;
+
 /****
  * @Author:jiaopi404
  * @Description:TestTable业务层接口实现类
- * @Date 2021/1/4 14:30
- *****/
+ * @Date 2021 /1/4 14:30
+ */
 @Service
 public class TestTableServiceImpl implements TestTableService {
 
@@ -68,8 +69,9 @@ public class TestTableServiceImpl implements TestTableService {
 
     /**
      * TestTable构建查询对象
-     * @param testTable
-     * @return
+     *
+     * @param testTable the test table
+     * @return example
      */
     public Example createExample(TestTable testTable){
         Example example=new Example(TestTable.class);
@@ -136,5 +138,21 @@ public class TestTableServiceImpl implements TestTableService {
     @Override
     public List<TestTable> findAll() {
         return testTableMapper.selectAll();
+    }
+
+    @Override
+    public List<TestTable> findByExample(Example example) {
+        return testTableMapper.selectByExample(example);
+    }
+
+    /**
+     * 根据实体条件查询 entity condition list.
+     *
+     * @param testTable the test table
+     * @return the list
+     */
+    @Override
+    public List<TestTable> findByEntityCondition(TestTable testTable) {
+        return testTableMapper.select(testTable);
     }
 }
