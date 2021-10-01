@@ -4,6 +4,7 @@ package com.jiaopi404.sb_demo_001.utils;
  * ResultV0 通用的 Resp 返回体类
  * 1. 复习 重载；
  * 2. 不同的状态码所代表的意义；
+ * 3. TODO: 还有改动余地，添加泛型，返回值更加明确
  */
 public class ResultV0 {
     /**

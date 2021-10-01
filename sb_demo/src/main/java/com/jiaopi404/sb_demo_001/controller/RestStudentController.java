@@ -1,7 +1,7 @@
 package com.jiaopi404.sb_demo_001.controller;
 
 import com.jiaopi404.sb_demo_001.pojo.Student;
-import com.jiaopi404.sb_demo_001.utils.CusAsyncTask;
+//import com.jiaopi404.sb_demo_001.utils.CusAsyncTask;
 import com.jiaopi404.sb_demo_001.utils.ResultV0;
 import com.jiaopi404.sb_demo_001.utils.UUIDGetter;
 import lombok.extern.slf4j.Slf4j;
@@ -53,8 +53,8 @@ import java.util.Map;
 @Slf4j
 public class RestStudentController {
 
-    @Autowired
-    private CusAsyncTask cusAsyncTask;
+//    @Autowired
+//    private CusAsyncTask cusAsyncTask;
 
     private final Student student;
 
@@ -160,10 +160,10 @@ public class RestStudentController {
     @GetMapping("/test-async")
     public ResultV0 testAsync () throws InterruptedException {
         // 1. 以创建的方式进行，并没有异步
-        CusAsyncTask asyncTask = new CusAsyncTask();
-        asyncTask.asyncGetSth();
+//        CusAsyncTask asyncTask = new CusAsyncTask();
+//        asyncTask.asyncGetSth();
         // 2. 依赖注入 cusAsyncTask
-        cusAsyncTask.asyncGetSth(); // 如果有返回值，则返回的是 Future 类型；
+//        cusAsyncTask.asyncGetSth(); // 如果有返回值，则返回的是 Future 类型；
         log.warn("test-async 已经执行了");
         return ResultV0.OK();
     }
