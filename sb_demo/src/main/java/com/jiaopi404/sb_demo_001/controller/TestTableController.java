@@ -1,12 +1,19 @@
 package com.jiaopi404.sb_demo_001.controller;
 import com.github.pagehelper.PageInfo;
 import com.jiaopi404.sb_demo_001.pojo.TestTable;
+import com.jiaopi404.sb_demo_001.pojo.bo.TestTableBO;
 import com.jiaopi404.sb_demo_001.service.TestTableService;
+import com.jiaopi404.sb_demo_001.utils.BindingResultValidator;
 import com.jiaopi404.sb_demo_001.utils.ResultV0;
 
 import com.jiaopi404.sb_demo_001.utils.UUIDGetter;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.FieldResult;
+import javax.validation.Valid;
 import java.util.List;
 
 /****
@@ -58,5 +65,21 @@ public class TestTableController {
         }
         testTableService.add(testTable);
         return ResultV0.OK(null, "add success");
+    }
+
+    /**
+     * 保存业务对象
+     *
+     * @param testTableBO the test table bo
+     * @param bindingResult 验证结果
+     * @return the result v 0
+     */
+    @PostMapping("/save-bo")
+    public ResultV0 save (@Valid @RequestBody TestTableBO testTableBO, BindingResult bindingResult) {
+        BindingResultValidator.validate(bindingResult);
+        TestTable testTable = new TestTable();
+        BeanUtils.copyProperties(testTableBO, testTable); // 拷贝属性
+        testTableService.add(testTable);
+        return ResultV0.OK(null, "add bo success");
     }
 }

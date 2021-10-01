@@ -91,6 +91,17 @@ public class ResultV0 {
     }
 
     /**
+     * VALIDATION_ERROR 表单验证错误的handler
+     *
+     * @param obj obj 错误信息对象
+     * @param msg msg
+     * @return ResultV0 result v 0
+     */
+    public static ResultV0 VALIDATION_ERROR (Object obj, String msg) {
+        return new ResultV0(RespTplConstant.ERROR_VALIDATION.getCode(), obj, msg);
+    }
+
+    /**
      * func ERROR default
      *
      * @return ResultV0 result v 0

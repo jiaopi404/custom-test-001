@@ -37,7 +37,11 @@ public enum RespTplConstant {
     /**
      * Error custom resp tpl constant.
      */
-    ERROR_CUSTOM(500, null)
+    ERROR_CUSTOM(500, null),
+    /**
+     * 表单验证错误的错误码
+     */
+    ERROR_VALIDATION(555)
     ;
 
     private final Integer code;
@@ -46,6 +50,12 @@ public enum RespTplConstant {
     private RespTplConstant () {
         this.code = 200;
         this.msg = "请求成功";
+    }
+
+    // 单参构造函数
+    private RespTplConstant (Integer code) {
+        this.code = code;
+        this.msg = null;
     }
 
     private RespTplConstant (Integer code, String msg) {

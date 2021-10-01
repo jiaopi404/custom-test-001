@@ -52,4 +52,18 @@ public class GraceExceptionHandler {
         log.error(ce.getMessage());
         return ResultV0.ERROR(ce.getMessage());
     }
+
+    /**
+     * 优雅的 错误 handler，处理 CustomException 自定义异常类
+     *
+     * @param ve the CustomException
+     * @return the result v 0
+     */
+    @ExceptionHandler(ValidationException.class)
+    @ResponseBody
+    public ResultV0 validationExceptionHandler (ValidationException ve) {
+//        ve.printStackTrace();
+        log.error(ve.getMessage());
+        return ResultV0.VALIDATION_ERROR(ve.getErrMsgMap(), ve.getMessage());
+    }
 }

@@ -139,3 +139,29 @@ pagehelper:
 ### 2. mybatis-generator 工具 （暂未实验）
 
 ### 3. IDEA mybatis 插件，可生成代码
+
+## 3. 使用 Hibernate 的验证框架对参数进行验证
+
+### 1. 引入包 `spring-boot-starter-validate`
+
+### 2. BO 加入相应的注解 NotNull or NotEmpty and so on
+
+### 3. controller 在接收参数时添加验证 @valid, 之后添加额外参数 BindingResult bindingResult
+
+- 解析 bindingResult
+- 使用异常处理的方式处理 bindingResult 的错误
+
+```java
+public static void validate (BindingResult bindingResult) throws ValidationException {
+    Map<String, String> map = new HashMap<>();
+    List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+    for (FieldError fieldError : fieldErrors) {
+        map.put(fieldError.getField(), fieldError.getDefaultMessage());
+    }
+    if (!map.isEmpty()) {
+        throw GraceException.validationError(map, "表单验证错误");
+    }
+}
+```
+
+### 4. 输出错误信息，返回 ResultV0.error(map)
