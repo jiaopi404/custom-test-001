@@ -182,3 +182,11 @@ testTableMapper.updateByPrimaryKeySelective() // 更新，自动选择，根据�
 testTableMapper.updateByExample()
 testTableMapper.updateByExampleSelective()
 ```
+
+## 6. 删除操作，三种方式
+
+```java
+testTableMapper.delete(testTable)
+testTableMapper.deleteByExample(example)
+testTableMapper.deleteByPrimaryKey(id)
+```
