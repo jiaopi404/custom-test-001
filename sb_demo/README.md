@@ -263,3 +263,7 @@ List<TestTable> testGetTestTableByNameLike(String myName);
 注意：
 1. like 的写法，需要使用 concat，原因暂且未知
 2. 返回的都是集合~
+
+## 9. 整合 druid 数据源
+
+`druid-spring-boot-sarter` 依赖包

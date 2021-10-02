@@ -70,6 +70,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
+<!--        druid 数据源-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.6</version>
+        </dependency>
 <!--        引入 SpringBoot 默认的数据源 HikariCP-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
