@@ -266,4 +266,12 @@ List<TestTable> testGetTestTableByNameLike(String myName);
 
 ## 9. 整合 druid 数据源
 
-`druid-spring-boot-sarter` 依赖包
+- `druid-spring-boot-sarter` 依赖包
+
+- `springboot.datasource.type=com.alibaba.druid.pool.DruidDataSource` yml 配置
+
+## 10. myBatis 开启 sql 日志打印功能
+
+- yml `mybatis-configuration-logImpl` 配置
+
+## 11. AOP 监控 Service 的执行时间
