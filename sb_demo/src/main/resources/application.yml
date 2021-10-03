@@ -55,8 +55,8 @@ spring:
 mybatis:
   type-aliases-package: com.jiaopi404.sb_demo_001.pojo # 所有数据库表逆向后所一一映射的实体类 Entity/Bean/POJO
   mapper-locations: classpath:mybatis/mapper/*.xml     # 所有 mapper 映射的文件所在目录位置
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 也支持 Slf4j Log4j Log4j2 ...
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 也支持 Slf4j Log4j Log4j2 ...
 
 # ========================================================
 # 通用的 mapper 配置
