@@ -401,7 +401,7 @@ thymeleaf:                            # thymeleaf 的配置
   - `${#request.getAttribute()}`
   - `${#session.getAttribute()}`
 
-### 5. 生成静态 HTML
+### 5. 生成静态 HTML, `Thymeleaf` 中比较重要的功能；
 
 1. 注入类 `TemplateEngine templateEngine`
 
