@@ -13,6 +13,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>sb_demo_001</name>
     <description>Demo project for Spring Boot</description>
+<!--    打 jar 包-->
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -124,12 +126,20 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+<!--        junit 依赖包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+
+<!--        actuator 检查项目运行状态的依赖包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
+<!--    spring-boot-maven-plugin 打包的依赖-->
     <build>
         <plugins>
             <plugin>

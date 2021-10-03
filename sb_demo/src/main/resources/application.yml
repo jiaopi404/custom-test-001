@@ -4,10 +4,13 @@
 # 4. spring.servlet.multipart.maxFileSize 属性，默认限制上传文件大小为 1m，可进行修改
 # 5. spring.servlet.multipart.maxRequestSize 属性，最大请求体体积，DataSize.ofMegabytes(10); 默认10MB
 
-server:
-  port: 9092
+#server:
+#  port: 9092
 #============================================================================================================================================================================================
 spring:
+  # ------ profiles
+  profiles:
+    active: test # 使用 application-dev 中的配置
   # ------ data source
   datasource:                                   # 数据源相关的配置节点
     type: com.zaxxer.hikari.HikariDataSource    # 指定数据源的类型 HikariDataSource

@@ -418,3 +418,30 @@ thymeleaf:                            # thymeleaf 的配置
 2. `SpringBootTest` 类注解
 
 3. `@Test` 方法注解
+
+## 14. `spring.profiles.active` 切换不同的 `application-xx.yml 文件`，会整合到主文件
+
+## 15. `actuator` 检查项目运行状态
+
+## 16. 打包为 `jar`
+
+1. 构建依赖
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
+
+2. 设置打 jar 包
+
+```xml
+<packaging>jar</packaging>
+```
+
+3. 打包完后，会在 target下，运行时 `java -jar xxx.jar`
