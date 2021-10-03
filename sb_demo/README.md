@@ -411,3 +411,10 @@ thymeleaf:                            # thymeleaf 的配置
   - `Writer out = new FileWriter(String path)`
   - 注意关闭 `Writer` `out.close()`
 
+## 13. `junit` 单元测试
+
+1. `spring-boot-starter-test` 依赖
+
+2. `SpringBootTest` 类注解
+
+3. `@Test` 方法注解
