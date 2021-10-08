@@ -37,19 +37,19 @@ public interface ${Table}Service {
      * 删除${Table}
      * @param id
      */
-    void delete(${keyType} id);
+    Integer delete(${keyType} id);
 
     /***
      * 修改${Table}数据
      * @param ${table}
      */
-    void update(${Table} ${table});
+    Integer update(${Table} ${table});
 
     /***
      * 新增${Table}
      * @param ${table}
      */
-    void add(${Table} ${table});
+    Integer add(${Table} ${table});
 
     /**
      * 根据ID查询${Table}

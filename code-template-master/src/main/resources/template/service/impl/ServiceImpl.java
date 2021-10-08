@@ -94,8 +94,8 @@ public class ${Table}ServiceImpl implements ${Table}Service {
      * @param id
      */
     @Override
-    public void delete(${keyType} id){
-        ${table}Mapper.deleteByPrimaryKey(id);
+    public Integer delete(${keyType} id){
+        return ${table}Mapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -103,8 +103,8 @@ public class ${Table}ServiceImpl implements ${Table}Service {
      * @param ${table}
      */
     @Override
-    public void update(${Table} ${table}){
-        ${table}Mapper.updateByPrimaryKey(${table});
+    public Integer update(${Table} ${table}){
+        return ${table}Mapper.updateByPrimaryKey(${table});
     }
 
     /**
@@ -112,8 +112,8 @@ public class ${Table}ServiceImpl implements ${Table}Service {
      * @param ${table}
      */
     @Override
-    public void add(${Table} ${table}){
-        ${table}Mapper.insert(${table});
+    public Integer add(${Table} ${table}){
+        return ${table}Mapper.insert(${table});
     }
 
     /**
@@ -123,7 +123,7 @@ public class ${Table}ServiceImpl implements ${Table}Service {
      */
     @Override
     public ${Table} findById(${keyType} id){
-        return  ${table}Mapper.selectByPrimaryKey(id);
+        return ${table}Mapper.selectByPrimaryKey(id);
     }
 
     /**
