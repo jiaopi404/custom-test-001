@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 </#if>
 import javax.persistence.*;
 import java.io.Serializable;
+import lombok.Data;
 <#list typeSet as set>
 import ${set};
 </#list>

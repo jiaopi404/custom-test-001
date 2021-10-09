@@ -32,9 +32,9 @@
     <select id="getTestTableByNameLike" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from test_table
+        from
+             test_table
         where
-                `name`
-                like concat('%',#{name,jdbcType=VARCHAR},'%')
+            `name` like concat('%',#{name,jdbcType=VARCHAR},'%')
     </select>
 </mapper>

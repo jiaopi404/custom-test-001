@@ -263,3 +263,185 @@ List<TestTable> testGetTestTableByNameLike(String myName);
 注意：
 1. like 的写法，需要使用 concat，原因暂且未知
 2. 返回的都是集合~
+
+## 9. 整合 druid 数据源
+
+- `druid-spring-boot-sarter` 依赖包
+
+- `springboot.datasource.type=com.alibaba.druid.pool.DruidDataSource` yml 配置
+
+## 10. myBatis 开启 sql 日志打印功能
+
+- yml `mybatis-configuration-logImpl` 配置
+
+## 11. AOP 监控 Service 的执行时间
+
+1. 创建配置类
+- `Component 注解` 保证被扫描到
+- `Aspect 注解` 切面
+
+2. 创建 通知
+
+- AOP 的通知类型
+  - 前置通知
+  - 后置通知
+  - 环绕通知 Around
+  - 异常通知
+  - 最终通知
+  
+- 代码
+  
+```java
+@Around(value = "execution(* com.jiaopi404.sb_demo_001.service.impl..*.*(..))")
+public Object serviceExecDurationLogger (ProceedingJoinPoint joinPoint) throws Throwable {
+    // 计算时间
+    log.info("[===正在执行方法:===]{}.{}", joinPoint.getTarget().getClass(), joinPoint.getSignature().getName());
+    Long startTime = System.currentTimeMillis(); // 当前时间毫秒数
+    Object result = joinPoint.proceed();
+    Long endTime = System.currentTimeMillis(); // 结束后毫秒数
+    Long timeSpan = endTime - startTime;
+    String msg = "[===方法执行时间：===]" + joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName() + ": " + timeSpan;
+    if (timeSpan > 3000) {
+        log.error(msg);
+    } else if (timeSpan > 2000) {
+        log.warn(msg);
+    } else {
+        log.info(msg);
+    }
+    return result;
+}
+```
+
+- execution 的写法 `execution(* com.jiaopi404.sb_demo_001.service.impl..*.*(..))`
+类似方法的定义：返回值 方法名（参数）
+  
+## 12. Thymeleaf 模板引擎
+
+### 1. 依赖: `spring-boot-starter-thymeleaf`
+
+### 2. 配置：
+
+```yaml
+thymeleaf:                            # thymeleaf 的配置
+  prefix: classpath:/templates/html/  # 配置 html 文件路径，注意最后加 /
+  suffix: .html                       # 配置后缀，默认 .html
+```
+
+### 3. 使用
+
+1. `@Controller` 注解
+
+2. 返回 `String`，代表返回的页面
+
+3. 参数之一：`Model`
+  1. `model.addAttribute("attr", value)`
+
+### 4. 模板语法
+
+1. 属性
+- `th:text` 渲染文本
+- `th:value` `<input th:value="${value}"`
+
+2. 模板值 `${value}`
+
+3. 支持各种函数，如 `#strings` `#dates`
+- `<span th:text="${#strings.contains(someText, 't')}">`
+- `<span th:text="${#dates.format(someDate)}">`
+
+4. 条件判断
+
+- `th:if=${}`
+- `th:switch=${someValue}`
+  - `th:case="1"`
+  - `th:case="2"`
+  - `th:case="*"`
+  
+5. 循环列表 `each`
+
+```html
+<div>
+  <!--渲染 ListString-->
+    <span th:each="str : ${strList}">
+        <span th:text="${str}"></span>
+    </span>
+</div>
+<div>
+  <!--渲染 Map<String, String>-->
+  <span th:each="kv : ${someMap}"> <!-- 顺序不固定 -->
+        <span th:text="${kv.key}"></span>
+        <span th:text="${kv.value}"></span>
+    </span>
+</div>
+```
+
+循环时的变量操作：`status`
+
+```html
+<div>
+    <span th:each="str, status : ${strList}">
+        <span th:text="${str}"></span><br />
+        index: <span th:text="${status.index}"></span>
+    </span>
+</div>
+```
+
+支持：`count, index, odd, even, first, last, size` 等
+
+6. 操作 request 和 session
+
+- `controller` 可接收参数 `HttpServeltRequest request`
+- 函数体中可以设置 `request` 的属性，带入下一个视图
+  - `request.setAttribute("attr1", "value1")`
+  
+- 函数体中操作 `session`
+  - `request.getSession()` 返回 HttpSession
+  - `request.getSession().setAttribute("attr2", "value2")`
+  
+- 页面中使用：`#request` 和 `#session`
+  - `${#request.getAttribute()}`
+  - `${#session.getAttribute()}`
+
+### 5. 生成静态 HTML, `Thymeleaf` 中比较重要的功能；
+
+1. 注入类 `TemplateEngine templateEngine`
+
+2. 调用方法 `void templateEngine.process(String template, Context context, Writer writer)`
+  - `template` thymeleaf 模板
+  - `org.thymeleaf.context.Context`
+  - `Writer out = new FileWriter(String path)`
+  - 注意关闭 `Writer` `out.close()`
+
+## 13. `junit` 单元测试
+
+1. `spring-boot-starter-test` 依赖
+
+2. `SpringBootTest` 类注解
+
+3. `@Test` 方法注解
+
+## 14. `spring.profiles.active` 切换不同的 `application-xx.yml 文件`，会整合到主文件
+
+## 15. `actuator` 检查项目运行状态
+
+## 16. 打包为 `jar`
+
+1. 构建依赖
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
+
+2. 设置打 jar 包
+
+```xml
+<packaging>jar</packaging>
+```
+
+3. 打包完后，会在 target下，运行时 `java -jar xxx.jar`

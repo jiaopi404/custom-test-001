@@ -55,6 +55,12 @@ public class TemplateBuilder {
     //swagger-ui路径
     public static String SWAGGERUI_PATH;
 
+    // TODO: exclude
+    public static String EXCLUDE_TABLE;
+
+    // TODO: include
+    public static String INCLUDE_TABLE;
+
     static {
         try {
             //加载配置文件

@@ -1,9 +1,10 @@
 package com.jiaopi404.sb_demo_001.controller;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.jiaopi404.sb_demo_001.pojo.Stu;
 import com.jiaopi404.sb_demo_001.pojo.Student;
 import com.jiaopi404.sb_demo_001.pojo.SysConfig;
+import com.jiaopi404.sb_demo_001.service.TestTableService;
+import com.jiaopi404.sb_demo_001.utils.ResultV0;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,9 @@ public class HelloController {
 
     @Autowired
     private SysConfig sysConfig;
+
+    @Autowired
+    private TestTableService testTableService;
 
     /**
      * 获取自定义配置，@Value 注解；
@@ -141,5 +145,10 @@ public class HelloController {
          */
         log.warn("打印 student: " + student1.toString());
         return studentList;
+    }
+
+    @GetMapping("/get-test-table-list")
+    public ResultV0 getTestTableList () {
+        return ResultV0.OK(testTableService.findAll());
     }
 }
