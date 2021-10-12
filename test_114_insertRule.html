@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+      #box {
+          color: red;
+      }
+  </style>
+</head>
+<body>
+<h2>test add rule</h2>
+<div class="myClass">这个得是黄色</div>
+<button id="btn">删除一下</button>
+<script>
+  /**
+   * 在文档中添加一条样式表规则（这可能是动态改变 class 名的更好的实现方法，
+   * 使得 style 样式内容可以保留在真正的样式表中，以斌面添加额外的元素到 DOM 中）。
+   * 注意这里有必要声明一个数组，因为 ECMAScript 不保证对象按预想的顺序遍历，
+   * 并且 CSS 也是依赖于顺序的。
+   * 类型为数组的参数 decls 接受一个 JSON 编译的数组。
+   * @example
+   addStylesheetRules([
+   ['h2', // 还接受第二个参数作为数组中的数组
+   ['color', 'red'],
+   ['background-color', 'green', true] // 'true' for !important rules
+   ],
+   ['.myClass',
+   ['background-color', 'yellow']
+   ]
+   ]);
+   */
+  const thisIndex = addStylesheetRules([
+    ['h2', // 还接受第二个参数作为数组中的数组
+      ['color', 'red'],
+      ['background-color', 'green', true], // 'true' for !important rules
+    ],
+    ['.myClass',
+      ['background-color', 'yellow'],
+    ],
+  ])
+
+  function addStylesheetRules(decls) {
+    let style = document.createElement('style')
+    document.getElementsByTagName('head')[0].appendChild(style)
+    if (!window.createPopup) { /* For Safari */
+      style.appendChild(document.createTextNode(''))
+    }
+    let s = document.styleSheets[document.styleSheets.length - 1]
+    for (let i = 0, dl = decls.length; i < dl; i++) {
+      let j = 1, decl = decls[i], selector = decl[0], rulesStr = ''
+      if (Object.prototype.toString.call(decl[1][0]) === '[object Array]') {
+        decl = decl[1]
+        j = 0
+      }
+      for (let rl = decl.length; j < rl; j++) {
+        let rule = decl[j]
+        rulesStr += rule[0] + ':' + rule[1] + (rule[2] ? ' !important' : '') + ';\n'
+      }
+
+      if (s.insertRule) {
+        s.insertRule(selector + '{' + rulesStr + '}', s.cssRules.length)
+      } else { /* IE */
+        s.addRule(selector, rulesStr, -1)
+      }
+    }
+    return s.cssRules.length
+  }
+
+  /**
+   * 删除上一个
+   */
+  function delStylesheetRules() {
+    let s = document.styleSheets[document.styleSheets.length - 1]
+    s.deleteRule(s.cssRules.length - 1)
+  }
+
+  window.onload = function () {
+    document.querySelector('#btn').addEventListener('click', function (evt) {
+      delStylesheetRules()
+    })
+  }
+</script>
+</body>
+</html>
