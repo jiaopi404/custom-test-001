@@ -13,6 +13,7 @@
 <h2>test add rule</h2>
 <div class="myClass">这个得是黄色</div>
 <button id="btn">删除一下</button>
+<button id="btn2">删除一下</button>
 <script>
   /**
    * 在文档中添加一条样式表规则（这可能是动态改变 class 名的更好的实现方法，
@@ -79,6 +80,12 @@
   window.onload = function () {
     document.querySelector('#btn').addEventListener('click', function (evt) {
       delStylesheetRules()
+    })
+    document.getElementById('btn2').addEventListener('click', function () {
+      if (window.self !== window.top) {
+        console.log('我不是顶层了')
+        window.self.location.href = 'http://www.baidu.com'
+      }
     })
   }
 </script>
