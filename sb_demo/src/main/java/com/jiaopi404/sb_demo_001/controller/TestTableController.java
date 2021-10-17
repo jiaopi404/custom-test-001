@@ -34,14 +34,19 @@ public class TestTableController {
     @Autowired
     private TestTableService testTableService;
 
-    /***
-     * 根据ID查询TestTable数据
-     * @param id the id
-     * @return result v 0
-     */
-    @GetMapping("/{id}")
-    public ResultV0 findById(@PathVariable String id){
-        //调用TestTableService实现根据主键查询TestTable
+//    /***
+//     * 根据ID查询TestTable数据
+//     * @param id the id
+//     * @return result v 0
+//     */
+//    @GetMapping("/{id}")
+//    public ResultV0 findById(@PathVariable String id){
+//        //调用TestTableService实现根据主键查询TestTable
+//        TestTable testTable = testTableService.findById(id);
+//        return ResultV0.OK(testTable);
+//    }
+    @GetMapping("/get-by-id")
+    public ResultV0 findById (String id) {
         TestTable testTable = testTableService.findById(id);
         return ResultV0.OK(testTable);
     }
