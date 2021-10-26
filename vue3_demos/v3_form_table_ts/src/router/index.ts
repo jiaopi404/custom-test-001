@@ -26,6 +26,10 @@ const routes: Array<RouteRecordRaw> = [
       path: 'about-table',
       name: 'AboutTable',
       component: () => import(/* webpackChunkName: "about" */ '../components/about/CusAboutTable.vue')
+    }, {
+      path: 'about-form-2',
+      name: 'AboutForm2',
+      component: () => import(/* webpackChunkName: "about" */ '../components/about/CusAboutForm2.vue')
     }]
   }
 ]

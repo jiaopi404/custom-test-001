@@ -33,13 +33,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { reactive, onMounted, ref, computed, defineComponent } from 'vue'
 import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   name: 'CusAboutForm',
-  setup (props, { $refs }) {
+  setup () {
     // ======================== [data] ===========================
     const formData = reactive({
       username: '',
