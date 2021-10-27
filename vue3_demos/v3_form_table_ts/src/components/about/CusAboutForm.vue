@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { reactive, onMounted, ref, computed, defineComponent } from 'vue'
 import { ElMessage } from 'element-plus'
 

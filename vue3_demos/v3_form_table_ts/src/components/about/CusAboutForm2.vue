@@ -2,21 +2,21 @@
   <div class="cus-about-form-2">
     <h3>about form</h3>
     <el-form
-      ref="cusForm"
+      ref="elFormRef"
       label-width="auto"
       size="small"
-      :model="formData"
-      :rules="formRules"
+      :model="formInfo.formData"
+      :rules="formInfo.formRules"
     >
       <el-form-item label="username" prop="username">
         <el-input
-          v-model="formData.username"
+          v-model="formInfo.formData.username"
           placeholder="please enter username..."
         />
       </el-form-item>
       <el-form-item label="password" prop="password">
         <el-input
-          v-model="formData.password"
+          v-model="formInfo.formData.password"
           placeholder="please enter password..."
           type="password"
         />
@@ -34,8 +34,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref, computed } from 'vue'
 import { FormInfo } from '@/components/about/types/form'
+import { ElForm } from 'element-plus'
 
 const CusAboutForm2 = defineComponent({
   name: 'CusAboutForm2',
@@ -46,14 +47,28 @@ const CusAboutForm2 = defineComponent({
         password: ''
       },
       formRules: {
-        username: []
+        username: [
+          { required: true, message: 'please enter username', trigger: 'change' }
+        ]
       },
       formOptions: {
-        school: /sdfds/
-      },
-      formDataKey: {}
-    } as FormInfo)
-    return {}
+        school: []
+      }
+    })
+    const elFormRef = ref<typeof ElForm | null>(null)
+    const passwordCap = computed(() => (formInfo.formData.username as string).toUpperCase())
+    const submitForm = async () => {
+      if (elFormRef.value !== null) {
+        await elFormRef.value.validate()
+        console.log('validate completed')
+      }
+    }
+    return {
+      formInfo,
+      elFormRef,
+      passwordCap,
+      submitForm
+    }
   }
 })
 export default CusAboutForm2
