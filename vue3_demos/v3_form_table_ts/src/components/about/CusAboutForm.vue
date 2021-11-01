@@ -36,6 +36,7 @@
 <script lang="js">
 import { reactive, onMounted, ref, computed, defineComponent } from 'vue'
 import { ElMessage } from 'element-plus'
+import $commonServe from '../../utils/commonServe'
 
 export default defineComponent({
   name: 'CusAboutForm',
@@ -62,6 +63,7 @@ export default defineComponent({
     onMounted(() => {
       // 设置初始用户名
       formData.username = '你好'
+      console.log($commonServe.cusToString(null))
     })
     // ======================== [methods] ===========================
     async function submitForm () {
