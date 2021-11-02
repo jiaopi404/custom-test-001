@@ -49,7 +49,7 @@
 
 <script lang="ts">
 // table column comps
-import { computed, defineComponent, onMounted, reactive, watch } from 'vue'
+import { defineComponent, reactive, watch } from 'vue'
 import TableColumnAnchor from '@/components/basic/TableColumnAnchor.vue'
 import TableColumnPlainText from '@/components/basic/TableColumnPlainText.vue'
 import { BasicTableColumn, BasicTableColumnProps } from '@/components/basic/table'
@@ -97,30 +97,11 @@ export default defineComponent({
       }
     }
   },
-  // watch: {
-  //   columns: {
-  //     handler (nv) {
-  //       this.parseColumns(nv)
-  //     },
-  //     deep: true,
-  //     immediate: true
-  //   },
-  //   tableData: {
-  //     handler (nv) {
-  //       this.parseTableData(nv)
-  //     },
-  //     deep: true
-  //   }
-  // },
-  // data () {
-  //   return {
-  //     realColumns: [], // 真实渲染的 columns
-  //     realTableData: [], // 真实渲染的 tableData
-  //   }
-  // },
   setup (props, { attrs }) {
+    // ======================== [state] ===========================
     let realColumns = reactive<BasicTableColumnProps[]>([])
     let realTableData = reactive([])
+    // ======================== [methods] ===========================
     const parseColumns = (columns: BasicTableColumn[]) => {
       realColumns = columns.map(column => {
         const _column: BasicTableColumnProps = Object.assign({}, column.column, column.config || {})
@@ -166,6 +147,7 @@ export default defineComponent({
         return null
       }
     }
+    // ======================== [watcher] ===========================
     watch(
       () => props.columns,
       parseColumns,
