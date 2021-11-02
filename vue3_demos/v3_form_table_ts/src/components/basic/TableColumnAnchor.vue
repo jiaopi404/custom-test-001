@@ -6,11 +6,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
+import { BasicTableColumnEvent } from '@/components/basic/table'
 
 export default defineComponent({
   name: 'TableColumnAnchor',
-  emits: ['anchor-click'],
+  emits: [BasicTableColumnEvent.ANCHOR_CLICK],
   props: {
     value: { // value 要显示的数据
       type: [String, Number, Object]
@@ -28,17 +29,12 @@ export default defineComponent({
       default: null
     }
   },
-  setup (props, ctx) {
-    onMounted(() => {
-      console.log('ctx is: ', ctx, props)
-    })
-  },
   methods: {
     /**
      * 点击 anchor 处理时间，emit 出 row 和 prop
      */
     anchorClickHandler (): void {
-      this.$emit('anchor-click', { row: this.row, value: this.value, prop: this.prop, payload: this.payload })
+      this.$emit(BasicTableColumnEvent.ANCHOR_CLICK, { row: this.row, value: this.value, prop: this.prop, payload: this.payload })
     }
   }
 })

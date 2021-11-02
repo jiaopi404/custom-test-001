@@ -35,7 +35,7 @@
           :value="row[column.realProp]"
           :prop="column.prop"
           :row="row"
-          v-bind="column.compProps"
+          v-bind="{ ...cusListeners, ...column.compProps }"
         />
       </template>
     </el-table-column>
@@ -49,20 +49,20 @@
 
 <script lang="ts">
 // table column comps
-import { watch } from 'vue'
-import { Recordable } from '@/components/about/types/form'
-export type BasicTableColumn = {
-  title: string
-  prop: string
-  width: string | undefined
-  mimWidth: string | undefined
-  compProps: Recordable
-  sort?: boolean
-  formatter?(value: any): any
-}
-export default {
+import { computed, defineComponent, onMounted, reactive, watch } from 'vue'
+import TableColumnAnchor from '@/components/basic/TableColumnAnchor.vue'
+import TableColumnPlainText from '@/components/basic/TableColumnPlainText.vue'
+import { BasicTableColumn, BasicTableColumnProps } from '@/components/basic/table'
+import $util from '@/utils/$util'
+
+/**
+ * 列组件
+ */
+export default defineComponent({
   name: 'BasicTable',
   components: {
+    TableColumnAnchor,
+    TableColumnPlainText
   },
   props: {
     columns: {
@@ -118,19 +118,28 @@ export default {
   //     realTableData: [], // 真实渲染的 tableData
   //   }
   // },
-  setup (props) {
-    const parseColumns = (columns) => {
-      this.realColumns = columns.map(column => {
-        const _column = Object.assign({}, column.column, column.config || {})
+  setup (props, { attrs }) {
+    let realColumns = reactive<BasicTableColumnProps[]>([])
+    let realTableData = reactive([])
+    const parseColumns = (columns: BasicTableColumn[]) => {
+      realColumns = columns.map(column => {
+        const _column: BasicTableColumnProps = Object.assign({}, column.column, column.config || {})
         _column.realProp = Symbol(_column.prop)
+        // 处理 width 与 minWidth, 二者异或关系
+        if (_column.width === undefined) {
+          _column.minWidth = _column.minWidth || '110px'
+        }
+        if (_column.minWidth === undefined) {
+          _column.width = _column.width || '110px'
+        }
         return _column
       })
       // console.log('%c [真实列] ', 'color: #67C23A; font-size: 16px;', this.realColumns)
-      this.parseTableData(this.tableData)
+      parseTableData(props.tableData)
     }
     const parseTableData = (tableData) => {
-      this.realTableData = tableData.map(row => {
-        this.realColumns.forEach(column => {
+      realTableData = tableData.map(row => {
+        realColumns.forEach(column => {
           let value = valueGetter(row, column.prop)
           // 处理 formatter
           if (column.formatter && typeof column.formatter === 'function') {
@@ -173,48 +182,16 @@ export default {
         immediate: true
       }
     )
-  },
-  methods: {
-    parseColumns (columns) {
-      this.realColumns = columns.map(column => {
-        const _column = Object.assign({}, column.column, column.config || {})
-        _column.realProp = Symbol(_column.prop)
-        return _column
-      })
-      // console.log('%c [真实列] ', 'color: #67C23A; font-size: 16px;', this.realColumns)
-      this.parseTableData(this.tableData)
-    },
-    parseTableData (tableData) {
-      this.realTableData = tableData.map(row => {
-        this.realColumns.forEach(column => {
-          let value = this.valueGetter(row, column.prop)
-          // 处理 formatter
-          if (column.formatter && typeof column.formatter === 'function') {
-            value = column.formatter(value)
-          }
-          row[column.realProp] = value
-        })
-        return row
-      })
-    },
-    valueGetter (row, prop) {
-      let value = row
-      if (prop === '') {
-        return row
-      }
-      try {
-        const propList = prop.split('.')
-        propList.forEach(propItem => {
-          value = value[propItem]
-        })
-        return value
-      } catch (err) {
-        // 空指针错误一般是
-        return null
-      }
+    // ======================== [computed] ===========================
+    const cusListeners = $util.getListeners(attrs)
+    // ======================== [onMounted] ===========================
+    return {
+      realColumns,
+      realTableData,
+      cusListeners
     }
   }
-}
+})
 </script>
 
 <style scoped>

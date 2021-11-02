@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, defineComponent } from 'vue'
 import $util from '@/utils/$util'
 import { Recordable } from '@/components/about/types/form'
 const TableColumnPlainText = {
@@ -26,7 +26,7 @@ const TableColumnPlainText = {
     }
   }
 }
-export default TableColumnPlainText
+export default defineComponent(TableColumnPlainText)
 </script>
 
 <style scoped>
