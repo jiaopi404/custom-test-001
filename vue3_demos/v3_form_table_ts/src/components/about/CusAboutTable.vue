@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import BasicTable from '../basic/BasicTable'
+import BasicTable from '../basic/BasicTable.vue'
 import { reactive } from 'vue'
 import { BasicTableColumn, BasicTableColumnComp } from '../basic/table'
 

@@ -54,6 +54,7 @@ import TableColumnAnchor from '@/components/basic/TableColumnAnchor.vue'
 import TableColumnPlainText from '@/components/basic/TableColumnPlainText.vue'
 import { BasicTableColumn, BasicTableColumnProps } from '@/components/basic/table'
 import $util from '@/utils/$util'
+import { Recordable } from '../about/types/form'
 
 /**
  * 列组件
@@ -70,7 +71,7 @@ export default defineComponent({
       required: true
     },
     tableData: {
-      type: Array,
+      type: [Array],
       required: true
     },
     size: {
