@@ -49,7 +49,7 @@
 
 <script lang="ts">
 // table column comps
-import { defineComponent, reactive, watch } from 'vue'
+import { defineComponent, reactive, watch, PropType } from 'vue'
 import TableColumnAnchor from '@/components/basic/TableColumnAnchor.vue'
 import TableColumnPlainText from '@/components/basic/TableColumnPlainText.vue'
 import { BasicTableColumn, BasicTableColumnProps } from '@/components/basic/table'
@@ -67,26 +67,26 @@ export default defineComponent({
   },
   props: {
     columns: {
-      type: Array,
+      type: Array as PropType<any>,
       required: true
     },
     tableData: {
-      type: [Array],
+      type: Array as PropType<unknown>,
       required: true
     },
     size: {
-      type: String,
+      type: String as PropType<string>,
       default: 'small',
-      validator: function (value) {
+      validator: function (value: string) {
         return ['small', 'mini', 'medium', 'large'].indexOf(value) > -1
       }
     },
     multiple: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false
     },
     align: {
-      type: String,
+      type: String as PropType<string>,
       default: 'left'
     },
     selectable: { // 多选时列是否可选
@@ -97,7 +97,7 @@ export default defineComponent({
         }
       }
     }
-  },
+  } as any,
   setup (props, { attrs }) {
     // ======================== [state] ===========================
     let realColumns = reactive<BasicTableColumnProps[]>([])
@@ -119,15 +119,15 @@ export default defineComponent({
       // console.log('%c [真实列] ', 'color: #67C23A; font-size: 16px;', this.realColumns)
       parseTableData(props.tableData)
     }
-    const parseTableData = (tableData) => {
+    const parseTableData = (tableData: any) => {
       realTableData = tableData.map(row => {
-        realColumns.forEach(column => {
+        realColumns.forEach((column: BasicTableColumnProps) => {
           let value = valueGetter(row, column.prop)
           // 处理 formatter
           if (column.formatter && typeof column.formatter === 'function') {
             value = column.formatter(value)
           }
-          row[column.realProp] = value
+          row[column.realProp as symbol] = value
         })
         return row
       })
