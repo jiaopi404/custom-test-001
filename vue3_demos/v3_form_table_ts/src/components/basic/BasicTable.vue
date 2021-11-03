@@ -97,8 +97,8 @@ export default defineComponent({
         }
       }
     }
-  } as any,
-  setup (props, { attrs }) {
+  } as Recordable,
+  setup (props: Recordable, { attrs }) {
     // ======================== [state] ===========================
     let realColumns = reactive<BasicTableColumnProps[]>([])
     let realTableData = reactive([])
