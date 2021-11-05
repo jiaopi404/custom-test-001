@@ -17,7 +17,7 @@ const demoList = (keyword, count = 20) => {
 export default [
   {
     url: '/basic-api/select/getDemoOptions',
-    timeout: 1000,
+    timeout: 100,
     method: 'get',
     response: ({ query }) => {
       const { keyword, count } = query;

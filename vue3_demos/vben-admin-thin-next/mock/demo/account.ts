@@ -46,7 +46,7 @@ const userInfo = {
 export default [
   {
     url: '/basic-api/account/getAccountInfo',
-    timeout: 1000,
+    timeout: 100,
     method: 'get',
     response: () => {
       return resultSuccess(userInfo);

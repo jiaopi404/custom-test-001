@@ -31,6 +31,14 @@ const dashboard: AppRouteModule = {
         title: t('routes.dashboard.workbench'),
       },
     },
+    {
+      path: 'cykPage',
+      name: 'CykPage',
+      component: () => import('/@/views/dashboard/cykPage/index.vue'),
+      meta: {
+        title: 'cyk页',
+      },
+    },
   ],
 };
 
