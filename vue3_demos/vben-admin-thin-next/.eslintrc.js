@@ -20,8 +20,8 @@ module.exports = defineConfig({
   extends: [
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'plugin:prettier/recommended',
+    // 'prettier',
+    // 'plugin:prettier/recommended',
     'plugin:jest/recommended',
   ],
   rules: {
@@ -74,5 +74,6 @@ module.exports = defineConfig({
         math: 'always',
       },
     ],
+    'vue/no-mutating-props': 'off' // 可否在组件中改变 value；value 绑定非简单类型时需要开放
   },
 });

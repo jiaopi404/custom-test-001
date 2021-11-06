@@ -27,13 +27,22 @@
         @query="queryHandler"
       />
     </Card>
+    <Divider>测试v-model组件</Divider>
+    <Card size="small" title="测试v-model组件" style="margin: 10px;">
+      <CusModelTest
+        v-model="myArr"
+      />
+<!--      :model-value="myArr"-->
+<!--      @update:model-value="updateMyArr"-->
+      <AButton @click="testMyArr">看数据</AButton>
+    </Card>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
+import { defineComponent, onMounted, reactive, Ref, ref, toRaw } from 'vue'
 import { LxBasicTreeSelectVue } from '/@/components/LianXingBasic'
-import LxBasicQuery, { QueryItemConfig, QueryItemComp } from '/@/views/dashboard/cykPage/components/LxBasicQuery.vue'
+import LxBasicQuery, { IQueryItemConfig } from '/@/views/dashboard/cykPage/components/LxBasicQuery.vue'
 import {
   Button as AButton,
   Divider,
@@ -45,6 +54,8 @@ import type {
   CardProps
 } from 'ant-design-vue'
 import { LxLogInfo } from '/@/utils/log'
+import { QueryItemCompEnum } from '/@/views/dashboard/cykPage/components/LxBasicQueryItem'
+import CusModelTest from '/@/views/dashboard/cykPage/components/CusModelTest.vue'
 
 interface CusDividerProps extends DividerProps {
   content: string
@@ -52,6 +63,7 @@ interface CusDividerProps extends DividerProps {
 
 export default defineComponent({
   components: {
+    CusModelTest,
     LxBasicTreeSelectVue,
     AButton,
     Divider,
@@ -75,7 +87,9 @@ export default defineComponent({
       // modal
       ...modalTest(),
       // form
-      ...formTest()
+      ...formTest(),
+      // model
+      ...testModel()
     }
   }
 })
@@ -120,17 +134,33 @@ function formTest () {
     name: '',
     password: ''
   })
-  const querySchema = reactive<QueryItemConfig[]>([
-    { prop: 'name', placeholder: '请输入名称', comp: QueryItemComp.INPUT, col: 8 },
-    { prop: 'password', placeholder: '请输入密码', comp: QueryItemComp.INPUT, col: 6 },
+  const querySchema = reactive<IQueryItemConfig[]>([
+    { prop: 'name', label: '账号', placeholder: '请输入名称', comp: QueryItemCompEnum.INPUT, col: 8 },
+    { prop: 'password', label: '密码', placeholder: '请输入密码', comp: QueryItemCompEnum.INPUT, col: 8 },
   ])
-  const queryHandler = (value) => {
-    console.log(...LxLogInfo.primary(value))
+  const queryHandler = () => {
+    console.log(...LxLogInfo.primary(queryInfo, toRaw(queryInfo)))
   }
   return {
     queryInfo,
     querySchema,
     queryHandler
+  }
+}
+// =============================== [v-model 测试] =========================================
+function testModel () {
+  let myArr = reactive<number[]>([1, 2])
+  const testMyArr = () => {
+    console.log(...LxLogInfo.primary(myArr, toRaw(myArr)))
+  }
+  const updateMyArr = (value) => {
+    console.log(...LxLogInfo.primary('update my arr', value))
+    // myArr = reactive(value)
+  }
+  return {
+    myArr,
+    testMyArr,
+    updateMyArr
   }
 }
 </script>
