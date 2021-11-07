@@ -38,6 +38,7 @@ test-pro/node_modules
 *build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+!/vue3_demos/vben-admin-thin-next/build
 
 ### VS Code ###
 */.vscode/

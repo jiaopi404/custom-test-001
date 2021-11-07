@@ -9,7 +9,7 @@
         :key="rowIndex"
       >
         <a-col
-          v-for="queryCol in queryRow"
+          v-for="(queryCol, colIndex) in queryRow"
           :key="queryCol.prop"
           :span="queryCol.col"
         >
@@ -19,7 +19,7 @@
               v-model:value="value[queryCol.prop]"
               :prop="queryCol.prop"
               :placeholder="queryCol.placeholder"
-              v-bind="queryCol.compProps || {}"
+              v-bind="queryCol.compProps || { index: colIndex }"
               @input="compInputHandler"
               @query="queryHandler"
             />
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, onMounted, reactive, toRaw } from 'vue'
+import { computed, defineComponent, PropType, onMounted, reactive, ExtractPropTypes } from 'vue'
 import {
   Form as AForm,
   FormItem as AFormItem,
@@ -76,11 +76,11 @@ export interface IInputEventPayload {
   key: string
   value: number | string | number[] | string[] | Date // 联合类型
 }
-// const lxBasicQueryProps: {
-//   value?: Recordable | { required: true },
-//   querySchema?: IQueryItemConfig[] | { required: true }
-// } | null = {}
-// export type LxBasicQueryProps = Partial<ExtractPropTypes<typeof lxBasicQueryProps>>;
+const lxBasicQueryProps: {
+  value?: Recordable | { required: true },
+  querySchema?: IQueryItemConfig[] | { required: true }
+} | null = {}
+export type LxBasicQueryProps = Partial<ExtractPropTypes<typeof lxBasicQueryProps>>;
 
 /**
  * 获取 col，大于 24 或者 空 则 赋 8
@@ -89,18 +89,6 @@ export interface IInputEventPayload {
 function getCol (col) {
   return col ? (col > 24 ? lxBasicQueryConfig.defaultCol : col) : lxBasicQueryConfig.defaultCol
 }
-
-/**
- * 更新某个对象
- * @param obj
- * @param payload
- */
-// function updateObj (obj: Recordable, payload: IInputEventPayload) {
-//   return reactive({
-//     ...obj,
-//     ...{ [payload.key]: payload.value }
-//   })
-// }
 
 export default defineComponent({
   name: 'LxBasicQuery',

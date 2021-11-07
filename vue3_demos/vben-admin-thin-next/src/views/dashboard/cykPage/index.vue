@@ -32,8 +32,6 @@
       <CusModelTest
         v-model="myArr"
       />
-<!--      :model-value="myArr"-->
-<!--      @update:model-value="updateMyArr"-->
       <AButton @click="testMyArr">看数据</AButton>
     </Card>
   </div>
@@ -131,15 +129,15 @@ function modalTest () {
 // TODO: form
 function formTest () {
   const queryInfo = reactive<Recordable>({
-    name: '',
-    password: ''
+    name: '8888',
+    // password: '6666'
   })
   const querySchema = reactive<IQueryItemConfig[]>([
     { prop: 'name', label: '账号', placeholder: '请输入名称', comp: QueryItemCompEnum.INPUT, col: 8 },
-    { prop: 'password', label: '密码', placeholder: '请输入密码', comp: QueryItemCompEnum.INPUT, col: 8 },
+    // { prop: 'password', label: '密码', placeholder: '请输入密码', comp: QueryItemCompEnum.INPUT, col: 8 },
   ])
   const queryHandler = () => {
-    console.log(...LxLogInfo.primary(queryInfo, toRaw(queryInfo)))
+    console.log(...LxLogInfo.primary('i am gonna query', queryInfo, toRaw(queryInfo)))
   }
   return {
     queryInfo,
