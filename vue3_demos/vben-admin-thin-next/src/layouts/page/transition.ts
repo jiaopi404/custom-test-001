@@ -6,6 +6,7 @@ export interface DefaultContext {
   route: RouteLocation;
 }
 
+// TODO-jiaopi404: 此处方法，可能要想办法接收 to 和 from，来判断是不是来自 redirect（or有其他的方法？），进而区分要不要 transition
 export function getTransitionName({
   route,
   openCache,
@@ -21,6 +22,10 @@ export function getTransitionName({
   if (!enableTransition) {
     return undefined;
   }
+  // TODO-jiaopi404: 去除掉 transition
+  // if (route.meta.redirectNoTransition) { // 无 transition
+  //   return undefined
+  // }
 
   const isInCache = cacheTabs.includes(route.name as string);
   const transitionName = 'fade-slide';

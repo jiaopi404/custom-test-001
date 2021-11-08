@@ -10,7 +10,7 @@ import { computed, defineComponent, PropType } from 'vue'
 import {
   Input
 } from 'ant-design-vue'
-import { IInputEventPayload } from '../LxBasicQuery.vue'
+import { IInputEventPayload } from 'src/components/LianXingBasic/src/LxBasicQuery/LxBasicQuery.vue'
 
 export default defineComponent({
   name: 'LxBasicQueryInput',

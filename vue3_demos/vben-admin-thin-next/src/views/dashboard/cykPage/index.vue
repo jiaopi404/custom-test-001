@@ -40,7 +40,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, Ref, ref, toRaw } from 'vue'
 import { LxBasicTreeSelectVue } from '/@/components/LianXingBasic'
-import LxBasicQuery, { IQueryItemConfig } from '/@/views/dashboard/cykPage/components/LxBasicQuery.vue'
+import LxBasicQuery, { IQueryItemConfig } from '/@/components/LianXingBasic/src/LxBasicQuery/LxBasicQuery.vue'
 import {
   Button as AButton,
   Divider,
@@ -52,7 +52,7 @@ import type {
   CardProps
 } from 'ant-design-vue'
 import { LxLogInfo } from '/@/utils/log'
-import { QueryItemCompEnum } from '/@/views/dashboard/cykPage/components/LxBasicQueryItem'
+import { QueryItemCompEnum } from '/@/components/LianXingBasic/src/LxBasicQuery/LxBasicQueryItem'
 import CusModelTest from '/@/views/dashboard/cykPage/components/CusModelTest.vue'
 
 interface CusDividerProps extends DividerProps {

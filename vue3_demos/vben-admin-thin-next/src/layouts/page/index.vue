@@ -14,6 +14,7 @@
         mode="out-in"
         appear
       >
+<!--        // TODO-jiaopi404: 此处的 key 会导致页面强制刷新，去掉之后不晓得会产生啥问题-->
         <keep-alive v-if="openCache" :include="getCaches">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>
