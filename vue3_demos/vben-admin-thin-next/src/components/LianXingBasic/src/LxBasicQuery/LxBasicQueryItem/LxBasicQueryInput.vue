@@ -2,6 +2,7 @@
   <Input
     v-model:value="model"
     :placeholder="placeholder"
+    @press-enter="searchHandler"
   />
 </template>
 
@@ -11,6 +12,7 @@ import {
   Input
 } from 'ant-design-vue'
 import { IInputEventPayload } from 'src/components/LianXingBasic/src/LxBasicQuery/LxBasicQuery.vue'
+import { emitEvent } from '/@/components/LianXingBasic/src/LxBasicQuery/LxBasicQueryItem/lxBasicQueryItemCompTools'
 
 export default defineComponent({
   name: 'LxBasicQueryInput',
@@ -31,16 +33,16 @@ export default defineComponent({
       default: '请输入'
     }
   },
-  emits: ['input', 'query'],
+  emits: [emitEvent.input, emitEvent.query],
   setup (props, { emit }) {
     const model = computed<string>({
       get: () => props.value,
       set: (val) => {
-        emit('input', { key: props.prop, value: val } as IInputEventPayload) // 修改的值
+        emit(emitEvent.input, { key: props.prop, value: val } as IInputEventPayload) // 修改的值
       }
     })
     const searchHandler = () => {
-      emit('query')
+      emit(emitEvent.query)
     }
     return {
       model,

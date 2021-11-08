@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, onMounted, reactive, ExtractPropTypes, toRaw } from 'vue'
+import { computed, defineComponent, PropType, onMounted, reactive, ExtractPropTypes, toRaw, toRef, isReactive, isRef } from 'vue'
 import {
   Form as AForm,
   FormItem as AFormItem,
@@ -154,7 +154,14 @@ export default defineComponent({
     })
     // ======================== [life cycle] ===========================
     const { resetFields } = AForm.useForm(props.value, reactive([]))
-    onMounted(() => {})
+    onMounted(() => {
+      // const _formData = toRef(props, 'value') // ref
+      // console.log('isReactive(props.value)', isReactive(props.value)) // true
+      // console.log('isRef(props.value)', isRef(props.value)) // false
+      // const _isReactive = isReactive
+      // const _isRef = isReactive
+      // _isReactive(_formData.value) // true
+    })
     // ======================== [methods] ===========================
     const compInputHandler = (payload: IInputEventPayload) => {
       // const _obj = updateObj(props.value, payload)
