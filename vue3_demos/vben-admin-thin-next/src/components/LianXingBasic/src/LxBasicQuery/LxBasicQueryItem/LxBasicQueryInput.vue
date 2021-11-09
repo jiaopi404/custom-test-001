@@ -35,7 +35,7 @@ export default defineComponent({
   },
   emits: [emitEvent.input, emitEvent.query],
   setup (props, { emit }) {
-    // TODO: 看 computed 是否可以一同舍弃掉，BasicQuery 直接使用 v-model，但问题是，外部如何鉴定单个 propValue 的改变呢？
+    // TODO: 看 computed 是否可以一同舍弃掉，BasicQuery 直接使用 v-model，但问题是，外部如何鉴定单个 propValue 的改变呢？ 尝试去源码中找答案
     const model = computed<string>({
       get: () => props.value,
       set: (val) => {
