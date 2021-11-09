@@ -114,7 +114,9 @@ const transform: AxiosTransform = {
           config.params = params;
         } else {
           // 非GET请求如果没有提供data，则将params视为data
-          config.data = params;
+          // config.data = params;
+          // TODO-jiaopi404: 这个改变
+          config.data = data;
           config.params = undefined;
         }
         if (joinParamsToUrl) {

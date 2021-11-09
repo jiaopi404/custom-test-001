@@ -64,6 +64,14 @@ const dashboard: AppRouteModule = {
         title: 'cyk页4',
       },
     },
+    {
+      path: 'cykPage5',
+      name: 'CykPage5',
+      component: () => import('/@/views/dashboard/cykPage5/index.vue'),
+      meta: {
+        title: 'cyk页5',
+      },
+    },
   ],
 };
 
