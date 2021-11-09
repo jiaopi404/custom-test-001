@@ -50,29 +50,30 @@ export default defineComponent({
       set (value) {
         console.log('in multi value setter: ', value)
         // 直接修改 props.multiValue
-        const oldLength = props.multiValue.length
-        for (let i = 0; i < oldLength; i++) {
-          props.multiValue.pop()
-        }
-        const newLength = (value as string[]).length
-        for (let i = 0; i < newLength; i++) {
-          props.multiValue.push((value as string[])[i])
-        }
+        // const oldLength = props.multiValue.length
+        // for (let i = 0; i < oldLength; i++) {
+        //   props.multiValue.pop()
+        // }
+        // const newLength = (value as string[]).length
+        // for (let i = 0; i < newLength; i++) {
+        //   props.multiValue.push((value as string[])[i])
+        // }
+        emit('update:multiValue', value) // 这样是最简洁的了
         // emit('update:multiValue', value)
       }
     })
     // 看一下能不能 watch 到
-    watch(
-      () => props.multiValue,
-      (nv, ov) => {
-        console.log('%c [watcher multivalue, nv, ov] ', 'color: #67C23A; font-size: 16px;', nv, ov)
-        // computedMultiValue = ref<string[]>(nv) // 设置 computedMultiValue 值
-        computedMultiValue = toRaw(nv)
-      },
-      {
-        deep: true
-      }
-    )
+    // watch(
+    //   () => props.multiValue,
+    //   (nv, ov) => {
+    //     console.log('%c [watcher multivalue, nv, ov] ', 'color: #67C23A; font-size: 16px;', nv, ov)
+    //     // computedMultiValue = ref<string[]>(nv) // 设置 computedMultiValue 值
+    //     computedMultiValue.value = toRaw(nv)
+    //   },
+    //   {
+    //     deep: true
+    //   }
+    // )
     const handleChange = (e) => {
       console.log('change handler, is: ', e, props, emit)
     }
