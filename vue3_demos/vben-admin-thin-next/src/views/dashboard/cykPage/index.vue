@@ -30,7 +30,8 @@
     <Divider>测试v-model组件</Divider>
     <Card size="small" title="测试v-model组件" style="margin: 10px;">
       <CusModelTest
-        v-model="myArr"
+        :model-value="myArr"
+        @update:modelValue="updateMyArr"
       />
       <AButton @click="testMyArr">看数据</AButton>
     </Card>
@@ -147,13 +148,15 @@ function formTest () {
 }
 // =============================== [v-model 测试] =========================================
 function testModel () {
-  let myArr = reactive<number[]>([1, 2])
+  // let myArr = reactive<number[]>([1, 2])
+  let myArr = [1, 2]
   const testMyArr = () => {
     console.log(...LxLogInfo.primary(myArr, toRaw(myArr)))
   }
   const updateMyArr = (value) => {
-    console.log(...LxLogInfo.primary('update my arr', value))
+    // console.log(...LxLogInfo.primary('update my arr', value))
     // myArr = reactive(value)
+    myArr = value
   }
   return {
     myArr,

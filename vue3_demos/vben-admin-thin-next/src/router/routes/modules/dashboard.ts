@@ -48,6 +48,14 @@ const dashboard: AppRouteModule = {
         redirectNoTransition: true // TODO-jiaopi404: 重定向到自身时，无 transition
       },
     },
+    {
+      path: 'cykPage3',
+      name: 'CykPage3',
+      component: () => import('/@/views/dashboard/cykPage3/index.vue'),
+      meta: {
+        title: 'cyk页3',
+      },
+    },
   ],
 };
 

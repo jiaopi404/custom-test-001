@@ -31,12 +31,13 @@ export default defineComponent({
   setup (props, { emit }) {
     const btnClickHandler = () => {
       // 无 reactive
-      // emit('update:modelValue', [...props.modelValue, Math.floor(Math.random() * 100)])
+      emit('update:modelValue', [...props.modelValue, Math.floor(Math.random() * 100)])
       // 有 reactive
+      // props.modelValue = [...props.modelValue, Math.floor(Math.random() * 100)]
       // emit('update:modelValue', reactive<number[]>([...props.modelValue, Math.floor(Math.random() * 100)]))
       // 直接修改 props.modelValue
-      props.modelValue.push(Math.floor(Math.random() * 100))
-      emit('update:modelValue')
+      // props.modelValue.push(Math.floor(Math.random() * 100))
+      // emit('update:modelValue')
     }
     return {
       btnClickHandler
