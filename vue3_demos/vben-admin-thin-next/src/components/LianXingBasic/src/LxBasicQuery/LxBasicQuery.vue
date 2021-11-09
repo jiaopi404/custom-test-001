@@ -17,7 +17,7 @@
           <a-form-item :label="queryCol.label" :name="queryCol.prop">
             <component
               :is="queryCol.comp"
-              v-model:value="value[queryCol.prop]"
+              :value="valueComputed[queryCol.prop]"
               :prop="queryCol.prop"
               :placeholder="queryCol.placeholder"
               v-bind="queryCol.compProps || { index: colIndex }"
@@ -127,8 +127,6 @@ export default defineComponent({
   },
   emits: ['query', 'update:value'],
   setup (props, { emit }) {
-    // const router = useRouter()
-    // const route = useRoute()
     // ======================== [data] ===========================
     // ======================== [computed] ===========================
     // 1. 根据 querySchema 计算出合理的 row 和 col
@@ -152,8 +150,17 @@ export default defineComponent({
         return prev
       }, [] as Array<IQueryItemConfig[]>)
     })
+    // 2. 使用 computed 值代替传入的对象，目标是改变对象
+    const valueComputed = computed<Recordable>({
+      get () {
+        return props.value
+      },
+      set (value) {
+        emit('update:value', value)
+      }
+    })
     // ======================== [life cycle] ===========================
-    const { resetFields } = AForm.useForm(props.value, reactive([]))
+    const { resetFields } = AForm.useForm(props.value, /* rules */reactive([]))
     onMounted(() => {
       // const _formData = toRef(props, 'value') // ref
       // console.log('isReactive(props.value)', isReactive(props.value)) // true
@@ -168,7 +175,10 @@ export default defineComponent({
       // console.log(...LxLogInfo.primary(JSON.stringify(toRaw(_obj))))
       // emit('update:value', updateObj(props.value, payload))
       props.value[payload.key] = payload.value // 直接修改对象
-      emit('update:value') // 通知更新？
+      const _rawValue: Recordable = toRaw(valueComputed.value)
+      _rawValue[payload.key] = payload.value
+      valueComputed.value = _rawValue
+      // emit('update:value') // 通知更新？ 通过 computed 通知更新
     }
     const queryHandler = () => { // 不知道会不会变化呢
       // beforeQuery(props, router, route)
@@ -182,7 +192,8 @@ export default defineComponent({
       } else {
         // TODO: resetFields 不生效？
         resetFields()
-        emit('update:value')
+        // emit('update:value')
+        valueComputed.value = {}
         // beforeQuery(props, router, route)
         emit('query')
       }
@@ -190,6 +201,7 @@ export default defineComponent({
     // ======================== [ 处理查询参数 ] ===========================
     // processQueryParam(props, emit, router, route)
     return {
+      valueComputed,
       querySchemaComputed,
       queryHandler,
       compInputHandler,

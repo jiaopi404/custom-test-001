@@ -35,7 +35,7 @@ export default defineComponent({
       default: () => []
     },
     options: {
-      type: Array as PropType<{ value: string | number, label: string }[]>,
+      type: Array as PropType<{ value: string | number, label?: string }[]>,
       default: () => {
         return [...Array(25)].map((_, i) => ({ value: (i + 10).toString(36) + (i + 1) }))
       }
