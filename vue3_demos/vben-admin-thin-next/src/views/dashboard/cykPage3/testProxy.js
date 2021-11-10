@@ -11,7 +11,7 @@ const arrState = new Proxy(arr, {
   }
 })
 
-// arrState.push(7)
+arrState.push(7)
 // arrState.splice(2, 1, 66)
-arrState.pop()
+// arrState.pop()
 console.log('arr is: ', arr)
