@@ -27,6 +27,12 @@
         </a-form-item>
       </a-form>
     </a-card>
+    <a-card title="测试 reactive 响应式对象">
+      <a-space>
+        <div>time: {{ state1.time }}</div>
+        <a-button @click="testFn">go !</a-button>
+      </a-space>
+    </a-card>
   </div>
 </template>
 
@@ -102,6 +108,22 @@ function testForm () {
   };
 }
 
+// 测试 reactive 和 ref 的特性
+function testReactiveRef () {
+  const state1 = reactive({
+    time: new Date()
+  })
+  const testFn = () => {
+    // state1.time.setDate(state1.time.getDate() + 1) // 看会不会刷新
+    state1.time = new Date() // 修改为新对象
+    console.log(toRaw(state1), 'row state')
+  }
+  return {
+    state1,
+    testFn
+  }
+}
+
 export default defineComponent({
   name: 'CykPage4',
   components: {
@@ -119,7 +141,8 @@ export default defineComponent({
   },
   setup () {
     return {
-      ...testForm()
+      ...testForm(),
+      ...testReactiveRef()
     }
   }
 })
