@@ -2,9 +2,8 @@ const targetMap = new WeakMap<any, DepsMap>()
 let activeEffect: Effect | null = null
 export const effect = (eff: Effect) => {
   activeEffect = eff
-  const result = activeEffect()
+  activeEffect() // 会触发 Proxy 或 ref 的 getter
   activeEffect = null
-  return result
 }
 
 function track(target: any, key: string) {
@@ -62,9 +61,12 @@ export const ref = <T>(target: T): Ref<T> => {
   const _obj = {
     get value () {
       track(_obj, 'value')
+      console.log('in ref getter: ', _value)
       return _value
     },
     set value (v) {
+      console.log('in ref setter: ', v)
+      // ref 的value的改变
       const oldValue = _value
       if (oldValue !== v) {
         trigger(_obj, 'value')
@@ -75,6 +77,10 @@ export const ref = <T>(target: T): Ref<T> => {
   return _obj
 }
 
-export const computed = (eff: Effect) => {
-  return ref(effect(eff))
+export const computed = (getter: () => any) => {
+  const result = ref(0)
+  effect(() => {
+    result.value = getter()
+  })
+  return result
 }

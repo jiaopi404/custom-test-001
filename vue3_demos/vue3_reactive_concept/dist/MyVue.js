@@ -5,9 +5,8 @@ var targetMap = new WeakMap();
 var activeEffect = null;
 var effect = function (eff) {
     activeEffect = eff;
-    var result = activeEffect();
+    activeEffect(); // 会触发 Proxy 或 ref 的 getter
     activeEffect = null;
-    return result;
 };
 exports.effect = effect;
 function track(target, key) {
@@ -63,9 +62,12 @@ var ref = function (target) {
     var _obj = {
         get value() {
             track(_obj, 'value');
+            console.log('in ref getter: ', _value);
             return _value;
         },
         set value(v) {
+            console.log('in ref setter: ', v);
+            // ref 的value的改变
             var oldValue = _value;
             if (oldValue !== v) {
                 trigger(_obj, 'value');
@@ -76,7 +78,11 @@ var ref = function (target) {
     return _obj;
 };
 exports.ref = ref;
-var computed = function (eff) {
-    return (0, exports.ref)((0, exports.effect)(eff));
+var computed = function (getter) {
+    var result = (0, exports.ref)(0);
+    (0, exports.effect)(function () {
+        result.value = getter();
+    });
+    return result;
 };
 exports.computed = computed;
