@@ -33,6 +33,12 @@
         <a-button @click="testFn">go !</a-button>
       </a-space>
     </a-card>
+    <a-card title="test namespace state">
+      <span>
+        {{ testNamespace.a }}, {{ testNamespaceState.b }}
+      </span>
+      <a-button @click="testNamespaceState.changeA">change A</a-button>
+    </a-card>
   </div>
 </template>
 
@@ -57,6 +63,8 @@ import AButton from '/@/components/Button/src/BasicButton.vue'
 const useForm = AForm.useForm
 
 function testForm () {
+  const res = testReactiveRef()
+  res.testFn()
   const modelRef = reactive({
     name: '',
     region: undefined,
@@ -113,6 +121,7 @@ function testReactiveRef () {
   const state1 = reactive({
     time: new Date()
   })
+  state1.foo = 'sdd'
   const testFn = () => {
     // state1.time.setDate(state1.time.getDate() + 1) // 看会不会刷新
     state1.time = new Date() // 修改为新对象
@@ -121,6 +130,16 @@ function testReactiveRef () {
   return {
     state1,
     testFn
+  }
+}
+export function testNamespace () {
+  const a = ref(0)
+  const b = ref(2)
+  const changeA = () => {
+    a.value = 20
+  }
+  return {
+    a, b, changeA
   }
 }
 
@@ -140,9 +159,16 @@ export default defineComponent({
     ASelectOption
   },
   setup () {
+    // tableData comp
+    // del comp
+    // const { getData } = tableDataComp
+    // const { del } = delComp
+    // del.then(getData)
+    const testNamespaceState = testNamespace()
     return {
       ...testForm(),
-      ...testReactiveRef()
+      ...testReactiveRef(),
+      ...testNamespace()
     }
   }
 })

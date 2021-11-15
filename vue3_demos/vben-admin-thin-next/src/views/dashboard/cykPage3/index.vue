@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRaw } from 'vue'
+import { computed, defineComponent, reactive, ref, toRaw } from 'vue'
 import {
   Space as ASpace,
   Card as ACard,
@@ -60,6 +60,9 @@ import LxBasicQuerySelect from '/@/components/LianXingBasic/src/LxBasicQuery/LxB
 import AButton from '/@/components/Button/src/BasicButton.vue'
 
 function multiValueComposition () {
+  const state = reactive({
+    formData: ''
+  })
   let multiValue = ref<string[]>(['a1'])
   // ======================== [test to refs] ===========================
   const showData = _ => {
@@ -143,7 +146,15 @@ export default defineComponent({
     Input
   },
   setup () {
+    const formData = reactive({
+      name: '',
+      password: ''
+    })
+    computed(() => {
+      return formData.name + 'sdjkflsjdflksd'
+    })
     return {
+      formData,
       ...multiValueComposition(),
       ...tableComposition()
     }
