@@ -7,7 +7,7 @@ export const baseProxyHandler: ProxyHandler<any> = {
   get: (target, key, receiver) => {
     // console.log('proxy getter: ', target, key)
     const result = Reflect.get(target, key, receiver) // 反射拿值
-    track(target, key)
+    track(target, key) // effect
     return result
   },
   set: (target, key, value, receiver) => {
