@@ -8,6 +8,7 @@ interface IPoint {
 }
 
 class Point implements IPoint {
+    // 同时给定默认值??
     constructor (public x:number = 0, public y: number = 0) {
     }
 
