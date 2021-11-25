@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const foo = {
+        bar: 1,
+        zoo: 2,
+        obj: {
+          bar: 10,
+        },
+      };
+      const defaultFoo = {
+        bar: 30,
+        zoo: 3,
+        obj: {
+          bar: 30,
+        },
+      };
+      const fooProxy = new Proxy(foo, {
+        get(target, prop, receiver) {
+          console.log("getter: ", foo, prop, receiver);
+          return Reflect.get(foo, prop, receiver);
+        },
+        set(target, prop, value, receiver) {
+          if (target[prop] === value) {
+            return false;
+          }
+          console.log("setter: ", foo, prop, value, receiver);
+          Reflect.set(target, prop, value, receiver);
+          return true;
+        },
+      });
+      /**
+       * 重置 reactive 对象；
+       */
+      const resetReactiveObj = (target, source) => {};
+      console.log({ ...fooProxy });
+    </script>
+  </body>
+</html>
