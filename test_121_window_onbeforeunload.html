@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function weniLogout(apiSrc) {
+        const _iframe = document.getElementById("weni_iframe");
+        if (_iframe) {
+          document.body.removeChild(_iframe);
+        }
+        const iframe = document.createElement("iframe");
+        iframe.src = apiSrc;
+        iframe.id = "weni_iframe";
+        iframe.style.height = "0px";
+        iframe.style.width = "0px";
+        iframe.style.overflow = "hidden";
+        document.body.appendChild(iframe);
+      }
+      // document.body.onbeforeunload = function () {
+      //   alert('看看怎么辉辉')
+      //   console.log('test test')
+      // }
+      window.onbeforeunload = beforeUnload;
+      window.onunload = unload;
+
+      var datafrom = "1111";
+      var gotobaidu = false;
+      function beforeUnload() {
+        if (confirm(datafrom)) {
+        } else {
+          window.location.href = "http://www.baidu.com";
+        }
+      }
+      function unload() {}
+    </script>
+  </body>
+</html>

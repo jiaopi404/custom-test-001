@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>paste json to interface</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <!--<div id="canvas"></div>-->
+    <div id="app">
+      <el-form ref="form" :data="formData" label-width="auto" size="mini">
+        <el-form-item label="NAME: ">
+          <el-input v-model="formData.name"></el-input>
+        </el-form-item>
+        <el-form-item label="generate type: ">
+          <el-radio-group v-model="formData.generateType">
+            <el-radio :label="0">Interface</el-radio>
+            <el-radio :label="1">Type</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="nullable: ">
+          <el-radio-group v-model="formData.nullable">
+            <el-radio :label="0">false</el-radio>
+            <el-radio :label="1">true</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="generate indexed sign: ">
+          <el-radio-group v-model="formData.indexSign">
+            <el-radio :label="0">false</el-radio>
+            <el-radio :label="1">true</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="json content: ">
+          <el-input
+            type="textarea"
+            :autosize="true"
+            v-model="formData.jsonContent"
+          ></el-input>
+        </el-form-item>
+        <el-row>
+          <el-col :span="24">
+            <el-button style="width: 100%" @click="generate"
+              >generate !</el-button
+            >
+          </el-col>
+        </el-row>
+      </el-form>
+      <el-card title="result">
+        <el-input type="textarea" :autosize="true" v-model="result"></el-input>
+      </el-card>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js"></script>
+    <!--<script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>-->
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            formData: {
+              name: "", // 名称
+              generateType: 0, // 0 interface 1 type 生成的 type or interface
+              nullable: 1, // 0 false 1 true 是否可空
+              indexSign: 1, // 0 false 1 true 索引类型签名
+              jsonContent: "", // josn 内容
+            },
+            result: "",
+            // canvasHref: ''
+          };
+        },
+        methods: {
+          generate() {
+            // BLOCK: obj
+            let obj = JSON.parse(this.formData.jsonContent);
+            if (Array.isArray(obj)) {
+              obj = obj[0];
+            }
+            // BLOCK: content
+            const _fieldContentList = [];
+            for (const [key, value] of Object.entries(obj)) {
+              const _firstLetter = key[0];
+              let _contentKey;
+              if (key === "ID") {
+                _contentKey = "id";
+              } else {
+                _contentKey = _firstLetter.toLowerCase() + key.substr(1);
+              }
+              _fieldContentList.push(
+                `${_contentKey}${
+                  this.formData.nullable === 1 ? "?" : ""
+                }: ${typeof value}`
+              );
+            }
+            if (this.formData.indexSign === 1) {
+              _fieldContentList.push("[key: string]: any");
+            }
+            // BLOCK: template
+            const _template = `export ${
+              this.formData.generateType === 1 ? "type" : "interface"
+            } ${this.formData.name} {\n ${_fieldContentList.join("\n")}\n}`;
+            this.result = _template;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
