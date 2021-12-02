@@ -25,18 +25,60 @@
       //   alert('看看怎么辉辉')
       //   console.log('test test')
       // }
-      window.onbeforeunload = beforeUnload;
-      window.onunload = unload;
+      // window.onbeforeunload = beforeUnload;
+      // window.onunload = unload;
 
-      var datafrom = "1111";
-      var gotobaidu = false;
-      function beforeUnload() {
-        if (confirm(datafrom)) {
-        } else {
-          window.location.href = "http://www.baidu.com";
-        }
+      // var datafrom = "1111";
+      // var gotobaidu = false;
+      // function beforeUnload() {
+      //   if (confirm(datafrom)) {
+      //   } else {
+      //     window.location.href = "http://www.baidu.com";
+      //   }
+      // }
+      // function unload() {}
+      // window.onbeforeunload = async function (event) {
+      //   event.preventDefault();
+      //   weniLogout("http://yau.joriving.com/pdf/");
+      //   await getSetTimeout(10000);
+
+      //   // debugger;
+      //   var event = event || window.event;
+      //   // 兼容IE8和Firefox 4之前的版本
+      //   if (event) {
+      //     event.returnValue = "确定要关闭窗口吗？";
+      //   }
+      //   // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+      //   return "确定要关闭窗口吗>现代浏览器？";
+      // };
+      function getSetTimeout(milisecond) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, milisecond);
+        });
       }
-      function unload() {}
+      // window.addEventListener('beforeunload', async event => {
+      //   debugger;
+      //   event.preventDefault();
+      //   console.log('good')
+      //   weniLogout("http://yau.joriving.com/pdf/")
+      //   await getSetTimeout(10000);
+      //   let _event = event || window.event;
+      //   // 兼容IE8和Firefox 4之前的版本
+      //   if (_event) {
+      //     _event.returnValue = "确定要关闭窗口吗？";
+      //   }
+      //   return '确定要关闭？'
+      // })
+      localStorage.setItem('abc', 1111)
+      window.addEventListener("beforeunload", (event) => {
+        localStorage.clear(); // 可以通过设置 localStorage 进行，下一次进入系统时，如果检测到，则进行登出操作 (限制，只能在同一台主机，接口几乎无法调用)
+        // Cancel the event as stated by the standard.
+        event.preventDefault();
+        // Chrome requires returnValue to be set.
+        event.returnValue = "";
+      });
     </script>
   </body>
 </html>
