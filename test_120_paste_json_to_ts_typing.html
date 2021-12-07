@@ -104,6 +104,7 @@
               this.formData.generateType === 1 ? "type" : "interface"
             } ${this.formData.name} {\n ${_fieldContentList.join("\n")}\n}`;
             this.result = _template;
+            this.result = _template; // daily push
           },
         },
       });
