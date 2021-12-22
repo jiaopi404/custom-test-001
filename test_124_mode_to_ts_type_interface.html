@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      li {
+        padding: 10px 0px;
+      }
+      .textarea-box {
+        display: flex;
+        justify-content: space-between;
+      }
+      .textarea-box textarea {
+        width: 49%;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <h1>java model to ts interface</h1>
+      <div style="margin: 10px">
+        <button id="generate">生成</button>
+      </div>
+      <div class="textarea-box">
+        <textarea id="textarea" placeholder="java model"></textarea>
+        <textarea id="resultTextarea" placeholder="ts interface"></textarea>
+      </div>
+    </div>
+
+    <script>
+      const generateBtn = document.getElementById("generate");
+      const textarea = document.getElementById("textarea");
+      const resultTextarea = document.getElementById("resultTextarea");
+
+      generateBtn.addEventListener("click", () => {
+        const tsCode = generate(textarea.value);
+        resultTextarea.value = tsCode;
+      });
+
+      function generate(content) {
+        let name;
+        const nameRegExp = /public class ([A-Za-z0-9_]+) .+/g;
+        const nameResult = nameRegExp.exec(content);
+        console.log("name result is:", nameResult);
+        name = nameResult[1] + "I";
+
+        const fieldList = []; // { field, type }
+
+        const fieldRegExp = /private ([A-Z]\w+?) ([A-Za-z0-9_]+?)[ ;].?;?/g;
+
+        let res = fieldRegExp.exec(content);
+        while (res) {
+          fieldList.push({
+            type: res[1],
+            field: res[2],
+          });
+          res = fieldRegExp.exec(content);
+        }
+        let template = `interface $NAME {
+$CONTENT
+  [key: string]: any;
+}`;
+        const _content = fieldList.reduce((prev, item, index) => {
+          prev +=
+            `  ${item.field}?: ${getType(item.type)};` +
+            (index === fieldList.length - 1 ? "" : "\n");
+          return prev;
+        }, "");
+        return template.replace("$NAME", name).replace("$CONTENT", _content);
+      }
+
+      function getType(type) {
+        if (["Long", "Integer", "BigDecimal"].indexOf(type) > -1) {
+          return "Nullable<number>";
+        }
+        if (["String"].indexOf(type) > -1) {
+          return "Nullable<string>";
+        }
+        if (["Date"].indexOf(type) > -1) {
+          return "Nullable<number | string | Date>";
+        }
+        return "any";
+      }
+    </script>
+  </body>
+</html>
