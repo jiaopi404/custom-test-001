@@ -27,6 +27,12 @@
             <el-radio :label="1">true</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="首字母小写: ">
+          <el-radio-group v-model="formData.firstLetter">
+            <el-radio :label="0">false</el-radio>
+            <el-radio :label="1">true</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="generate indexed sign: ">
           <el-radio-group v-model="formData.indexSign">
             <el-radio :label="0">false</el-radio>
@@ -66,6 +72,7 @@
               name: "", // 名称
               generateType: 0, // 0 interface 1 type 生成的 type or interface
               nullable: 1, // 0 false 1 true 是否可空
+              firstLetter: 1, // 0 false 1 true
               indexSign: 1, // 0 false 1 true 索引类型签名
               jsonContent: "", // josn 内容
             },
@@ -85,15 +92,20 @@
             for (const [key, value] of Object.entries(obj)) {
               const _firstLetter = key[0];
               let _contentKey;
-              if (key === "ID") {
-                _contentKey = "id";
+              if (this.formData.firstLetter) {
+                if (key === "ID") {
+                  _contentKey = "id";
+                } else {
+                  _contentKey = _firstLetter.toLowerCase() + key.substr(1);
+                }
               } else {
-                _contentKey = _firstLetter.toLowerCase() + key.substr(1);
+                _contentKey = key;
               }
+
               _fieldContentList.push(
-                `${_contentKey}${
-                  this.formData.nullable === 1 ? "?" : ""
-                }: ${typeof value}`
+                `${_contentKey}${this.formData.nullable === 1 ? "?" : ""}: ${
+                  typeof value === "object" ? "any" : typeof value
+                }`
               );
             }
             if (this.formData.indexSign === 1) {
