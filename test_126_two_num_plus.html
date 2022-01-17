@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function ListNode(val, next) {
+        this.val = val === undefined ? 0 : val;
+        this.next = next === undefined ? null : next;
+      }
+      var addTwoNumbers = function (l1, l2) {
+        var maxLength = Math.max(l1.length, l2.length);
+        var result = [];
+
+        var result = new ListNode(0, undefined);
+
+        var ln = result;
+
+        var tmp = 0;
+
+        for (var i = 0; i < maxLength; i++) {
+          var bitSum = (l1[i] || 0) + (l2[i] || 0);
+
+          // result.push((bitSum % 10) + tmp);
+          ln.val = (bitSum % 10) + tmp;
+
+          tmp = bitSum >= 10 ? 1 : 0;
+
+          if (i !== maxLength - 1) {
+            ln.next = new ListNode(0, undefined);
+            ln = ln.next;
+          }
+
+          if (i === maxLength - 1 && tmp) {
+            // result.push(tmp);
+            ln.val = tmp;
+          }
+        }
+        return result;
+      };
+
+      console.log("result", addTwoNumbers([2, 4, 3], [5, 6, 4]));
+    </script>
+  </body>
+</html>

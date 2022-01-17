@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function toListNode(arr) {
+        var listNode;
+        for (var i = arr.length - 1; i > -1; i--) {
+          listNode = new ListNode(arr[i], listNode);
+        }
+        return listNode;
+      }
+      function ListNode(val, next) {
+        this.val = val === undefined ? 0 : val;
+        this.next = next === undefined ? null : next;
+      }
+      // var addTwoNumbers = function (l1, l2) {
+      //   var result = new ListNode();
+
+      //   var p1 = l1;
+      //   var p2 = l2;
+      //   var p3 = result;
+
+      //   var tmp = 0;
+      //   while (p1 || p2) {
+      //     var bitSum = (p1 ? p1.val : 0) + (p2 ? p2.val : 0) + tmp;
+
+      //     p3.val = bitSum % 10;
+
+      //     tmp = bitSum >= 10 ? 1 : 0;
+
+      //     p1 = p1 && p1.next;
+      //     p2 = p2 && p2.next;
+
+      //     p3.next = p1 || p2 ? new ListNode() : tmp ? new ListNode(tmp) : null;
+
+      //     p3 = p3.next;
+      //   }
+
+      //   return result;
+      // };
+      // 使用虚拟头结点 (构建新链表时的常用技巧)
+      var addTwoNumbers = function (l1, l2) {
+        // // 指针 p 构建 l1 and l2
+        // let p1 = l1,
+        //   p2 = l2;
+
+        // let dummy = new ListNode(-1); // 虚拟头结点
+        // // 指针  p 构建新链表
+        // let p = dummy;
+        // // 记录进位
+        // let carry = 0;
+
+        // while (p1 !== null || p2 !== null || carry > 0) {
+        //   // 先加上上次的进位
+        //   let val = carry;
+        //   if (p1 !== null) {
+        //     val += p1.val;
+        //     p1 = p1.next;
+        //   }
+        //   if (p2 !== null) {
+        //     val += p2.val;
+        //     p2 = p2.next;
+        //   }
+        //   // 处理进位
+        //   carry = val >= 10 ? 1 : 0;
+        //   val = val % 10;
+        //   // 构建新的结点
+        //   p.next = new ListNode(val); // 直接赋值了
+        //   p = p.next;
+        // }
+        // // 返回结果 链表 的头结点
+        // return dummy.next;
+
+        // 指针
+        let p1 = l1;
+        let p2 = l2;
+
+        let dummy = new ListNode();
+        let p = dummy;
+
+        let carry = 0;
+
+        while (p1 !== null || p2 !== null || carry > 0) {
+          let val = carry;
+
+          if (p1 !== null) {
+            val += p1.val;
+            p1 = p1.next;
+          }
+
+          if (p2 !== null) {
+            val += p2.val;
+            p2 = p2.next;
+          }
+
+          carry = Math.floor(val / 10);
+          val = val % 10;
+          p.next = new ListNode(val);
+
+          p = p.next;
+        }
+        return dummy.next;
+      };
+      var l1 = toListNode([2, 4, 3]);
+      var l2 = toListNode([5, 6, 4]);
+      console.log("result", addTwoNumbers(l1, l2));
+    </script>
+  </body>
+</html>
