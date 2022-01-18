@@ -1,0 +1,31 @@
+
+{
+  // launch.json
+  "launch":{
+    "type": "pwa-node",
+    "request": "launch",
+    "name": "node 124main.ts", // 显示的名称
+    "skipFiles": [
+      "<node_internals>/**"
+    ],
+    "preLaunchTask": "npm: build - test_124_ts_test", // 在之前运行的任务,运行 ts 需要先编译成 js
+    "program": "${workspaceFolder}\\test_124_ts_test\\main.ts", // 运行的程序的目录
+    "outFiles": [
+      "${workspaceFolder}/**/*.js"
+    ]
+  },
+  "task": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "type": "npm",
+        "script": "build", // 命令
+        "path": "test_124_ts_test/", // 路径
+        "group": "build",
+        "problemMatcher": [],
+        "label": "npm: build - test_124_ts_test", // 作为 preLaunchTask 的value
+        "detail": "tsc"
+      }
+    ]
+  }
+}
