@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const findMidian = function (nums1, nums2) {
+        // 2. 利用有序, 双指针
+        const len = nums1.length + nums2.length;
+        const mid = Math.floor(len / 2);
+        const ifEven = len % 2 === 0;
+
+        if (mid === 0) {
+          return nums1[0] || nums2[0];
+        }
+
+        let i = 0;
+        let j = 0;
+        while (true) {
+          if (nums1[i] <= nums[j]) {
+            i++;
+          } else {
+            j++;
+          }
+
+          if (ifEven) {
+            if (i + j === mid) {
+              return;
+            }
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
