@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <title>文件编辑器</title>
     <style>
+      * {
+        touch-action: pan-y;
+      }
       body {
         padding: 0;
         margin: 0;
@@ -18,18 +21,26 @@
     <div id="editor-container">
       <div id="editor"></div>
     </div>
-    <!--<script src="http://192.168.110.91:9000/web-apps/apps/api/documents/api.js"></script>-->
-    <script src="http://localhost:9093/web-apps/apps/api/documents/api.js"></script>
+    <script src="/resources/md5.min.js"></script>
+    <script src="/resources/helper.js"></script>
+    <!-- <script src="http://localhost:18084/web-apps/apps/api/documents/api.js"></script> -->
+    <script src="/web-apps/apps/api/documents/api.js"></script>
     <script>
+      // window.location.href = `http://localhost:18082/?url=https://images.joriving.com:9090//purchase/1/commonfile/1642575406908.docx&fileName=%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92.docx`;
       window.onload = function () {
+        const info = pathPraser();
         new DocsAPI.DocEditor("editor", {
           document: {
-            fileType: "docx",
-            key: "12NAFE",
-            title: "1642575406908.docx",
-            url: "https://images.joriving.com:9090//purchase/1/commonfile/1642575406908.docx",
+            // fileType: "docx",
+            fileType: info.fileType,
+            // key: "12NAFE",
+            key: info.key,
+            // title: "1642575406908.docx",
+            title: info.title,
+            // url: "https://images.joriving.com:9090//purchase/1/commonfile/1642575406908.docx",
+            url: info.url,
           },
-          documentType: "text",
+          documentType: info.documentType,
           height: "100%",
           width: "100%",
           editorConfig: {

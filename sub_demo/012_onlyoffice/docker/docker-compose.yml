@@ -1,0 +1,214 @@
+version: "3.3"
+services:
+  redis:
+    image: swr.cn-north-1.myhuaweicloud.com/ola/redis
+
+  mysql:
+    image: mysql:5
+    env_file:
+      - env.env
+    volumes:
+      - mysql_db:/var/lib/mysql
+    ports:
+      - "9022:3306"
+    logging:
+      driver: json-file
+
+  rabbitmq:
+    image: rabbitmq:latest
+    env_file:
+      - env.env
+    logging:
+      driver: json-file
+    restart: unless-stopped
+
+  svc:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api:test
+    entrypoint:
+      - nameko
+      - run
+      - --config
+      - bayes/flowchart/config.yaml
+      - bayes.flowchart.svc.flow
+      - bayes.flowchart.svc.template
+      - bayes.flowchart.svc.file
+      - bayes.flowchart.svc.search
+      - bayes.flowchart.svc.layout
+      - bayes.flowchart.svc.user
+      - bayes.flowchart.svc.permission
+    env_file:
+      - env.env
+    depends_on:
+      - rabbitmq
+    links:
+      - mysql
+      - rabbitmq
+    volumes:
+      - logs:/log
+    restart: unless-stopped
+
+  user:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api:test
+    entrypoint:
+      - gunicorn
+      - -w
+      - "4"
+      - -b
+      - 0.0.0.0:5000
+      - --timeout
+      - "300"
+      - bayes.auth.svc.flask_app:app
+    env_file:
+      - env.env
+    links:
+      - redis:redis
+    volumes:
+      - logs:/log
+    restart: unless-stopped
+
+  wsserver:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api:test
+    entrypoint:
+      - python
+      - -m
+      - bayes.flowchart.wsserver.wsserver
+    working_dir: /code/
+    links:
+      - redis:redis
+    env_file:
+      - env.env
+    volumes:
+      - data:/data
+      - logs:/log
+    ports:
+      - "9102:9001"
+
+  gateway-model:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api:test
+    entrypoint:
+      - uwsgi
+      - uwsgi.ini
+    env_file:
+      - env.env
+    links:
+      - user
+      - rabbitmq
+    volumes:
+      - data:/data
+      - logs:/log
+    ports:
+      - "8094:8080"
+
+  gateway:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api:test
+    entrypoint:
+      - gunicorn
+      - -w
+      - "4"
+      - -b
+      - 0.0.0.0:80
+      - --timeout
+      - "300"
+      - bayes.flowchart.gateway.api:app
+    env_file:
+      - env.env
+    links:
+      - user
+      - rabbitmq
+    volumes:
+      - data:/data
+      - logs:/log
+    ports:
+      - "8093:80"
+
+  worker:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api:test
+    entrypoint:
+      - celery
+      - -A
+      - bayes.flowchart.task.task
+      - worker
+    env_file:
+      - env.env
+    links:
+      - rabbitmq
+      - redis:redis
+      - mysql
+    volumes:
+      - data:/data
+      - logs:/log
+    restart: unless-stopped
+
+  task:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api:test
+    entrypoint:
+      - celery
+      - -A
+      - bayes.flowchart.task.reset
+      - beat
+    env_file:
+      - env.env
+    links:
+      - rabbitmq
+      - redis:redis
+      - mysql
+    volumes:
+      - data:/data
+      - logs:/log
+    restart: unless-stopped
+
+  #  flower:
+  #    image: swr.cn-north-1.myhuaweicloud.com/flowchart/api
+  #    entrypoint:
+  #      - celery
+  #      - -A
+  #      - bayes.flowchart.task.task
+  #      - flower
+  #      - --port=8026
+  #      - --basic_auth=admin:bayesba
+  #    working_dir: /code/
+  #    env_file:
+  #      - env.env
+  #    links:
+  #      - rabbitmq
+  #    volumes:
+  #      - data:/data
+  #      - logs:/log
+  #    ports:
+  #        - '8026:8026'
+  #    restart: unless-stopped
+
+  drawio:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/flowchart-drawio
+    ports:
+      - "8051:8080"
+    restart: unless-stopped
+
+  flowchart:
+    image: swr.cn-north-1.myhuaweicloud.com/flowchart/flowchart-web:test
+    ports:
+      - "8050:80"
+    volumes:
+      - logs:/log
+    restart: unless-stopped
+
+volumes:
+  mysql_db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/public/flowchart/mysql-data_n
+      o: bind
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/public/flowchart/logs
+      o: bind
+
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/public/flowchart/data
+      o: bind

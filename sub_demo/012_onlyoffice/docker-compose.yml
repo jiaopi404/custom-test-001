@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  lx_onlyoffice_web:
+    image: docker.io/jiaopi404/lx_onlyoffice_web:latest
+    ports:
+      - "18083:80"
+    # volumes:
+    #   - logs:/log
+    restart: unless-stopped
+
+  lx_onlyoffice:
+    image: onlyoffice/documentserver:latest
+    ports:
+      - "18084:80"
+    restart: unless-stopped
+# volumes:
+
+#   data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: /home/public/flowchart/data
+#       o: bind
