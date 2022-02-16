@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<script>
-    var a=0,b=0;
-    function A(a){
-        A = function(b){alert(a + b++)}
+  </head>
+  <body>
+    <script>
+      var a = 0,
+        b = 0;
+      function A(a) {
+        A = function (b) {
+          alert(a + b++);
+        };
         alert(a++);
-    }
-    A(1); // 1
-    A(2); // 4
-</script>
-</body>
+      }
+      A(1); // 1
+      console.log("hello world: ", "daily push");
+      A(2); // 4
+    </script>
+  </body>
 </html>
