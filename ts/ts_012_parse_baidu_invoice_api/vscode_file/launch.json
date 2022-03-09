@@ -1,0 +1,32 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Launch BaiduInvoiceApi",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "preLaunchTask": "npm: build", // 在之前运行的任务,运行 ts 需要先编译成 js
+      "program": "${workspaceFolder}/main.ts" // linux 系统为 /   windows 系统为 \\
+    }
+  ],
+  "task": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "type": "npm",
+        "script": "build", // 命令
+        "path": ".", // 路径
+        "group": "build",
+        "problemMatcher": [],
+        "label": "npm: build", // 作为 preLaunchTask 的 value
+        "detail": "tsc"
+      }
+    ]
+  }
+}
