@@ -11,8 +11,8 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "preLaunchTask": "npm: build", // 在之前运行的任务,运行 ts 需要先编译成 js
-      "program": "${workspaceFolder}/main.ts" // linux 系统为 /   windows 系统为 \\
+      // "preLaunchTask": "npm: build", // 在之前运行的任务,运行 ts 需要先编译成 js
+      "program": "${workspaceFolder}/src/main.ts" // linux 系统为 /   windows 系统为 \\
     }
   ],
   "task": {

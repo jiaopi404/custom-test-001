@@ -6,5 +6,6 @@ var helper_1 = require("./utils/helper");
 var content = (0, helper_1.readMyFileSync)();
 var jsonRes = (0, index_1.readContentAsJson)(content);
 console.log("jsonRes is: ", jsonRes);
+console.log("111", jsonRes);
 (0, helper_1.write2JSON)(JSON.stringify(jsonRes));
 //# sourceMappingURL=main.js.map

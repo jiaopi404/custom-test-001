@@ -8,4 +8,6 @@ const jsonRes = readContentAsJson(content);
 
 console.log("jsonRes is: ", jsonRes);
 
+console.log("111", jsonRes);
+
 write2JSON(JSON.stringify(jsonRes));
