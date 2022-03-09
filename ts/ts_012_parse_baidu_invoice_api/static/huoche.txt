@@ -1,0 +1,13 @@
++ ticket_num	是	string	车票号
++ starting_station	是	string	始发站
++ train_num	是	string	车次号
++ destination_station	是	string	到达站
++ date	是	string	出发日期
++ ticket_rates	是	string	车票金额
++ seat_category	是	string	席别
++ name	是	string	乘客姓名
++ id_num	是	string	身份证号
++ serial_number	是	string	序列号
++ sales_station	是	string	售站
++ time	是	string	时间
++ seat_num	是	string	座位号

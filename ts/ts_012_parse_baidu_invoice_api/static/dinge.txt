@@ -1,0 +1,7 @@
++ invoice_code	否	string	发票代码
++ invoice_number	否	string	发票号码
++ invoice_rate	否	string	金额
++ location	否	string	发票所在地
++ invoice_rate_lowercase	否	string	发票金额小写
++ province	否	string	省
++ city	否	string	市

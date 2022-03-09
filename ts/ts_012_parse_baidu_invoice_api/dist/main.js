@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Field_1 = require("./src/model/Field");
-var field = new Field_1.Field("1122");
-var name = field.name;
-console.log("name is: ", name);
+var index_1 = require("./core/index");
+// import { Field } from "./model/Field";
+var helper_1 = require("./utils/helper");
+var content = (0, helper_1.readMyFileSync)();
+var jsonRes = (0, index_1.readContentAsJson)(content);
+console.log("jsonRes is: ", jsonRes);
+(0, helper_1.write2JSON)(JSON.stringify(jsonRes));
 //# sourceMappingURL=main.js.map

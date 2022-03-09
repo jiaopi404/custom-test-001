@@ -1,0 +1,16 @@
++ InvoiceCode	是	string	发票代号
++ InvoiceNum	是	string	发票号码
++ TaxiNum	是	string	车牌号
++ Date	是	string	日期
++ Time	是	string	上下车时间
++ PickupTime	是	string	上车时间
++ DropoffTime	是	string	下车时间
++ Fare	是	string	金额
++ FuelOilSurcharge	是	string	燃油附加费
++ CallServiceSurcharge	是	string	叫车服务费
++ TotalFare	是	string	总金额
++ Location	是	string	开票城市
++ Province	是	string	省
++ City	是	string	市
++ PricePerkm	是	string	单价
++ Distance	是	string	里程

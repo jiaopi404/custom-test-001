@@ -1,0 +1,9 @@
++ InvoiceCode	是	string	发票代码
++ InvoiceNum	是	string	发票号码
++ Date	是	string	日期
++ Time	是	string	时间
++ StartingStation	是	string	出发站
++ Fare	是	string	金额
++ IdNum	是	string	身份证号
++ DestinationStation	是	string	到达站
++ Name	是	string	姓名
