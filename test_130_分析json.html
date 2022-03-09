@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let data = `{"receiptCoordinate":"{"height":689,"left":55,"top":1,"width":1068}","AmountInWords":"贰拾陆圆伍角伍分","InvoiceNumConfirm":"78947296","templateSign":"vat_invoice","scores":1,"DetailsOfTax#1#CommodityName":"*运输服务*客运服务费","NoteDrawer":"王秀丽","SellerAddress":"陕西省西安市国家民用航天产业基地神舟四路239号航创创国际广场C座302室400-0000999","DetailsOfTax#1#CommodityAmount":"25.78","DetailsOfTax#1#CommodityType":"","SellerRegisterNum":"91610138MA6X3B1A27","MachineCode":"499098375016","Remarks":"","SellerBank":"招商银行股份有限公司西安高新技术开发区支行129911671110202","TotalTax":"0.77","InvoiceCodeConfirm":"061002001211","DetailsOfTax#1#CommodityUnit":"次","CheckCode":"05942337542100818772","InvoiceCode":"061002001211","InvoiceDate":"2022年03月04日","PurchaserRegisterNum":"9161000006790491XR","InvoiceTypeOrg":"陕西增值税电子普通发票","Password":"03<64*-9<1<>2+<*770>5/-9</89*6-105775632+-7/-<8272-6725/3+2+/9>+982-5*/7858326/80304*10<6587<+01032919107>1</577","Agent":"否","AmountInFiguers":"26.55","PurchaserBank":"","Checker":"陈敬怡","error_msg":"success","isStructured":true,"DetailsOfTax#1#CommodityTaxRate":"3%","City":"","TotalAmount":"25.78","PurchaserName":"陕西联兴网络科技有限公司","Province":"陕西","DetailsOfTax#1#CommodityTax":"0.77","InvoiceType":"电子普通发票","SheetNum":"","PurchaserAddress":"","DetailsOfTax#1#CommodityNum":"1","templateName":"增值税发票","error_code":0,"Payee":"张雪丽","DetailsOfTax#1#CommodityPrice":"25.78","SellerName":"陕西滴滴出行科技有限公司","InvoiceNum":"78947296"}`;
+
+    data = data.replace(/"{/g, '{')
+    data = data.replace(/}"/g, '}')
+    
+    data = JSON.parse(data);
+
+    console.log('data is: ', data);
+
+  </script>
+</body>
+</html>
