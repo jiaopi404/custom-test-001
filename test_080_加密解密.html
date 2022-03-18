@@ -107,6 +107,7 @@
           padding: pad.Pkcs7
         });
         const decryptedStr = decrypt.toString(enc.Utf8);
+        console.log('decrypted str: ', decryptedStr); // daily push
         return decryptedStr.toString();
       }
     }
