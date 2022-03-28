@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @param {string} answerKey
+       * @param {number} k
+       * @return {number}
+       */
+      var maxConsecutiveAnswers = function (answerKey, k) {
+        // special assues
+        if (answerKey.length === 1) {
+          return 1;
+        }
+
+        let K = k;
+
+        // slippy window
+        let start = 0;
+        let end = 0;
+
+        let changePoint = 0;
+
+        let result = 1;
+        while (start < answerKey.length) {
+          const startChar = answerKey[start];
+
+          let ifChange = false;
+          while (end < answerKey.length - 1) {
+            end++;
+            const nextChar = answerKey[end];
+            if (nextChar === startChar) {
+              continue;
+            }
+            if (!ifChange) {
+              changePoint = end;
+            }
+            if (!K) {
+              result = Math.max(end - start, result);
+              console.log(answerKey.slice(start, end))
+              break;
+            } else {
+              K--;
+            }
+          }
+
+          start = changePoint ? changePoint : answerKey.length;
+          end = start;
+
+          K = k;
+
+          changePoint = start;
+        }
+      };
+
+      console.log(maxConsecutiveAnswers('TTFF', 2));
+    </script>
+  </body>
+</html>
