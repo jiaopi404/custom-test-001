@@ -71,6 +71,19 @@
       //   }
       //   return '确定要关闭？'
       // })
+            // window.addEventListener('beforeunload', async event => {
+      //   debugger;
+      //   event.preventDefault();
+      //   console.log('good')
+      //   weniLogout("http://yau.joriving.com/pdf/")
+      //   await getSetTimeout(10000);
+      //   let _event = event || window.event;
+      //   // 兼容IE8和Firefox 4之前的版本
+      //   if (_event) {
+      //     _event.returnValue = "确定要关闭窗口吗？";
+      //   }
+      //   return '确定要关闭？'
+      // })
       localStorage.setItem("abc", 1111);
       window.addEventListener("beforeunload", (event) => {
         localStorage.clear(); // 可以通过设置 localStorage 进行，下一次进入系统时，如果检测到，则进行登出操作 (限制，只能在同一台主机，接口几乎无法调用)
