@@ -30,6 +30,10 @@ export class Star {
     this.x = this.x + step > this.p.windowWidth ? -50 : this.x + step;
   }
 
+  destroyed () {
+    this.y += 1;
+  }
+
   show () {
     // this.p.fill(this.color);
     this.p.fill(this.color);
