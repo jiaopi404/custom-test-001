@@ -17,3 +17,8 @@ console.log(pointFoo.getDistance(pointBar))
 console.log(pointFoo.getDistance(pointBar))
 console.log(pointFoo.getDistance(pointBar))
 console.log(pointFoo.getDistance(pointBar)) // fucking daily push
+console.log(pointFoo.getDistance(pointBar)) // fucking daily push
+console.log(pointFoo.getDistance(pointBar)) // fucking daily push
+console.log(pointFoo.getDistance(pointBar)) // fucking daily push
+console.log(pointFoo.getDistance(pointBar)) // fucking daily push
+console.log(pointFoo.getDistance(pointBar)) // fucking daily push
