@@ -1,6 +1,6 @@
-import { ThemeColor } from './../enums/StarColorEnum';
 // import { ThemeColor } from './../enums/StarColorEnum';
 import p5 from "p5";
+import { ThemeColor } from "/@/enums/StarColorEnum";
 
 export class Star {
   w: number; // width
