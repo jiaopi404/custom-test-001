@@ -28,6 +28,10 @@
       localStorage.setItem('test-item', 111111);
       console.log('setter')
     }
+    if (!localStorage.getItem('test-item')) {
+      localStorage.setItem('test-item', 111111);
+      console.log('setter')
+    }
   </script>
 </body>
 </html>
