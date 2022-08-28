@@ -9,3 +9,5 @@ const result = arr.reduce((prev, item) => {
   return prev;
 }, { result: [] }).result
 console.log(result);
+
+console.log("daily push") // daily push
