@@ -11,3 +11,4 @@ const result = arr.reduce((prev, item) => {
 console.log(result);
 
 console.log("daily push") // daily push
+console.log("daily push") // daily push
